@@ -17,7 +17,9 @@ public class UIManager : MonoBehaviour
         sceneTransition = GetComponentInChildren<SceneTransition>();
 
         settingsMenu = GameObject.Find("SettingsMenu");
-        settingsMenuOffscreenPos = settingsMenu.transform.position;
+        if (settingsMenu != null )
+            settingsMenuOffscreenPos = settingsMenu.transform.position;
+
     }
 
     // Update is called once per frame
