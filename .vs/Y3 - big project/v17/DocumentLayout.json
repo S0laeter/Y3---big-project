@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "E:\\Unity stuffs\\Y3 - big project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\ui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UIManager.cs",
-              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\UIManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\UIManager.cs",
-              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\UIManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\UIManager.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAQwCcAAAA7AAAA",
+              "Title": "PlayerBaseState.cs",
+              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
+              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
+              "ViewState": "AQIAAEYAAAAAAAAAAAAxwFkAAAB9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-16T13:53:26.318Z",
+              "WhenOpened": "2024-11-24T13:31:15.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerController.cs",
+              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T12:59:06.876Z",
               "EditorCaption": ""
             }
           ]
