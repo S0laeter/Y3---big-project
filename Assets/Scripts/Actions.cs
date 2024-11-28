@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class Actions
 {
-    public static Action<PlayerController> UpdatePlayerHealthBar;
-    public static Action<PlayerController> UpdatePlayerStaminaBar;
+    public static Action<PlayerBehavior> UpdatePlayerHealthBar;
+    public static Action<PlayerBehavior> UpdatePlayerStaminaBar;
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBaseState : State
 {
-    protected PlayerController player;
+    protected PlayerBehavior player;
 
     //duration doesnt need to be the same as animation length, make it slightly shorter to transition early to next attack
     protected float stateDuration;
@@ -14,13 +14,19 @@ public class PlayerBaseState : State
         base.OnEnter(_stateMachine);
 
         //getting stuffs
-        player = stateMachine.GetComponent<PlayerController>();
+        player = stateMachine.GetComponent<PlayerBehavior>();
 
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+    }
+
+    public override void OnFixedUpdate()
+    {
+        base.OnFixedUpdate();
 
     }
 
@@ -38,7 +44,6 @@ public class IdleState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        player.rb.velocity = Vector3.zero;
         Debug.Log("idle");
     }
 
@@ -46,20 +51,21 @@ public class IdleState : PlayerBaseState
     {
         base.OnUpdate();
 
-        //when directional buttons are pressed
-        if (player.moveAction.triggered)
-        {
-            stateMachine.SetNextState(new RunState());
-        }
-        //when jump button is pressed
-        else if (player.jumpAction.triggered)
+        //if they suddenly fall through the floor or smt...
+        if (!player.controller.isGrounded)
+            stateMachine.SetNextState(new FallState());
+        
+        if (player.jumpAction.ReadValue<float>() == 1)
         {
             stateMachine.SetNextState(new JumpState());
         }
-        //when dash button is pressed
-        else if (player.dashAction.triggered)
+        else if (player.dashAction.ReadValue<float>() == 1)
         {
-            stateMachine.SetNextState(new BackDashState());
+            stateMachine.SetNextState(new DashState());
+        }
+        else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+        {
+            stateMachine.SetNextState(new RunState());
         }
 
     }
@@ -72,29 +78,35 @@ public class RunState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        //run animation
-        //anim.SetBool("Running", true);
+        player.SetSpeed(7f);
         Debug.Log("running");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+        
+        //if they suddenly fall through the floor or smt...
+        if (!player.controller.isGrounded)
+            stateMachine.SetNextState(new FallState());
 
-        if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+        //when jump button is pressed
+        if (player.jumpAction.ReadValue<float>() == 1)
         {
-            //look rotation
-            float angle = Mathf.Atan2(player.moveAction.ReadValue<Vector2>().x, player.moveAction.ReadValue<Vector2>().y) * Mathf.Rad2Deg + player.cam.eulerAngles.y;
-
-            //smooth out the angle (only for smooth turning with keyboard stuffs but imma just include it anyway)
-            float smoothAngle = Mathf.SmoothDampAngle(player.transform.eulerAngles.y, angle, ref player.turnSmoothVelocity, 1f);
-            //then rotate to look
-            player.transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            //now move
-            Vector3 moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
-            player.rb.velocity = moveDirection.normalized * player.moveSpeed * Time.deltaTime;
+            stateMachine.SetNextState(new JumpState());
         }
+        //when dash button is pressed
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            stateMachine.SetNextState(new DashState());
+        }
+        //when directional buttons are held, move
+        else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+        {
+            player.Rotate(0.05f);
+            player.Move();
+        }
+        //if stop moving
         else
         {
             stateMachine.SetNextState(new IdleState());
@@ -104,30 +116,71 @@ public class RunState : PlayerBaseState
 
 }
 
-public class BackDashState : PlayerBaseState
+public class JumpState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        Debug.Log("back dash");
+        stateDuration = 0.05f;
+
+        if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            player.SetSpeed(7f);
+        else
+            player.SetSpeed(0f);
+
+        player.SetVerticalVelocity(player.jumpSpeed);
+
+        Debug.Log("jump");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
 
-        //after state duration
+        player.Rotate(0.5f);
+        player.Move();
+
         if (fixedTime >= stateDuration)
         {
-
+            stateMachine.SetNextState(new FallState());
         }
 
     }
 
 }
 
-public class ForwardDashState : PlayerBaseState
+public class FallState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            player.SetSpeed(7f);
+        else
+            player.SetSpeed(0f);
+
+        Debug.Log("falling");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        player.Rotate(0.5f);
+        player.Move();
+
+        if (player.controller.isGrounded)
+        {
+            stateMachine.SetNextState(new IdleState());
+        }
+
+    }
+
+}
+
+public class DashState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
@@ -169,21 +222,3 @@ public class SprintState : PlayerBaseState
 
 }
 
-public class JumpState : PlayerBaseState
-{
-    public override void OnEnter(StateMachine _stateMachine)
-    {
-        base.OnEnter(_stateMachine);
-
-        Debug.Log("jump");
-    }
-
-    public override void OnUpdate()
-    {
-        base.OnUpdate();
-
-        
-
-    }
-
-}
