@@ -112,7 +112,7 @@ public class StateMachine : MonoBehaviour
             switch (customName)
             {
                 case "player":
-                    mainStateType = new IdleState();
+                    mainStateType = new PlayerIdleState();
                     break;
                 case "boss":
                     break;

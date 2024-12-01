@@ -30,6 +30,9 @@ public class PlayerBehavior : MonoBehaviour
     public InputAction moveAction;
     public InputAction dashAction;
     public InputAction jumpAction;
+    public InputAction normalAction;
+    public InputAction heavyAction;
+    public InputAction skillAction;
 
     private GameObject lockedOnEnemy;
 
@@ -46,6 +49,9 @@ public class PlayerBehavior : MonoBehaviour
         moveAction = playerInput.actions["Move"];
         dashAction = playerInput.actions["Dash"];
         jumpAction = playerInput.actions["Jump"];
+        normalAction = playerInput.actions["Normal Attack"];
+        heavyAction = playerInput.actions["Heavy Attack"];
+        skillAction = playerInput.actions["Skill"];
 
         currentHp = maxHp;
         Actions.UpdatePlayerHealthBar(this);
@@ -57,16 +63,28 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //hp check
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+
+        //regen stamina
+        if (currentStamina <= maxStamina)
+        {
+            currentStamina += Mathf.Clamp(10f * Time.deltaTime, 0f, maxStamina);
+        }
+
+
+
         playerVelocity.x = moveDirection.normalized.x * movementSpeed;
         playerVelocity.z = moveDirection.normalized.z * movementSpeed;
-
 
         //gravity stuffs
         if (controller.isGrounded)
             playerVelocity.y = -0.5f;
         else
             playerVelocity.y += gravity * Time.deltaTime;
-
 
     }
 
@@ -106,6 +124,27 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
+    public void SpawnHitbox(string whichAttack)
+    {
+        //spawn it here first
+
+        //a scuffed way to specify individual attack damage
+        switch (whichAttack)
+        {
+            case "normal 1":
+                //get the hitbox object, then set the damage of it
+                break;
+            case "normal 2":
+                //get the hitbox object, then set the damage of it
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+
 
     public void TakeDamage(float damage)
     {
@@ -121,6 +160,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         currentStamina = Mathf.Clamp(currentStamina - stamina, 0f, maxStamina);
         Actions.UpdatePlayerStaminaBar(this);
+    }
+    public void Die()
+    {
+
     }
 
 
