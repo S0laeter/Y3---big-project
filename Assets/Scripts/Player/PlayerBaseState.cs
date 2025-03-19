@@ -56,6 +56,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
+        player.anim.SetTrigger("idle");
         Debug.Log("idle");
     }
 
@@ -66,22 +67,31 @@ public class PlayerIdleState : PlayerBaseState
         //if they suddenly fall through the floor or smt...
         if (!player.controller.isGrounded)
             stateMachine.SetNextState(new FallState());
-        
+
+
+        //input mid state
+        if (skillTrigger)
+            stateMachine.SetNextState(new SkillChargingState());
+        else if (normalTrigger)
+            stateMachine.SetNextState(new Normal1State());
+        else if (heavyTrigger)
+            stateMachine.SetNextState(new HeavyChargingState());
+
         if (player.jumpAction.ReadValue<float>() == 1)
-        {
             stateMachine.SetNextState(new JumpState());
-        }
         else if (player.dashAction.ReadValue<float>() == 1)
         {
-            stateMachine.SetNextState(new DashState());
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
         }
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-        {
             stateMachine.SetNextState(new RunState());
-        }
-
-        if (normalTrigger)
-            stateMachine.SetNextState(new Normal1State());
+        
 
     }
 
@@ -106,7 +116,6 @@ public class DeadState : PlayerBaseState
     }
 
 }
-
 public class RunState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
@@ -114,43 +123,77 @@ public class RunState : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         player.SetSpeed(7f);
+
+        player.anim.SetTrigger("moveRun");
         Debug.Log("running");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
-        
-        //if they suddenly fall through the floor or smt...
-        if (!player.controller.isGrounded)
-            stateMachine.SetNextState(new FallState());
 
-        //when jump button is pressed
+        //input mid state
+        if (skillTrigger)
+            stateMachine.SetNextState(new SkillChargingState());
+        else if (normalTrigger)
+            stateMachine.SetNextState(new Normal1State());
+        else if (heavyTrigger)
+            stateMachine.SetNextState(new HeavyChargingState());
+
         if (player.jumpAction.ReadValue<float>() == 1)
-        {
             stateMachine.SetNextState(new JumpState());
-        }
-        //when dash button is pressed
         else if (player.dashAction.ReadValue<float>() == 1)
-        {
-            stateMachine.SetNextState(new DashState());
-        }
-        //when directional buttons are held, move
+            stateMachine.SetNextState(new GroundForwardDashState());
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
             player.Rotate(0.05f);
             player.Move();
         }
-        //if stop moving
         else
-        {
-            stateMachine.SetNextState(new PlayerIdleState());
-        }
+            stateMachine.SetNextStateToMain();
 
     }
 
 }
+public class SprintState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
 
+        player.SetSpeed(10f);
+
+        player.anim.SetTrigger("moveSprint");
+        Debug.Log("sprinting");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //input mid state
+        if (skillTrigger)
+            stateMachine.SetNextState(new SkillChargingState());
+        else if (normalTrigger)
+            stateMachine.SetNextState(new Normal1State());
+        else if (heavyTrigger)
+            stateMachine.SetNextState(new HeavyChargingState());
+
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new GroundForwardDashState());
+        else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+        {
+            player.Rotate(0.05f);
+            player.Move();
+        }
+        else
+            stateMachine.SetNextStateToMain();
+
+    }
+
+}
 public class JumpState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
@@ -166,6 +209,7 @@ public class JumpState : PlayerBaseState
 
         player.SetVerticalVelocity(player.jumpSpeed);
 
+        player.anim.SetTrigger("moveJump");
         Debug.Log("jump");
     }
 
@@ -184,7 +228,6 @@ public class JumpState : PlayerBaseState
     }
 
 }
-
 public class FallState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
@@ -196,6 +239,7 @@ public class FallState : PlayerBaseState
         else
             player.SetSpeed(0f);
 
+        player.anim.SetTrigger("moveFall");
         Debug.Log("falling");
     }
 
@@ -208,20 +252,64 @@ public class FallState : PlayerBaseState
 
         if (player.controller.isGrounded)
         {
-            stateMachine.SetNextState(new PlayerIdleState());
+            stateMachine.SetNextState(new LandState());
+        }
+
+    }
+
+}
+public class LandState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 1f;
+
+        player.anim.SetTrigger("moveLand");
+        Debug.Log("landed");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //input mid state
+        if (skillTrigger)
+            stateMachine.SetNextState(new SkillChargingState());
+        else if (normalTrigger)
+            stateMachine.SetNextState(new Normal1State());
+        else if (heavyTrigger)
+            stateMachine.SetNextState(new HeavyChargingState());
+
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new GroundBackwardDashState());
+        else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+        {
+            stateMachine.SetNextState(new RunState());
+        }
+
+        if (fixedTime >= stateDuration)
+        {
+            stateMachine.SetNextStateToMain();
         }
 
     }
 
 }
 
-public class DashState : PlayerBaseState
+public class GroundForwardDashState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        Debug.Log("forward dash");
+        stateDuration = 1f;
+
+        player.anim.SetTrigger("dashGroundForward");
+        Debug.Log("ground forward dash");
     }
 
     public override void OnUpdate()
@@ -231,27 +319,51 @@ public class DashState : PlayerBaseState
         //after state duration
         if (fixedTime >= stateDuration)
         {
+            if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (normalTrigger)
+                stateMachine.SetNextState(new Normal1State());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
 
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                stateMachine.SetNextState(new SprintState());
+            else
+                stateMachine.SetNextState(new PlayerIdleState());
         }
 
     }
 
 }
-
-public class SprintState : PlayerBaseState
+public class GroundBackwardDashState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        Debug.Log("sprinting");
+        stateDuration = 1f;
+
+        player.anim.SetTrigger("dashGroundForward");
+        Debug.Log("ground forward dash");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
 
-        
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (normalTrigger)
+                stateMachine.SetNextState(new Normal1State());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
+
+            else
+                stateMachine.SetNextState(new PlayerIdleState());
+        }
 
     }
 
@@ -264,12 +376,28 @@ public class Normal1State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 1.5f;
+
+        player.anim.SetTrigger("atkBasic1");
         Debug.Log("normal atk 1");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -279,7 +407,7 @@ public class Normal1State : PlayerBaseState
                 stateMachine.SetNextState(new Normal2State());
             }
             else
-                stateMachine.SetNextState(new PlayerIdleState());
+                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -292,12 +420,28 @@ public class Normal2State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 1.5f;
+
+        player.anim.SetTrigger("atkBasic2");
         Debug.Log("normal atk 2");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -307,7 +451,7 @@ public class Normal2State : PlayerBaseState
                 stateMachine.SetNextState(new Normal3State());
             }
             else
-                stateMachine.SetNextState(new PlayerIdleState());
+                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -320,12 +464,28 @@ public class Normal3State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 1.5f;
+
+        player.anim.SetTrigger("atkBasic3");
         Debug.Log("normal atk 3");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -335,7 +495,7 @@ public class Normal3State : PlayerBaseState
                 stateMachine.SetNextState(new Normal4State());
             }
             else
-                stateMachine.SetNextState(new PlayerIdleState());
+                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -348,12 +508,72 @@ public class Normal4State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 1.5f;
+
+        player.anim.SetTrigger("atkBasic4");
         Debug.Log("normal atk 4");
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (normalTrigger)
+            {
+                stateMachine.SetNextState(new Normal5State());
+            }
+            else
+                stateMachine.SetNextStateToMain();
+        }
+
+    }
+
+}
+public class Normal5State : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 1.5f;
+
+        player.anim.SetTrigger("atkBasic5");
+        Debug.Log("normal atk 5");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -363,9 +583,199 @@ public class Normal4State : PlayerBaseState
 
             }
             else
-                stateMachine.SetNextState(new PlayerIdleState());
+                stateMachine.SetNextStateToMain();
         }
 
     }
 
 }
+
+public class HeavyChargingState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 1f;
+
+        player.anim.SetTrigger("atkHeavyCharging");
+        Debug.Log("heavy charging");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
+
+        if (player.heavyAction.ReadValue<float>() == 1)
+        {
+            //increase energy over time
+        }
+        else
+        {
+            //after state duration
+            if (fixedTime >= stateDuration)
+            {
+                stateMachine.SetNextState(new HeavyChargedState());
+            }
+        }
+
+        
+
+    }
+
+}
+public class HeavyChargedState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 2f;
+
+        player.anim.SetTrigger("atkHeavyCharged");
+        Debug.Log("heavy released");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+
+    }
+
+}
+
+public class SkillChargingState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.5f;
+
+        player.anim.SetTrigger("atkSkillCharging");
+        Debug.Log("skill charging");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.ReadValue<float>() == 1)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new GroundBackwardDashState());
+        }
+
+        if (player.heavyAction.ReadValue<float>() == 1)
+        {
+            //after holding for a while
+            if (fixedTime >= 1.5f)
+            {
+                //ult here.......
+            }
+        }
+        else
+        {
+            //after state duration
+            if (fixedTime >= stateDuration)
+            {
+                stateMachine.SetNextState(new Skill1State());
+            }
+            
+        }
+
+
+
+    }
+
+}
+public class Skill1State : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 2f;
+
+        player.anim.SetTrigger("atkSkill1");
+        Debug.Log("skill 1");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (skillTrigger)
+            {
+                stateMachine.SetNextState(new Skill2State());
+            }
+            else
+                stateMachine.SetNextStateToMain();
+        }
+
+    }
+
+}
+public class Skill2State : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 2f;
+
+        player.anim.SetTrigger("atkSkill2");
+        Debug.Log("skill 2");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (skillTrigger)
+            {
+                stateMachine.SetNextState(new Skill1State());
+            }
+            else
+                stateMachine.SetNextStateToMain();
+        }
+
+    }
+
+}
+
+//do airborne atks later

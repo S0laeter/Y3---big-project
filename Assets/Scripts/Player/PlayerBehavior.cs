@@ -17,6 +17,11 @@ public class PlayerBehavior : MonoBehaviour
     public float maxStamina;
     public float currentStamina;
 
+    public float currentEnergy;
+    public float maxEnergy;
+    public int currentHeat;
+    public int maxHeat;
+
     public Vector3 playerVelocity;
     public Vector3 moveDirection;
     public float movementSpeed;
@@ -44,8 +49,8 @@ public class PlayerBehavior : MonoBehaviour
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
+        //get the input component and assign the input actions
         playerInput = GetComponent<PlayerInput>();
-        //assign the input actions
         moveAction = playerInput.actions["Move"];
         dashAction = playerInput.actions["Dash"];
         jumpAction = playerInput.actions["Jump"];
@@ -53,11 +58,14 @@ public class PlayerBehavior : MonoBehaviour
         heavyAction = playerInput.actions["Heavy Attack"];
         skillAction = playerInput.actions["Skill"];
 
+        //reset stats
         currentHp = maxHp;
         Actions.UpdatePlayerHealthBar(this);
         currentStamina = maxStamina;
         Actions.UpdatePlayerStaminaBar(this);
 
+        currentEnergy = 0;
+        currentHeat = 0;
     }
 
     // Update is called once per frame
