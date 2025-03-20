@@ -10,6 +10,9 @@ public class PlayerBaseState : State
     protected float stateDuration;
 
     //use this for queueing next attack / input buffering
+    //if queueing, use this
+    //if on click but not queueing, use .triggered
+    //if holding button, use .ReadValue<float>() == 1
     protected bool normalTrigger;
     protected bool heavyTrigger;
     protected bool skillTrigger;
@@ -76,9 +79,9 @@ public class PlayerIdleState : PlayerBaseState
         else if (heavyTrigger)
             stateMachine.SetNextState(new HeavyChargingState());
 
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
             if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
             {
@@ -139,9 +142,9 @@ public class RunState : PlayerBaseState
         else if (heavyTrigger)
             stateMachine.SetNextState(new HeavyChargingState());
 
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
             stateMachine.SetNextState(new GroundForwardDashState());
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
@@ -178,9 +181,9 @@ public class SprintState : PlayerBaseState
         else if (heavyTrigger)
             stateMachine.SetNextState(new HeavyChargingState());
 
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
             stateMachine.SetNextState(new GroundForwardDashState());
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
@@ -264,7 +267,7 @@ public class GroundForwardDashState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1f;
+        stateDuration = 0.40f;
 
         player.anim.SetTrigger("dashGroundForward");
         Debug.Log("ground forward dash");
@@ -299,9 +302,9 @@ public class GroundBackwardDashState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1f;
+        stateDuration = 0.40f;
 
-        player.anim.SetTrigger("dashGroundForward");
+        player.anim.SetTrigger("dashGroundBackward");
         Debug.Log("ground forward dash");
     }
 
@@ -333,7 +336,7 @@ public class Normal1State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 0.50f;
 
         player.anim.SetTrigger("atkBasic1");
         Debug.Log("normal atk 1");
@@ -377,7 +380,7 @@ public class Normal2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 0.45f;
 
         player.anim.SetTrigger("atkBasic2");
         Debug.Log("normal atk 2");
@@ -421,7 +424,7 @@ public class Normal3State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 0.50f;
 
         player.anim.SetTrigger("atkBasic3");
         Debug.Log("normal atk 3");
@@ -465,7 +468,7 @@ public class Normal4State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 1.00f;
 
         player.anim.SetTrigger("atkBasic4");
         Debug.Log("normal atk 4");
@@ -509,7 +512,7 @@ public class Normal5State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 1.7f;
 
         player.anim.SetTrigger("atkBasic5");
         Debug.Log("normal atk 5");
@@ -554,7 +557,7 @@ public class HeavyChargingState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1f;
+        stateDuration = 0.20f;
 
         player.anim.SetTrigger("atkHeavyCharging");
         Debug.Log("heavy charging");
@@ -602,7 +605,7 @@ public class HeavyChargedState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2f;
+        stateDuration = 0.60f;
 
         player.anim.SetTrigger("atkHeavyCharged");
         Debug.Log("heavy released");
@@ -628,7 +631,7 @@ public class SkillChargingState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.5f;
+        stateDuration = 0.2f;
 
         player.anim.SetTrigger("atkSkillCharging");
         Debug.Log("skill charging");
@@ -681,7 +684,7 @@ public class Skill1State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2f;
+        stateDuration = 1.00f;
 
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
@@ -711,7 +714,7 @@ public class Skill2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2f;
+        stateDuration = 1.50f;
 
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
