@@ -280,11 +280,11 @@ public class KnockbackState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1f;
+        stateDuration = 0.35f;
 
-        player.SetSpeed(-7f);
+        player.SetSpeed(-9f);
         //get launched up
-        player.SetVerticalVelocity(5f);
+        player.SetVerticalVelocity(12f);
 
         player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("knockback");
@@ -314,7 +314,7 @@ public class KnockbackRecoveryState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1f;
+        stateDuration = 0.7f;
 
         player.anim.SetTrigger("knockbackRecovery");
         Debug.Log("knockback recovery");
