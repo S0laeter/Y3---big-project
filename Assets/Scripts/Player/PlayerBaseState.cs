@@ -21,6 +21,10 @@ public class PlayerBaseState : State
         //getting stuffs
         player = stateMachine.GetComponent<PlayerBehavior>();
 
+        normalTrigger = false;
+        heavyTrigger = false;
+        skillTrigger = false;
+
     }
 
     public override void OnUpdate()
@@ -63,11 +67,6 @@ public class PlayerIdleState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
-
-        //if they suddenly fall through the floor or smt...
-        if (!player.controller.isGrounded)
-            stateMachine.SetNextState(new FallState());
-
 
         //input mid state
         if (skillTrigger)
@@ -251,47 +250,6 @@ public class FallState : PlayerBaseState
         player.Move();
 
         if (player.controller.isGrounded)
-        {
-            stateMachine.SetNextState(new LandState());
-        }
-
-    }
-
-}
-public class LandState : PlayerBaseState
-{
-    public override void OnEnter(StateMachine _stateMachine)
-    {
-        base.OnEnter(_stateMachine);
-
-        stateDuration = 1f;
-
-        player.anim.SetTrigger("moveLand");
-        Debug.Log("landed");
-    }
-
-    public override void OnUpdate()
-    {
-        base.OnUpdate();
-
-        //input mid state
-        if (skillTrigger)
-            stateMachine.SetNextState(new SkillChargingState());
-        else if (normalTrigger)
-            stateMachine.SetNextState(new Normal1State());
-        else if (heavyTrigger)
-            stateMachine.SetNextState(new HeavyChargingState());
-
-        if (player.jumpAction.ReadValue<float>() == 1)
-            stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
-            stateMachine.SetNextState(new GroundBackwardDashState());
-        else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-        {
-            stateMachine.SetNextState(new RunState());
-        }
-
-        if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
         }
