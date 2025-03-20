@@ -16,6 +16,8 @@ public class PlayerBaseState : State
     protected bool normalTrigger;
     protected bool heavyTrigger;
     protected bool skillTrigger;
+    protected bool jumpTrigger;
+    protected bool dashTrigger;
 
     public override void OnEnter(StateMachine _stateMachine)
     {
@@ -34,7 +36,15 @@ public class PlayerBaseState : State
     {
         base.OnUpdate();
 
-        if (player.normalAction.triggered)
+        if (player.dashAction.triggered)
+        {
+            dashTrigger = true;
+        }
+        else if (player.jumpAction.triggered)
+        {
+            jumpTrigger = true;
+        }
+        else if (player.normalAction.triggered)
         {
             normalTrigger = true;
         }
@@ -85,7 +95,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
             {
-                player.Rotate(0f);
                 stateMachine.SetNextState(new GroundForwardDashState());
             }
             else
@@ -126,6 +135,7 @@ public class RunState : PlayerBaseState
 
         player.SetSpeed(7f);
 
+        player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveRun");
         Debug.Log("running");
     }
@@ -165,6 +175,7 @@ public class SprintState : PlayerBaseState
 
         player.SetSpeed(10f);
 
+        player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveSprint");
         Debug.Log("sprinting");
     }
@@ -187,7 +198,7 @@ public class SprintState : PlayerBaseState
             stateMachine.SetNextState(new GroundForwardDashState());
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
-            player.Rotate(0.05f);
+            player.Rotate(0.1f);
             player.Move();
         }
         else
@@ -209,8 +220,10 @@ public class JumpState : PlayerBaseState
         else
             player.SetSpeed(0f);
 
-        player.SetVerticalVelocity(player.jumpSpeed);
+        //jump force
+        player.SetVerticalVelocity(20f);
 
+        player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveJump");
         Debug.Log("jump");
     }
@@ -261,6 +274,65 @@ public class FallState : PlayerBaseState
 
 }
 
+public class KnockbackState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 1f;
+
+        player.SetSpeed(-7f);
+        //get launched up
+        player.SetVerticalVelocity(5f);
+
+        player.anim.ResetTrigger("moveFall");
+        player.anim.SetTrigger("knockback");
+        Debug.Log("knockback");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        player.Move();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (player.controller.isGrounded)
+                stateMachine.SetNextState(new KnockbackRecoveryState());
+        }
+            
+
+    }
+
+}
+public class KnockbackRecoveryState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 1f;
+
+        player.anim.SetTrigger("knockbackRecovery");
+        Debug.Log("knockback recovery");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+
+    }
+}
+
 public class GroundForwardDashState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
@@ -268,6 +340,8 @@ public class GroundForwardDashState : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 0.40f;
+
+        player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashGroundForward");
         Debug.Log("ground forward dash");
@@ -287,7 +361,18 @@ public class GroundForwardDashState : PlayerBaseState
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
 
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (dashTrigger)
+            {
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
+            }
+            else if (jumpTrigger)
+                stateMachine.SetNextState(new JumpState());
+            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 stateMachine.SetNextState(new SprintState());
             else
                 stateMachine.SetNextState(new PlayerIdleState());
@@ -322,6 +407,17 @@ public class GroundBackwardDashState : PlayerBaseState
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
 
+            if (dashTrigger)
+            {
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
+            }
+            else if (jumpTrigger)
+                stateMachine.SetNextState(new JumpState());
             else
                 stateMachine.SetNextState(new PlayerIdleState());
         }
@@ -336,7 +432,9 @@ public class Normal1State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.50f;
+        stateDuration = 0.40f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic1");
         Debug.Log("normal atk 1");
@@ -364,9 +462,11 @@ public class Normal1State : PlayerBaseState
         if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
-            {
                 stateMachine.SetNextState(new Normal2State());
-            }
+            else if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
             else
                 stateMachine.SetNextStateToMain();
         }
@@ -380,7 +480,9 @@ public class Normal2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.45f;
+        stateDuration = 0.35f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic2");
         Debug.Log("normal atk 2");
@@ -408,9 +510,11 @@ public class Normal2State : PlayerBaseState
         if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
-            {
                 stateMachine.SetNextState(new Normal3State());
-            }
+            else if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
             else
                 stateMachine.SetNextStateToMain();
         }
@@ -424,7 +528,9 @@ public class Normal3State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.50f;
+        stateDuration = 0.40f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic3");
         Debug.Log("normal atk 3");
@@ -452,9 +558,11 @@ public class Normal3State : PlayerBaseState
         if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
-            {
                 stateMachine.SetNextState(new Normal4State());
-            }
+            else if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
             else
                 stateMachine.SetNextStateToMain();
         }
@@ -468,7 +576,9 @@ public class Normal4State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.00f;
+        stateDuration = 0.90f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic4");
         Debug.Log("normal atk 4");
@@ -496,9 +606,11 @@ public class Normal4State : PlayerBaseState
         if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
-            {
                 stateMachine.SetNextState(new Normal5State());
-            }
+            else if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
             else
                 stateMachine.SetNextStateToMain();
         }
@@ -512,7 +624,9 @@ public class Normal5State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.7f;
+        stateDuration = 1.20f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic5");
         Debug.Log("normal atk 5");
@@ -539,10 +653,10 @@ public class Normal5State : PlayerBaseState
         //after state duration
         if (fixedTime >= stateDuration)
         {
-            if (heavyTrigger)
-            {
-
-            }
+            if (skillTrigger)
+                stateMachine.SetNextState(new SkillChargingState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new HeavyChargingState());
             else
                 stateMachine.SetNextStateToMain();
         }
@@ -607,6 +721,8 @@ public class HeavyChargedState : PlayerBaseState
 
         stateDuration = 0.60f;
 
+        player.Rotate(0f);
+
         player.anim.SetTrigger("atkHeavyCharged");
         Debug.Log("heavy released");
     }
@@ -631,7 +747,7 @@ public class SkillChargingState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.2f;
+        stateDuration = 0.15f;
 
         player.anim.SetTrigger("atkSkillCharging");
         Debug.Log("skill charging");
@@ -684,7 +800,9 @@ public class Skill1State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.00f;
+        stateDuration = 0.85f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
@@ -714,7 +832,9 @@ public class Skill2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.50f;
+        stateDuration = 1.40f;
+
+        player.Rotate(0f);
 
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
@@ -727,12 +847,7 @@ public class Skill2State : PlayerBaseState
         //after state duration
         if (fixedTime >= stateDuration)
         {
-            if (skillTrigger)
-            {
-                stateMachine.SetNextState(new Skill1State());
-            }
-            else
-                stateMachine.SetNextStateToMain();
+            stateMachine.SetNextStateToMain();
         }
 
     }

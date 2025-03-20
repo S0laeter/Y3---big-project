@@ -27,7 +27,6 @@ public class PlayerBehavior : MonoBehaviour
     public float movementSpeed;
     private float turnSmoothVelocity;
 
-    public float jumpSpeed;
     public float gravity;
 
     private PlayerInput playerInput;
@@ -82,6 +81,18 @@ public class PlayerBehavior : MonoBehaviour
         {
             currentStamina += Mathf.Clamp(10f * Time.deltaTime, 0f, maxStamina);
         }
+
+
+
+        //manual test
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            stateMachine.SetNextState(new KnockbackState());
+        }
+
+
+
+
 
 
 
