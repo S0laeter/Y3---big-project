@@ -103,7 +103,14 @@ public class PlayerBehavior : MonoBehaviour
         if (controller.isGrounded)
             playerVelocity.y = -0.5f;
         else
-            playerVelocity.y += gravity * Time.deltaTime;
+        {
+            if (stateMachine.currentState.GetType() == typeof(AirNormal1State)
+                || stateMachine.currentState.GetType() == typeof(AirNormal2State)
+                || stateMachine.currentState.GetType() == typeof(PlungeState))
+                return;
+            else
+                playerVelocity.y += gravity * Time.deltaTime;
+        }
 
     }
 

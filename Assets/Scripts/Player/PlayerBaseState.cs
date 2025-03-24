@@ -269,6 +269,22 @@ public class FallState : PlayerBaseState
         {
             stateMachine.SetNextStateToMain();
         }
+        
+        if (player.dashAction.triggered)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                stateMachine.SetNextState(new AirForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new AirBackwardDashState());
+        }
+
+        if (player.normalAction.triggered)
+            stateMachine.SetNextState(new AirNormal1State());
+        else if (player.heavyAction.triggered)
+            stateMachine.SetNextState(new PlungeState());
+
 
     }
 
@@ -420,6 +436,76 @@ public class GroundBackwardDashState : PlayerBaseState
                 stateMachine.SetNextState(new JumpState());
             else
                 stateMachine.SetNextState(new PlayerIdleState());
+        }
+
+    }
+
+}
+public class AirForwardDashState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.40f;
+
+        player.Rotate(0.001f);
+
+        player.anim.SetTrigger("dashAirForward");
+        Debug.Log("air forward dash");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (normalTrigger)
+                stateMachine.SetNextState(new AirNormal1State());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else if (skillTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else
+                stateMachine.SetNextState(new FallState());
+
+        }
+
+    }
+
+}
+public class AirBackwardDashState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.40f;
+
+        player.Rotate(0.001f);
+
+        player.anim.SetTrigger("dashAirBackward");
+        Debug.Log("air forward dash");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (normalTrigger)
+                stateMachine.SetNextState(new AirNormal1State());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else if (skillTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else
+                stateMachine.SetNextState(new FallState());
+
         }
 
     }
@@ -854,4 +940,135 @@ public class Skill2State : PlayerBaseState
 
 }
 
-//do airborne atks later
+public class AirNormal1State : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.50f;
+
+        player.SetVerticalVelocity(0f);
+        player.Rotate(0f);
+
+        player.anim.SetTrigger("atkAir1");
+        Debug.Log("airborne atk 1");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new AirForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new AirBackwardDashState());
+        }
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (normalTrigger)
+                stateMachine.SetNextState(new AirNormal2State());
+            else if (skillTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else
+                stateMachine.SetNextState(new FallState());
+        }
+
+    }
+
+}
+public class AirNormal2State : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.7f;
+
+        player.SetVerticalVelocity(0f);
+        player.Rotate(0f);
+
+        player.anim.SetTrigger("atkAir2");
+        Debug.Log("airborne atk 2");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.dashAction.ReadValue<float>() == 1)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                player.Rotate(0f);
+                stateMachine.SetNextState(new AirForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new AirBackwardDashState());
+        }
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            if (normalTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else if (skillTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else if (heavyTrigger)
+                stateMachine.SetNextState(new PlungeState());
+            else
+                stateMachine.SetNextState(new FallState());
+        }
+
+    }
+
+}
+public class PlungeState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+        
+        //plunge down diagonally
+        player.SetVerticalVelocity(-10f);
+        player.SetSpeed(7f);
+
+        player.anim.SetTrigger("atkAirPlunge");
+        Debug.Log("plunge atk");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        player.Move();
+
+        if (player.controller.isGrounded)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+
+        if (player.dashAction.triggered)
+        {
+            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                stateMachine.SetNextState(new AirForwardDashState());
+            }
+            else
+                stateMachine.SetNextState(new AirBackwardDashState());
+        }
+
+    }
+
+}
