@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "E:\\Unity stuffs\\Y3 - big project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Unity stuffs\\Y3 - big project\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,40 +23,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Lit.shader",
-              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader",
-              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader",
-              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader",
-              "RelativeToolTip": "Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.8\\Shaders\\Lit.shader",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2025-03-26T12:49:52.95Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "PlayerBaseState.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
-              "ViewState": "AQIAALsBAAAAAAAAAAAzwN4BAAAzAAAA",
+              "ViewState": "AQIAABEEAAAAAAAAAAA9wCcEAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-24T13:31:15.671Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PlayerBehavior.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAAAAwGoAAABOAAAA",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAAAIgAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T12:59:06.876Z"
+              "WhenOpened": "2024-11-24T12:59:06.876Z",
+              "EditorCaption": ""
             }
           ]
         }

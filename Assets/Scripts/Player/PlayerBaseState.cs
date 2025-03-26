@@ -198,7 +198,7 @@ public class SprintState : PlayerBaseState
             stateMachine.SetNextState(new GroundForwardDashState());
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
-            player.Rotate(0.1f);
+            player.Rotate(0.2f);
             player.Move();
         }
         else
@@ -248,11 +248,6 @@ public class FallState : PlayerBaseState
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
-
-        if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-            player.SetSpeed(7f);
-        else
-            player.SetSpeed(0f);
 
         player.anim.SetTrigger("moveFall");
         Debug.Log("falling");
@@ -449,6 +444,9 @@ public class AirForwardDashState : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        //flip up
+        player.SetVerticalVelocity(20f);
+        player.SetSpeed(7f);
         player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashAirForward");
@@ -458,6 +456,8 @@ public class AirForwardDashState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        player.Move();
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -484,6 +484,9 @@ public class AirBackwardDashState : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        //flip up
+        player.SetVerticalVelocity(20f);
+        player.SetSpeed(-7f);
         player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashAirBackward");
@@ -493,6 +496,8 @@ public class AirBackwardDashState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        player.Move();
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -993,7 +998,7 @@ public class AirNormal2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.7f;
+        stateDuration = 0.60f;
 
         player.SetVerticalVelocity(0f);
         player.Rotate(0f);
@@ -1040,10 +1045,12 @@ public class PlungeState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
         
-        //plunge down diagonally
-        player.SetVerticalVelocity(-10f);
+        //float up a bit
+        player.SetVerticalVelocity(5f);
         player.SetSpeed(7f);
+        player.Rotate(0f);
 
+        player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("atkAirPlunge");
         Debug.Log("plunge atk");
     }
@@ -1051,6 +1058,10 @@ public class PlungeState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //plunge down after a bit
+        if (fixedTime > 0.5f)
+            player.SetVerticalVelocity(-40f);
 
         player.Move();
 
