@@ -8,4 +8,6 @@ public static class Actions
     public static Action<PlayerBehavior> UpdatePlayerHealthBar;
     public static Action<PlayerBehavior> UpdatePlayerStaminaBar;
 
+    public static Action<float> GainEnergyOnHit;
+
 }

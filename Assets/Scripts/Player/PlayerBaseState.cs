@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBaseState : State
 {
     protected PlayerBehavior player;
+    protected PlayerMechanics playerMechanics;
 
     //duration doesnt need to be the same as animation length, make it slightly shorter to transition early to next attack
     protected float stateDuration;
@@ -25,7 +26,10 @@ public class PlayerBaseState : State
 
         //getting stuffs
         player = stateMachine.GetComponent<PlayerBehavior>();
+        playerMechanics = stateMachine.GetComponent<PlayerMechanics>();
 
+        dashTrigger = false;
+        jumpTrigger = false;
         normalTrigger = false;
         heavyTrigger = false;
         skillTrigger = false;
@@ -93,12 +97,17 @@ public class PlayerIdleState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
             stateMachine.SetNextState(new RunState());
@@ -155,7 +164,14 @@ public class RunState : PlayerBaseState
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
-            stateMachine.SetNextState(new GroundForwardDashState());
+        {
+            if (player.currentStamina > 0 && player.canDash)
+            {
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+        }
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
             player.Rotate(0.05f);
@@ -195,7 +211,14 @@ public class SprintState : PlayerBaseState
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
-            stateMachine.SetNextState(new GroundForwardDashState());
+        {
+            if (player.currentStamina > 0 && player.canDash)
+            {
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                stateMachine.SetNextState(new GroundForwardDashState());
+            }
+        }
         else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
         {
             player.Rotate(0.2f);
@@ -264,15 +287,25 @@ public class FallState : PlayerBaseState
         {
             stateMachine.SetNextStateToMain();
         }
-        
+
+        //jump and dash cancel
         if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canAirDash)
             {
-                stateMachine.SetNextState(new AirForwardDashState());
+                player.ConsumeStamina(10f);
+                player.canAirDash = false;
+
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    player.Rotate(0f);
+                    stateMachine.SetNextState(new AirForwardDashState());
+                }
+                else
+                {
+                    stateMachine.SetNextState(new AirBackwardDashState());
+                }
             }
-            else
-                stateMachine.SetNextState(new AirBackwardDashState());
         }
 
         if (player.normalAction.triggered)
@@ -374,12 +407,17 @@ public class GroundForwardDashState : PlayerBaseState
 
             if (dashTrigger)
             {
-                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                if (player.currentStamina > 0 && player.canDash)
                 {
-                    stateMachine.SetNextState(new GroundForwardDashState());
+                    player.ConsumeStamina(10f);
+                    player.StartCoroutine(player.DashCooldown());
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
                 }
-                else
-                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
             else if (jumpTrigger)
                 stateMachine.SetNextState(new JumpState());
@@ -420,12 +458,17 @@ public class GroundBackwardDashState : PlayerBaseState
 
             if (dashTrigger)
             {
-                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                if (player.currentStamina > 0 && player.canDash)
                 {
-                    stateMachine.SetNextState(new GroundForwardDashState());
+                    player.ConsumeStamina(10f);
+                    player.StartCoroutine(player.DashCooldown());
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
                 }
-                else
-                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
             else if (jumpTrigger)
                 stateMachine.SetNextState(new JumpState());
@@ -536,17 +579,21 @@ public class Normal1State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         //after state duration
@@ -584,17 +631,21 @@ public class Normal2State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         //after state duration
@@ -632,17 +683,21 @@ public class Normal3State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         //after state duration
@@ -680,17 +735,21 @@ public class Normal4State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         //after state duration
@@ -728,17 +787,21 @@ public class Normal5State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         //after state duration
@@ -773,17 +836,21 @@ public class HeavyChargingState : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
         if (player.heavyAction.ReadValue<float>() == 1)
@@ -849,20 +916,24 @@ public class SkillChargingState : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.jumpAction.ReadValue<float>() == 1)
+        if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
-        else if (player.dashAction.ReadValue<float>() == 1)
+        else if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new GroundForwardDashState());
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
             }
-            else
-                stateMachine.SetNextState(new GroundBackwardDashState());
         }
 
-        if (player.heavyAction.ReadValue<float>() == 1)
+        if (player.heavyAction.triggered)
         {
             //after holding for a while
             if (fixedTime >= 1.5f)
@@ -965,15 +1036,23 @@ public class AirNormal1State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.dashAction.ReadValue<float>() == 1)
+        if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new AirForwardDashState());
+                player.ConsumeStamina(10f);
+                player.canAirDash = false;
+
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    player.Rotate(0f);
+                    stateMachine.SetNextState(new AirForwardDashState());
+                }
+                else
+                {
+                    stateMachine.SetNextState(new AirBackwardDashState());
+                }
             }
-            else
-                stateMachine.SetNextState(new AirBackwardDashState());
         }
 
         //after state duration
@@ -1012,15 +1091,23 @@ public class AirNormal2State : PlayerBaseState
         base.OnUpdate();
 
         //jump and dash cancel
-        if (player.dashAction.ReadValue<float>() == 1)
+        if (player.dashAction.triggered)
         {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.Rotate(0f);
-                stateMachine.SetNextState(new AirForwardDashState());
+                player.ConsumeStamina(10f);
+                player.canAirDash = false;
+
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    player.Rotate(0f);
+                    stateMachine.SetNextState(new AirForwardDashState());
+                }
+                else
+                {
+                    stateMachine.SetNextState(new AirBackwardDashState());
+                }
             }
-            else
-                stateMachine.SetNextState(new AirBackwardDashState());
         }
 
         //after state duration
@@ -1059,6 +1146,26 @@ public class PlungeState : PlayerBaseState
     {
         base.OnUpdate();
 
+        //jump and dash cancel
+        if (player.dashAction.triggered)
+        {
+            if (player.currentStamina > 0 && player.canAirDash)
+            {
+                player.ConsumeStamina(10f);
+                player.canAirDash = false;
+
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    player.Rotate(0f);
+                    stateMachine.SetNextState(new AirForwardDashState());
+                }
+                else
+                {
+                    stateMachine.SetNextState(new AirBackwardDashState());
+                }
+            }
+        }
+
         //plunge down after a bit
         if (fixedTime > 0.5f)
             player.SetVerticalVelocity(-40f);
@@ -1068,16 +1175,6 @@ public class PlungeState : PlayerBaseState
         if (player.controller.isGrounded)
         {
             stateMachine.SetNextStateToMain();
-        }
-
-        if (player.dashAction.triggered)
-        {
-            if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-            {
-                stateMachine.SetNextState(new AirForwardDashState());
-            }
-            else
-                stateMachine.SetNextState(new AirBackwardDashState());
         }
 
     }

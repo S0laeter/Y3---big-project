@@ -17,6 +17,9 @@ public class PlayerBehavior : MonoBehaviour
     public float maxStamina;
     public float currentStamina;
 
+    public bool canDash;
+    public bool canAirDash;
+
     public Vector3 playerVelocity;
     public Vector3 moveDirection;
     public float movementSpeed;
@@ -58,6 +61,9 @@ public class PlayerBehavior : MonoBehaviour
         currentStamina = maxStamina;
         Actions.UpdatePlayerStaminaBar(this);
 
+        canDash = true;
+        canAirDash = true;
+
     }
 
     // Update is called once per frame
@@ -93,8 +99,12 @@ public class PlayerBehavior : MonoBehaviour
         playerVelocity.z = moveDirection.normalized.z * movementSpeed;
 
         //gravity stuffs
+        //might as well put the dash reset here..
         if (controller.isGrounded)
+        {
+            canAirDash = true;
             playerVelocity.y = -0.5f;
+        }
         else
         {
             if (stateMachine.currentState.GetType() == typeof(AirNormal1State)
@@ -147,17 +157,12 @@ public class PlayerBehavior : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHp = Mathf.Clamp(currentHp - damage, 0f, maxHp);
-        Actions.UpdatePlayerHealthBar(this);
-    }
-    public void Heal(float hpToHeal)
-    {
-        currentHp = Mathf.Clamp(currentHp + hpToHeal, 0f, maxHp);
+        currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdatePlayerHealthBar(this);
     }
     public void ConsumeStamina(float stamina)
     {
-        currentStamina = Mathf.Clamp(currentStamina - stamina, 0f, maxStamina);
+        currentStamina -= Mathf.Clamp(stamina, 0f, maxStamina);
         Actions.UpdatePlayerStaminaBar(this);
     }
     public void Die()
@@ -167,7 +172,12 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
-
+    public IEnumerator DashCooldown()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(1f);
+        canDash = true;
+    }
 
 
 
