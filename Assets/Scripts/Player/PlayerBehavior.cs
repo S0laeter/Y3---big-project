@@ -17,11 +17,6 @@ public class PlayerBehavior : MonoBehaviour
     public float maxStamina;
     public float currentStamina;
 
-    public float currentEnergy;
-    public float maxEnergy;
-    public int currentHeat;
-    public int maxHeat;
-
     public Vector3 playerVelocity;
     public Vector3 moveDirection;
     public float movementSpeed;
@@ -41,7 +36,7 @@ public class PlayerBehavior : MonoBehaviour
     private GameObject lockedOnEnemy;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         stateMachine = GetComponent<StateMachine>();
         cam = GameObject.FindWithTag("MainCamera").transform;
@@ -63,8 +58,6 @@ public class PlayerBehavior : MonoBehaviour
         currentStamina = maxStamina;
         Actions.UpdatePlayerStaminaBar(this);
 
-        currentEnergy = 0;
-        currentHeat = 0;
     }
 
     // Update is called once per frame
@@ -148,26 +141,6 @@ public class PlayerBehavior : MonoBehaviour
     }
 
 
-
-
-    public void SpawnHitbox(string whichAttack)
-    {
-        //spawn it here first
-
-        //a scuffed way to specify individual attack damage
-        switch (whichAttack)
-        {
-            case "normal 1":
-                //get the hitbox object, then set the damage of it
-                break;
-            case "normal 2":
-                //get the hitbox object, then set the damage of it
-                break;
-            default:
-                break;
-        }
-
-    }
 
 
 
