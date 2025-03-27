@@ -1,0 +1,329 @@
+fileFormatVersion: 2
+guid: 0dc6eb80d888af441baf8f32c9500912
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Ayanami azurlane blade(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature.004
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.3829155, y: -1.8568134, z: -0.01749858}
+      rotation: {x: 0.2957069, y: 0.6423064, z: -0.6423063, w: -0.29570684}
+      scale: {x: 0.12045488, y: 0.12045488, z: 0.12045488}
+    - name: Parent
+      parentName: Armature.004
+      position: {x: -7.0157185, y: -0.15911452, z: -5.0461845}
+      rotation: {x: -0.6534624, y: 0.6530977, z: -0.27016062, w: -0.27104175}
+      scale: {x: 1.0000037, y: 1.000006, z: 1.0000007}
+    - name: Bone Gear (Ext)2
+      parentName: Parent
+      position: {x: 3.462399, y: -7.0089087, z: -3.6873548}
+      rotation: {x: -0.27041245, y: 0.2707774, z: -0.6528422, w: 0.65372306}
+      scale: {x: 1.0000042, y: 1.0000056, z: 1.0000004}
+    - name: Bone Gear (Ext)2_end
+      parentName: Bone Gear (Ext)2
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support)
+      parentName: Parent
+      position: {x: 6.199583, y: -8.092454, z: -6.251688}
+      rotation: {x: -0.20429493, y: -0.04654112, z: -0.31737942, w: 0.92486095}
+      scale: {x: 1.0000033, y: 1.0000044, z: 1.000003}
+    - name: Bone Gear (Support)_end
+      parentName: Bone Gear (Support)
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support).001
+      parentName: Parent
+      position: {x: 6.0729094, y: -8.092454, z: -6.3783646}
+      rotation: {x: 0.6534625, y: -0.6530977, z: 0.2701606, w: -0.27104154}
+      scale: {x: 1.0000032, y: 1.0000037, z: 1.0000025}
+    - name: Bone Gear (Support).001_end
+      parentName: Bone Gear (Support).001
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Ext)1
+      parentName: Parent
+      position: {x: 6.1266174, y: -8.092454, z: -6.3246555}
+      rotation: {x: -0.35904726, y: -0.13239427, z: -0.86682856, w: -0.31963268}
+      scale: {x: 0.9999999, y: 0.99999934, z: 1.0000004}
+    - name: Bone Gear (Ext)1_end
+      parentName: Bone Gear (Ext)1
+      position: {x: -0, y: 1.0000001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support).003
+      parentName: Parent
+      position: {x: 6.104242, y: -10.741853, z: -6.4096975}
+      rotation: {x: 0.6534625, y: -0.6530977, z: 0.2701606, w: -0.27104154}
+      scale: {x: 1.0000032, y: 1.0000037, z: 1.0000025}
+    - name: Bone Gear (Support).003_end
+      parentName: Bone Gear (Support).003
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support).002
+      parentName: Parent
+      position: {x: 6.2388797, y: -10.741853, z: -6.2750573}
+      rotation: {x: 0.2710416, y: -0.27016082, z: -0.6530977, w: 0.6534624}
+      scale: {x: 1.0000023, y: 1.000003, z: 1.0000031}
+    - name: Bone Gear (Support).002_end
+      parentName: Bone Gear (Support).002
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Ext)1.001
+      parentName: Parent
+      position: {x: 6.15795, y: -10.741853, z: -6.3559885}
+      rotation: {x: 0.11977116, y: -0.27386087, z: -0.93057066, w: -0.21140832}
+      scale: {x: 1.000003, y: 0.99999934, z: 1.0000014}
+    - name: Bone Gear (Ext)1.001_end
+      parentName: Bone Gear (Ext)1.001
+      position: {x: -0, y: 0.9999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support).004
+      parentName: Parent
+      position: {x: 6.28244, y: -14.02754, z: -6.4019146}
+      rotation: {x: 0.2710417, y: -0.27016068, z: -0.6530976, w: 0.65346247}
+      scale: {x: 1.000004, y: 1.0000031, z: 1.0000036}
+    - name: Bone Gear (Support).004_end
+      parentName: Bone Gear (Support).004
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Support).005
+      parentName: Parent
+      position: {x: 6.2635946, y: -14.02754, z: -6.4207625}
+      rotation: {x: 0.06598788, y: -0.72712296, z: 0.32593727, w: -0.60058534}
+      scale: {x: 1.0000032, y: 1.0000037, z: 1.0000025}
+    - name: Bone Gear (Support).005_end
+      parentName: Bone Gear (Support).005
+      position: {x: -0, y: 1, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Gear (Ext)1.002
+      parentName: Parent
+      position: {x: 6.24316, y: -14.02754, z: -6.441198}
+      rotation: {x: -0.35904723, y: -0.13239427, z: -0.8668289, w: -0.31963196}
+      scale: {x: 1.0000001, y: 0.99999946, z: 1.0000006}
+    - name: Bone Gear (Ext)1.002_end
+      parentName: Bone Gear (Ext)1.002
+      position: {x: -0, y: 1.0000002, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Blade (Back)
+      parentName: Parent
+      position: {x: 3.6981754, y: -2.386237, z: -3.6981013}
+      rotation: {x: -0.000000104308114, y: 0.000020444391, z: -0.00000020861623, w: 1}
+      scale: {x: 1.0000029, y: 1.0000023, z: 1.0000005}
+    - name: Bone Blade (Back)_end
+      parentName: Bone Blade (Back)
+      position: {x: -0, y: 3.9195669, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone Blade (front/inside)
+      parentName: Parent
+      position: {x: 6.722703, y: -4.657095, z: -6.722575}
+      rotation: {x: -0.000000119209275, y: 0.00002042949, z: -0.00000017881392, w: 1}
+      scale: {x: 1.0000048, y: 1.0000036, z: 1.0000013}
+    - name: Bone Blade (front/inside)_end
+      parentName: Bone Blade (front/inside)
+      position: {x: -0, y: 3.9195664, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone hilt (power)
+      parentName: Parent
+      position: {x: 5.632774, y: -17.809177, z: -5.632668}
+      rotation: {x: 0.9360883, y: -0.26065916, z: -0.0636039, w: 0.22748648}
+      scale: {x: 1.0000058, y: 0.9999996, z: 1.0000043}
+    - name: Bone hilt (power)_end
+      parentName: Bone hilt (power)
+      position: {x: -0, y: 2.6636438, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Gear (Ext)1
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.95536023, y: -2.0504274, z: -0.012637179}
+      rotation: {x: -0.000000026878707, y: -0.000000026792776, z: 0.70710665, w: 0.7071069}
+      scale: {x: 0.08915075, y: 0.08915074, z: 0.084994555}
+    - name: Gear (Support)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.46267325, y: -1.7827128, z: -0.058830272}
+      rotation: {x: -0.000000026878695, y: -0.000000026792764, z: 0.70710665, w: 0.7071069}
+      scale: {x: 0.30171716, y: 0.30171716, z: 0.3017172}
+    - name: Blade (front)2/2
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.018269017, y: -0.009134419, z: -0.015224402}
+      rotation: {x: -0.000000026878704, y: -0.000000026792769, z: 0.70710665, w: 0.7071069}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Gear (Ext)2
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.3829154, y: -1.8568133, z: -0.017498583}
+      rotation: {x: -0.7068162, y: -0.02027003, z: 0.020270022, w: 0.7068162}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: hilt (power2)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.6306263, y: -1.1787772, z: -0.00000015693398}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342102, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 0.87667775}
+    - name: handed
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.1819704, y: -1.3460035, z: -0.00000017997958}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342102, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 0.87667775}
+    - name: Guard
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.5214487, y: -1.1399486, z: -0.0012283559}
+      rotation: {x: -0.7071068, y: -0.000000018600888, z: -8.871976e-16, w: 0.7071067}
+      scale: {x: 0.7268017, y: 0.34768137, z: 0.14304736}
+    - name: hilt (power)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.1819704, y: -1.3460035, z: -0.00000017997958}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342102, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 0.87667775}
+    - name: hilt (acc)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.1819704, y: -1.3460035, z: -0.00000017997958}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342102, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 0.87667775}
+    - name: hilt2
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.1819704, y: -1.3460035, z: -0.00000017997958}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342102, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 0.87667775}
+    - name: hilt
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.1819704, y: -1.3460035, z: -0.00000017997958}
+      rotation: {x: 0.7071069, y: 0.70710665, z: 0.000000053342106, w: 0.00000005342805}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Blade armor
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.013153553, y: -0.02192282, z: -0.015224405}
+      rotation: {x: -0.000000026878704, y: -0.000000026792769, z: 0.70710665, w: 0.7071069}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Blade (back)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 1.5983359, y: -1.9756863, z: -0.013215889}
+      rotation: {x: -0.000000026878704, y: -0.000000026792769, z: 0.70710665, w: 0.7071069}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Blade (front)1/2
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 0.018269017, y: -0.009134419, z: -0.015224402}
+      rotation: {x: -0.000000026878704, y: -0.000000026792769, z: 0.70710665, w: 0.7071069}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Blade (front/inside)
+      parentName: Ayanami azurlane blade(Clone)
+      position: {x: 3.1043124, y: -3.674565, z: -0.015224963}
+      rotation: {x: -0.000000026878704, y: -0.000000026792769, z: 0.70710665, w: 0.7071069}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: handed
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
