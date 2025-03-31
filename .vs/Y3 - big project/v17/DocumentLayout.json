@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\hitboxbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\HitboxBehavior.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\HitboxBehavior.cs",
               "RelativeToolTip": "Assets\\Scripts\\HitboxBehavior.cs",
-              "ViewState": "AQIAABwAAAAAAAAAAAAAADAAAAArAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAADQAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-31T06:47:10.482Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "ViewState": "AQIAAGgDAAAAAAAAAAAAAIQEAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T13:31:15.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T13:31:15.671Z"
             },
             {
               "$type": "Document",
@@ -62,7 +61,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAAAJQAAACJAAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAAAEsAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-27T03:23:25.495Z",
               "EditorCaption": ""
@@ -77,8 +76,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "ViewState": "AQIAAFgAAAAAAAAAAAAAwG0AAABOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T12:59:06.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T12:59:06.876Z"
             }
           ]
         }

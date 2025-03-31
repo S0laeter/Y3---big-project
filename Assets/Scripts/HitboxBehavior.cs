@@ -15,7 +15,7 @@ public class HitboxBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void OnEnable()
@@ -46,12 +46,18 @@ public class HitboxBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherCollider)
     {
-        if (otherCollider.tag == targetTag)
+        //testing
+        if (otherCollider.tag == "Player")
+        {
+            Debug.Log("enemy got hit");
+        }
+
+        /*if (otherCollider.tag == targetTag)
         {
             switch (targetTag)
             {
                 case "Enemy":
-                    otherCollider.GetComponent<EnemyBehavior>().TakeDamage(damage);
+                    //otherCollider.GetComponent<EnemyBehavior>().TakeDamage(damage);
                     //otherCollider.GetComponent <EnemyBehavior>().TakeArmorDamage(armorDamage);
                     Actions.GainEnergyOnHit(energyOnHit);
                     Debug.Log("enemy got hit");
@@ -63,7 +69,7 @@ public class HitboxBehavior : MonoBehaviour
                 default:
                     break;
             }
-        }
+        }*/
     }
 
 
