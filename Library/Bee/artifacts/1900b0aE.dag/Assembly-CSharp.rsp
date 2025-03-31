@@ -379,6 +379,8 @@
 "Assets/Scripts/Actions.cs"
 "Assets/Scripts/Boss/EnemyBehavior.cs"
 "Assets/Scripts/HitboxBehavior.cs"
+"Assets/Scripts/LevelManager.cs"
+"Assets/Scripts/MultiHitbox.cs"
 "Assets/Scripts/ObjectPool.cs"
 "Assets/Scripts/Player/PlayerBaseState.cs"
 "Assets/Scripts/Player/PlayerBehavior.cs"

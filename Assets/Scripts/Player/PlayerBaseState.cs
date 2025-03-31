@@ -405,21 +405,7 @@ public class GroundForwardDashState : PlayerBaseState
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
 
-            if (dashTrigger)
-            {
-                if (player.currentStamina > 0 && player.canDash)
-                {
-                    player.ConsumeStamina(10f);
-                    player.StartCoroutine(player.DashCooldown());
-                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-                    {
-                        stateMachine.SetNextState(new GroundForwardDashState());
-                    }
-                    else
-                        stateMachine.SetNextState(new GroundBackwardDashState());
-                }
-            }
-            else if (jumpTrigger)
+            if (jumpTrigger)
                 stateMachine.SetNextState(new JumpState());
             else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 stateMachine.SetNextState(new SprintState());
@@ -456,21 +442,7 @@ public class GroundBackwardDashState : PlayerBaseState
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
 
-            if (dashTrigger)
-            {
-                if (player.currentStamina > 0 && player.canDash)
-                {
-                    player.ConsumeStamina(10f);
-                    player.StartCoroutine(player.DashCooldown());
-                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-                    {
-                        stateMachine.SetNextState(new GroundForwardDashState());
-                    }
-                    else
-                        stateMachine.SetNextState(new GroundBackwardDashState());
-                }
-            }
-            else if (jumpTrigger)
+            if (jumpTrigger)
                 stateMachine.SetNextState(new JumpState());
             else
                 stateMachine.SetNextState(new PlayerIdleState());
@@ -722,7 +694,7 @@ public class Normal4State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.90f;
+        stateDuration = 0.80f;
 
         player.Rotate(0f);
 
