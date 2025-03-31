@@ -22,13 +22,27 @@ public class HitboxBehavior : MonoBehaviour
     {
         //have the value be a variable if u want different durations
         StartCoroutine(DisableAfterTime(0.2f));
+
+        GetComponent<SphereCollider>().radius = range;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        GetComponent<SphereCollider>().radius = range;
     }
+    
+    private IEnumerator DisableAfterTime(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        this.gameObject.SetActive(false);
+    }
+
+
+
+
+
 
     private void OnTriggerEnter(Collider otherCollider)
     {
@@ -40,9 +54,11 @@ public class HitboxBehavior : MonoBehaviour
                     otherCollider.GetComponent<EnemyBehavior>().TakeDamage(damage);
                     //otherCollider.GetComponent <EnemyBehavior>().TakeArmorDamage(armorDamage);
                     Actions.GainEnergyOnHit(energyOnHit);
+                    Debug.Log("enemy got hit");
                     break;
                 case "Player":
                     otherCollider.GetComponent<PlayerBehavior>().TakeDamage(damage);
+                    Debug.Log("player got hit");
                     break;
                 default:
                     break;
@@ -51,13 +67,5 @@ public class HitboxBehavior : MonoBehaviour
     }
 
 
-
-
-    private IEnumerator DisableAfterTime(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-
-        this.gameObject.SetActive(false);
-    }
 
 }

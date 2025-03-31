@@ -48,8 +48,8 @@ MonoBehaviour:
   targetTag: 
   damage: 0
   armorDamage: 0
-  shape: 
   range: 0
+  energyOnHit: 0
 --- !u!135 &-3211522523780632187
 SphereCollider:
   m_ObjectHideFlags: 0

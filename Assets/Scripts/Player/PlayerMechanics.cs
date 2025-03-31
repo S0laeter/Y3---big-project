@@ -6,6 +6,7 @@ public class PlayerMechanics : MonoBehaviour
 {
     private PlayerBehavior player;
     private StateMachine stateMachine;
+    public Transform spawnTransform;
 
     public float baseAtk;
     public float currentAtk;
@@ -33,6 +34,8 @@ public class PlayerMechanics : MonoBehaviour
         player = GetComponent<PlayerBehavior>();
         stateMachine = GetComponent<StateMachine>();
 
+        currentAtk = baseAtk;
+
         currentEnergy = 0;
         currentHeat = 0;
 
@@ -41,7 +44,7 @@ public class PlayerMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(currentEnergy + " " + currentHeat);
     }
 
 
@@ -70,8 +73,9 @@ public class PlayerMechanics : MonoBehaviour
 
     public void SpawnHitbox(string whichAttack)
     {
-        //spawn it here first, and get the script
-        GameObject hitboxObject = ObjectPool.instance.SpawnObject("hitbox", transform.position, transform.rotation);
+        //spawn it here first, parent it to this, then get the script
+        GameObject hitboxObject = ObjectPool.instance.SpawnObject("hitbox", spawnTransform.position, spawnTransform.rotation);
+        hitboxObject.transform.SetParent(this.transform);
         HitboxBehavior hitbox = hitboxObject.GetComponent<HitboxBehavior>();
         hitbox.targetTag = "Enemy";
 
@@ -80,51 +84,69 @@ public class PlayerMechanics : MonoBehaviour
         {
             case "basic 1":
                 hitbox.damage = currentAtk * 10;
-                hitbox.armorDamage = 10;
-                hitbox.range = 2;
+                hitbox.armorDamage = 8;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 2":
                 hitbox.damage = currentAtk * 8;
-                hitbox.armorDamage = 8;
-                hitbox.range = 2;
+                hitbox.armorDamage = 7;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 3":
                 hitbox.damage = currentAtk * 12;
-                hitbox.armorDamage = 12;
-                hitbox.range = 2;
+                hitbox.armorDamage = 10;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 7;
                 break;
             case "basic 4":
                 hitbox.damage = currentAtk * 8;
-                hitbox.armorDamage = 8;
-                hitbox.range = 2;
+                hitbox.armorDamage = 10;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 4.1":
                 hitbox.damage = currentAtk * 8;
                 hitbox.armorDamage = 8;
-                hitbox.range = 2;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 5":
                 hitbox.damage = currentAtk * 6;
-                hitbox.armorDamage = 6;
-                hitbox.range = 2;
+                hitbox.armorDamage = 10;
+                hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 5.1":
                 hitbox.damage = currentAtk * 10;
-                hitbox.armorDamage = 5;
+                hitbox.armorDamage = 18;
                 hitbox.range = 2;
+                hitbox.energyOnHit = 10;
+                break;
+            case "air 1":
+                hitbox.damage = currentAtk * 13;
+                hitbox.armorDamage = 10;
+                hitbox.range = 1.5f;
+                hitbox.energyOnHit = 7;
+                break;
+            case "air 2":
+                hitbox.damage = currentAtk * 10;
+                hitbox.armorDamage = 10;
+                hitbox.range = 1.5f;
+                hitbox.energyOnHit = 7;
+                break;
+            case "plunge":
+                hitbox.damage = currentAtk * 20;
+                hitbox.armorDamage = 20;
+                hitbox.range = 3;
                 hitbox.energyOnHit = 10;
                 break;
             case "heavy":
                 if (currentEnergy >= maxEnergy)
                 {
                     //multi hit
-                    GameObject multiHitboxObject = ObjectPool.instance.SpawnObject("multiHitbox", transform.position, transform.rotation);
+                    GameObject multiHitboxObject = ObjectPool.instance.SpawnObject("multiHitbox", spawnTransform.position, spawnTransform.rotation);
                     MultiHitbox multiHitbox = multiHitboxObject.GetComponent<MultiHitbox>();
                     multiHitbox.spawnAmount = 3;
                     multiHitbox.spawnInterval = 0.2f;
@@ -132,77 +154,42 @@ public class PlayerMechanics : MonoBehaviour
 
                     multiHitbox.damage = 8;
                     multiHitbox.armorDamage = 8;
-                    multiHitbox.range = 5;
+                    multiHitbox.range = 3;
                     
                     //spend energy and gain heat, doesnt matter if hit
-                    multiHitbox.energyOnHit = -maxEnergy;
+                    multiHitbox.energyOnHit = -currentEnergy;
                     GainHeat(1);
                 }
                 else
                 {
                     hitbox.damage = currentAtk * 10;
                     hitbox.armorDamage = 15;
-                    hitbox.range = 5;
+                    hitbox.range = 3;
                     hitbox.energyOnHit = 0;
                 }
                 break;
             case "skill 1":
                 if (currentHeat > 0)
                 {
-                    hitbox.damage = currentAtk * 15;
-                    hitbox.armorDamage = 12;
-                    hitbox.range = 5;
+                    hitbox.damage = currentAtk * 18;
+                    hitbox.armorDamage = 16;
+                    hitbox.range = 3;
                     hitbox.energyOnHit = 0;
                 }
                 else
                 {
-                    hitbox.damage = currentAtk * 6;
-                    hitbox.armorDamage = 6;
-                    hitbox.range = 5;
+                    hitbox.damage = currentAtk * 10;
+                    hitbox.armorDamage = 8;
+                    hitbox.range = 3;
                     hitbox.energyOnHit = 0;
                 }
                 break;
             case "skill 1.1":
                 if (currentHeat > 0)
                 {
-                    hitbox.damage = currentAtk * 15;
-                    hitbox.armorDamage = 12;
-                    hitbox.range = 5;
-                    hitbox.energyOnHit = 0;
-
-                    //spend heat
-                    GainHeat(-1);
-                }
-                else
-                {
-                    hitbox.damage = currentAtk * 6;
-                    hitbox.armorDamage = 6;
-                    hitbox.range = 5;
-                    hitbox.energyOnHit = 0;
-                }
-                break;
-            case "skill 2":
-                if (currentHeat > 0)
-                {
-                    hitbox.damage = currentAtk * 15;
-                    hitbox.armorDamage = 10;
-                    hitbox.range = 5;
-                    hitbox.energyOnHit = 0;
-                }
-                else
-                {
-                    hitbox.damage = currentAtk * 6;
-                    hitbox.armorDamage = 6;
-                    hitbox.range = 5;
-                    hitbox.energyOnHit = 0;
-                }
-                break;
-            case "skill 2.1":
-                if (currentHeat > 0)
-                {
-                    hitbox.damage = currentAtk * 22;
-                    hitbox.armorDamage = 20;
-                    hitbox.range = 5;
+                    hitbox.damage = currentAtk * 16;
+                    hitbox.armorDamage = 14;
+                    hitbox.range = 3;
                     hitbox.energyOnHit = 0;
 
                     //spend heat
@@ -211,8 +198,43 @@ public class PlayerMechanics : MonoBehaviour
                 else
                 {
                     hitbox.damage = currentAtk * 10;
+                    hitbox.armorDamage = 8;
+                    hitbox.range = 3;
+                    hitbox.energyOnHit = 0;
+                }
+                break;
+            case "skill 2":
+                if (currentHeat > 0)
+                {
+                    hitbox.damage = currentAtk * 16;
+                    hitbox.armorDamage = 14;
+                    hitbox.range = 3;
+                    hitbox.energyOnHit = 0;
+                }
+                else
+                {
+                    hitbox.damage = currentAtk * 10;
+                    hitbox.armorDamage = 8;
+                    hitbox.range = 3;
+                    hitbox.energyOnHit = 0;
+                }
+                break;
+            case "skill 2.1":
+                if (currentHeat > 0)
+                {
+                    hitbox.damage = currentAtk * 20;
+                    hitbox.armorDamage = 22;
+                    hitbox.range = 3;
+                    hitbox.energyOnHit = 0;
+
+                    //spend heat
+                    GainHeat(-1);
+                }
+                else
+                {
+                    hitbox.damage = currentAtk * 13;
                     hitbox.armorDamage = 10;
-                    hitbox.range = 5;
+                    hitbox.range = 3;
                     hitbox.energyOnHit = 0;
                 }
                 break;

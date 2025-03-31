@@ -1146,6 +1146,9 @@ public class PlungeState : PlayerBaseState
 
         if (player.controller.isGrounded)
         {
+            //deal damage right before switching back to idle
+            playerMechanics.SpawnHitbox("plunge");
+
             stateMachine.SetNextStateToMain();
         }
 

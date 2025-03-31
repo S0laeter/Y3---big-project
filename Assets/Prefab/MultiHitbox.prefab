@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 215938429629924299}
   - component: {fileID: 2323672481700238596}
-  - component: {fileID: 647785089900554238}
   m_Layer: 0
   m_Name: MultiHitbox
   m_TagString: Untagged
@@ -45,24 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d21ff54b0306f49aab6acd9034feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &647785089900554238
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5883099489872527866}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  spawnAmount: 0
+  spawnInterval: 0
+  targetTag: 
+  damage: 0
+  armorDamage: 0
+  range: 0
+  energyOnHit: 0

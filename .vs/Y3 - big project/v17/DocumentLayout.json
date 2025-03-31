@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "E:\\Unity stuffs\\Y3 - big project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\hitboxbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\hitboxbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\ui\\hudmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\hudmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,19 +26,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HUDManager.cs",
-              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\HUDManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\HUDManager.cs",
-              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\HUDManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\HUDManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAfAAAA",
+              "DocumentIndex": 0,
+              "Title": "HitboxBehavior.cs",
+              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\HitboxBehavior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HitboxBehavior.cs",
+              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\HitboxBehavior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HitboxBehavior.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAAADAAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T03:36:11.682Z",
+              "WhenOpened": "2025-03-31T06:47:10.482Z",
               "EditorCaption": ""
             },
             {
@@ -49,20 +49,20 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
-              "ViewState": "AQIAAHMAAAAAAAAAAAAAALICAAAaAAAA",
+              "ViewState": "AQIAAGgDAAAAAAAAAAAAAIQEAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-24T13:31:15.671Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PlayerMechanics.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
-              "ViewState": "AQIAAHAAAAAAAAAAAAAAAMwAAAAlAAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAAAJQAAACJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-27T03:23:25.495Z",
               "EditorCaption": ""
@@ -75,7 +75,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF4AAAAAAAAA",
+              "ViewState": "AQIAAFgAAAAAAAAAAAAAwG0AAABOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-24T12:59:06.876Z",
               "EditorCaption": ""
