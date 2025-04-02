@@ -115,6 +115,7 @@ public class StateMachine : MonoBehaviour
                     mainStateType = new PlayerIdleState();
                     break;
                 case "boss":
+                    mainStateType = new EnemyIdleState();
                     break;
                 default:
                     break;

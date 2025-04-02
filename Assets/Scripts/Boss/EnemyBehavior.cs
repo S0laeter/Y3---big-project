@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    private StateMachine stateMachine;
+    public Animator anim;
+
     public float maxHp;
     public float currentHp;
 
     public float maxArmor;
     public float currentArmor;
 
+    //atk conditions
+    public bool inRange;
+    public bool outOfRange;
+
     // Start is called before the first frame update
     void Start()
     {
+        stateMachine = GetComponent<StateMachine>();
+        anim = GetComponent<Animator>();
+
         currentHp = maxHp;
         currentArmor = maxArmor;
     }
@@ -34,10 +44,10 @@ public class EnemyBehavior : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, float armorDamage)
     {
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
-        currentArmor -= Mathf.Clamp(damage * 1.5f, 0f, maxArmor);
+        currentArmor -= Mathf.Clamp(armorDamage, 0f, maxArmor);
     }
     public void Die()
     {

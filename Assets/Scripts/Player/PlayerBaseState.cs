@@ -540,8 +540,6 @@ public class Normal1State : PlayerBaseState
 
         stateDuration = 0.40f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkBasic1");
         Debug.Log("normal atk 1");
     }
@@ -549,6 +547,12 @@ public class Normal1State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.jumpAction.triggered)
@@ -592,8 +596,6 @@ public class Normal2State : PlayerBaseState
 
         stateDuration = 0.35f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkBasic2");
         Debug.Log("normal atk 2");
     }
@@ -601,6 +603,12 @@ public class Normal2State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.jumpAction.triggered)
@@ -643,8 +651,6 @@ public class Normal3State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 0.40f;
-
-        player.Rotate(0f);
 
         player.anim.SetTrigger("atkBasic3");
         Debug.Log("normal atk 3");
@@ -706,6 +712,12 @@ public class Normal4State : PlayerBaseState
     {
         base.OnUpdate();
 
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
+
         //jump and dash cancel
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
@@ -748,8 +760,6 @@ public class Normal5State : PlayerBaseState
 
         stateDuration = 1.20f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkBasic5");
         Debug.Log("normal atk 5");
     }
@@ -757,6 +767,12 @@ public class Normal5State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.jumpAction.triggered)
@@ -807,6 +823,12 @@ public class HeavyChargingState : PlayerBaseState
     {
         base.OnUpdate();
 
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
+
         //jump and dash cancel
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
@@ -851,8 +873,6 @@ public class HeavyChargedState : PlayerBaseState
 
         stateDuration = 0.60f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkHeavyCharged");
         Debug.Log("heavy released");
     }
@@ -860,6 +880,12 @@ public class HeavyChargedState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -886,6 +912,12 @@ public class SkillChargingState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.jumpAction.triggered)
@@ -936,8 +968,6 @@ public class Skill1State : PlayerBaseState
 
         stateDuration = 0.85f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
     }
@@ -945,6 +975,12 @@ public class Skill1State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -968,8 +1004,6 @@ public class Skill2State : PlayerBaseState
 
         stateDuration = 1.40f;
 
-        player.Rotate(0f);
-
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
     }
@@ -977,6 +1011,12 @@ public class Skill2State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)
@@ -997,7 +1037,6 @@ public class AirNormal1State : PlayerBaseState
         stateDuration = 0.50f;
 
         player.SetVerticalVelocity(0f);
-        player.Rotate(0f);
 
         player.anim.SetTrigger("atkAir1");
         Debug.Log("airborne atk 1");
@@ -1006,6 +1045,12 @@ public class AirNormal1State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
@@ -1052,7 +1097,6 @@ public class AirNormal2State : PlayerBaseState
         stateDuration = 0.60f;
 
         player.SetVerticalVelocity(0f);
-        player.Rotate(0f);
 
         player.anim.SetTrigger("atkAir2");
         Debug.Log("airborne atk 2");
@@ -1061,6 +1105,12 @@ public class AirNormal2State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
@@ -1107,7 +1157,6 @@ public class PlungeState : PlayerBaseState
         //float up a bit
         player.SetVerticalVelocity(5f);
         player.SetSpeed(7f);
-        player.Rotate(0f);
 
         player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("atkAirPlunge");
@@ -1117,6 +1166,12 @@ public class PlungeState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
