@@ -1155,8 +1155,8 @@ public class PlungeState : PlayerBaseState
         base.OnEnter(_stateMachine);
         
         //float up a bit
-        player.SetVerticalVelocity(5f);
-        player.SetSpeed(7f);
+        player.SetVerticalVelocity(3f);
+        player.SetSpeed(5f);
 
         player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("atkAirPlunge");
@@ -1195,7 +1195,10 @@ public class PlungeState : PlayerBaseState
 
         //plunge down after a bit
         if (fixedTime > 0.5f)
+        {
             player.SetVerticalVelocity(-40f);
+            player.SetSpeed(8f);
+        }
 
         player.Move();
 
