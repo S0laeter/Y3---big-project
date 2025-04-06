@@ -12,6 +12,9 @@ public class HitboxBehavior : MonoBehaviour
     public float range;
     public float energyOnHit;
 
+    //for boss attacks, 0 is light hit, 1 is heavy hit
+    public int type;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +59,7 @@ public class HitboxBehavior : MonoBehaviour
                     Debug.Log("enemy got hit");
                     break;
                 case "Player":
-                    otherCollider.GetComponent<PlayerBehavior>().TakeDamage(damage);
+                    otherCollider.GetComponent<PlayerBehavior>().TakeDamage(damage, type);
                     Debug.Log("player got hit");
                     break;
                 default:

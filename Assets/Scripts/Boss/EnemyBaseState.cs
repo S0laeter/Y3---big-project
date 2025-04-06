@@ -46,18 +46,45 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.OnUpdate();
 
-        enemy.RotateToPlayer(0.4f);
+        //enemy.RotateToPlayer(0.4f);
 
-        /*if (enemy.inRange)
+        if (enemy.inRange)
         {
             //melee atk
         }
         else if (enemy.outOfRange)
         {
             //ranged or rush atk
-        }*/
-            
+        }
 
+
+
+    }
+
+}
+public class EnemyStaggeredState : EnemyBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 5f;
+
+        enemy.anim.ResetTrigger("idle");
+        enemy.anim.SetTrigger("staggered");
+        Debug.Log("enemy staggered");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        if (fixedTime >= stateDuration)
+        {
+            //regen all armor when wake up
+            enemy.currentArmor = enemy.maxArmor;
+            stateMachine.SetNextStateToMain();
+        }
 
     }
 
@@ -126,11 +153,11 @@ public class EnemyCombo1 : EnemyBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
         if (fixedTime > 0.6f && fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -161,7 +188,7 @@ public class EnemyCombo1Followup : EnemyBaseState
         //rotate
         if (fixedTime <= 0.3f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -192,11 +219,11 @@ public class EnemyCombo2 : EnemyBaseState
         //rotate
         if (fixedTime <= 0.3f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
         if (fixedTime > 0.7f && fixedTime <= 0.9f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -227,11 +254,11 @@ public class EnemyCombo2Followup : EnemyBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
         if (fixedTime > 0.7f && fixedTime <= 0.10f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -262,7 +289,7 @@ public class EnemyComboBack : EnemyBaseState
         //rotate
         if (fixedTime <= 0.4f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -293,7 +320,7 @@ public class EnemyComboOverhead : EnemyBaseState
         //rotate
         if (fixedTime <= 0.6f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -323,6 +350,37 @@ public class EnemyRapidFire : EnemyBaseState
 
         //rotate
         if (fixedTime <= 3.0f)
+        {
+            enemy.RotateToPlayer(0.8f);
+        }
+
+        //after state duration
+        if (fixedTime >= stateDuration)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+
+    }
+}
+public class EnemySpin : EnemyBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 2.2f;
+
+        enemy.anim.SetTrigger("spin");
+
+        Debug.Log("enemy spin");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //rotate
+        if (fixedTime <= 0.5f)
         {
             enemy.RotateToPlayer(0.6f);
         }
@@ -355,7 +413,7 @@ public class EnemyDashPunch : EnemyBaseState
         //rotate
         if (fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
         }
 
         //after state duration
@@ -384,9 +442,14 @@ public class EnemyDivePunch : EnemyBaseState
         base.OnUpdate();
 
         //rotate
-        if (fixedTime <= 0.8f)
+        if (fixedTime > 0.2f && fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
+        }
+        //move to player
+        if (fixedTime > 0.7f && fixedTime <= 1.05f)
+        {
+            //move
         }
 
         //after state duration
@@ -397,17 +460,17 @@ public class EnemyDivePunch : EnemyBaseState
 
     }
 }
-public class EnemySpin : EnemyBaseState
+public class EnemySlam : EnemyBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.2f;
+        stateDuration = 2.6f;
 
-        enemy.anim.SetTrigger("spin");
+        enemy.anim.SetTrigger("slam");
 
-        Debug.Log("enemy spin");
+        Debug.Log("enemy slam");
     }
 
     public override void OnUpdate()
@@ -415,9 +478,14 @@ public class EnemySpin : EnemyBaseState
         base.OnUpdate();
 
         //rotate
-        if (fixedTime <= 0.5f)
+        if (fixedTime > 0.6f && fixedTime <= 1.25f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.6f);
+        }
+        //move to player
+        if (fixedTime > 0.6f && fixedTime <= 1.25f)
+        {
+            //move
         }
 
         //after state duration

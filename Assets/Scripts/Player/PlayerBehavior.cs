@@ -155,10 +155,14 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, int type)
     {
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdatePlayerHealthBar(this);
+
+        //if take heavy hit, get knocked back
+        if (type == 1)
+            stateMachine.SetNextState(new KnockbackState());
     }
     public void ConsumeStamina(float stamina)
     {
