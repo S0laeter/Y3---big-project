@@ -88,20 +88,9 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 relativePosition = transform.position - playerTransform.position;
         //this is so the character doesnt look up or down, only straight forward
         relativePosition.y = 0f;
-        //rotate to player, smoothly
+        //rotate to player, smoothly (bigger the faster, weird)
         Quaternion rotation = Quaternion.LookRotation(relativePosition, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turnSmoothTime);
-    }
-    public void MoveTowardsPosition(Transform target, float speed)
-    {
-        //have the float as variable if wanna customize speed
-        transform.position = Vector3.Lerp(transform.position, target.position, speed * Time.deltaTime);
-
-        //use this instead if there's a character controller component
-        /*Vector3 offset = transform.position - target.position;
-        offset = offset.normalized * 5.0f;
-        //normalize it and account for movement speed.
-        controller.Move(offset * Time.deltaTime);*/
     }
     
     

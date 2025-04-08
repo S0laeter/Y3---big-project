@@ -48,11 +48,13 @@ public class EnemyIdleState : EnemyBaseState
 
         //enemy.RotateToPlayer(0.4f);
 
-        if (enemy.inRange)
+        stateMachine.SetNextState(new EnemyDivePunch());
+
+        if (enemy.outOfRange)
         {
             //melee atk
         }
-        else if (enemy.outOfRange)
+        else if (enemy.inRange)
         {
             //ranged or rush atk
         }
@@ -122,7 +124,7 @@ public class EnemyDash : EnemyBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            enemy.RotateToPlayer(0.2f);
+            enemy.RotateToPlayer(0.4f);
         }
 
         //after state duration
@@ -153,11 +155,11 @@ public class EnemyCombo1 : EnemyBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
         if (fixedTime > 0.6f && fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -188,7 +190,7 @@ public class EnemyCombo1Followup : EnemyBaseState
         //rotate
         if (fixedTime <= 0.3f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -219,11 +221,11 @@ public class EnemyCombo2 : EnemyBaseState
         //rotate
         if (fixedTime <= 0.3f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
         if (fixedTime > 0.7f && fixedTime <= 0.9f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -254,11 +256,11 @@ public class EnemyCombo2Followup : EnemyBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
         if (fixedTime > 0.7f && fixedTime <= 0.10f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -289,7 +291,7 @@ public class EnemyComboBack : EnemyBaseState
         //rotate
         if (fixedTime <= 0.4f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -320,7 +322,7 @@ public class EnemyComboOverhead : EnemyBaseState
         //rotate
         if (fixedTime <= 0.6f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -351,7 +353,7 @@ public class EnemyRapidFire : EnemyBaseState
         //rotate
         if (fixedTime <= 3.0f)
         {
-            enemy.RotateToPlayer(0.8f);
+            enemy.RotateToPlayer(0.1f);
         }
 
         //after state duration
@@ -382,7 +384,7 @@ public class EnemySpin : EnemyBaseState
         //rotate
         if (fixedTime <= 0.5f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -413,7 +415,7 @@ public class EnemyDashPunch : EnemyBaseState
         //rotate
         if (fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -444,12 +446,7 @@ public class EnemyDivePunch : EnemyBaseState
         //rotate
         if (fixedTime > 0.2f && fixedTime <= 0.8f)
         {
-            enemy.RotateToPlayer(0.6f);
-        }
-        //move to player
-        if (fixedTime > 0.7f && fixedTime <= 1.05f)
-        {
-            //move
+            enemy.RotateToPlayer(0.2f);
         }
 
         //after state duration
@@ -480,12 +477,17 @@ public class EnemySlam : EnemyBaseState
         //rotate
         if (fixedTime > 0.6f && fixedTime <= 1.25f)
         {
-            enemy.RotateToPlayer(0.6f);
+            enemy.RotateToPlayer(0.2f);
         }
         //move to player
         if (fixedTime > 0.6f && fixedTime <= 1.25f)
         {
-            //move
+            enemy.agent.SetDestination(enemy.playerTransform.position);
+        }
+        else
+        {
+            enemy.agent.SetDestination(enemy.transform.position);
+            enemy.agent.Warp(enemy.transform.position);
         }
 
         //after state duration

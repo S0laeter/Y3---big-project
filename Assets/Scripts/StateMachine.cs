@@ -13,6 +13,8 @@ public abstract class State
     public virtual void OnEnter(StateMachine _stateMachine)
     {
         stateMachine = _stateMachine;
+
+        time = 0; fixedTime = 0; lateTime = 0;
     }
 
     public virtual void OnUpdate()
