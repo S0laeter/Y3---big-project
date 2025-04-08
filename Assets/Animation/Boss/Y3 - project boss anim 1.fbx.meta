@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 13b95a553795a91418770e1e5dfca745
+guid: 8531895249b0a7948ba776d57acdaf54
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -37,7 +37,7 @@ ModelImporter:
       takeName: rush - dive punch.001
       internalID: -3188507051553433701
       firstFrame: 0
-      lastFrame: 62
+      lastFrame: 61
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -16,6 +16,8 @@ public class EnemyBaseState : State
         //getting stuffs
         enemy = stateMachine.GetComponent<EnemyBehavior>();
 
+        Physics.IgnoreLayerCollision(10, 15, false);
+
     }
 
     public override void OnUpdate()
@@ -418,6 +420,12 @@ public class EnemyDashPunch : EnemyBaseState
             enemy.RotateToPlayer(0.2f);
         }
 
+        //ignore collision
+        if (fixedTime > 0.8f && fixedTime <= 1.1f)
+            Physics.IgnoreLayerCollision(10, 15, true);
+        else
+            Physics.IgnoreLayerCollision(10, 15, false);
+
         //after state duration
         if (fixedTime >= stateDuration)
         {
@@ -447,6 +455,17 @@ public class EnemyDivePunch : EnemyBaseState
         if (fixedTime > 0.2f && fixedTime <= 0.8f)
         {
             enemy.RotateToPlayer(0.2f);
+        }
+
+        //move to player
+        if (fixedTime > 0.7f && fixedTime <= 1.0f && enemy.outOfRange)
+        {
+            enemy.agent.SetDestination(enemy.playerTransform.position);
+        }
+        else
+        {
+            enemy.agent.SetDestination(enemy.transform.position);
+            enemy.agent.Warp(enemy.transform.position);
         }
 
         //after state duration
@@ -480,7 +499,7 @@ public class EnemySlam : EnemyBaseState
             enemy.RotateToPlayer(0.2f);
         }
         //move to player
-        if (fixedTime > 0.6f && fixedTime <= 1.25f)
+        if (fixedTime > 0.6f && fixedTime <= 1.25f && enemy.outOfRange)
         {
             enemy.agent.SetDestination(enemy.playerTransform.position);
         }

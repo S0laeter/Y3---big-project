@@ -312,6 +312,8 @@ public class FallState : PlayerBaseState
             stateMachine.SetNextState(new AirNormal1State());
         else if (player.heavyAction.triggered)
             stateMachine.SetNextState(new PlungeState());
+        else if (player.skillAction.triggered)
+            stateMachine.SetNextState(new PlungeState());
 
 
     }
@@ -573,7 +575,9 @@ public class Normal1State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
                 stateMachine.SetNextState(new Normal2State());
@@ -581,8 +585,6 @@ public class Normal1State : PlayerBaseState
                 stateMachine.SetNextState(new SkillChargingState());
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -629,7 +631,9 @@ public class Normal2State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
                 stateMachine.SetNextState(new Normal3State());
@@ -637,8 +641,6 @@ public class Normal2State : PlayerBaseState
                 stateMachine.SetNextState(new SkillChargingState());
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -679,7 +681,9 @@ public class Normal3State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
                 stateMachine.SetNextState(new Normal4State());
@@ -687,8 +691,6 @@ public class Normal3State : PlayerBaseState
                 stateMachine.SetNextState(new SkillChargingState());
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -737,7 +739,9 @@ public class Normal4State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (normalTrigger)
                 stateMachine.SetNextState(new Normal5State());
@@ -745,8 +749,6 @@ public class Normal4State : PlayerBaseState
                 stateMachine.SetNextState(new SkillChargingState());
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -793,14 +795,14 @@ public class Normal5State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (skillTrigger)
                 stateMachine.SetNextState(new SkillChargingState());
             else if (heavyTrigger)
                 stateMachine.SetNextState(new HeavyChargingState());
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -849,7 +851,7 @@ public class HeavyChargingState : PlayerBaseState
 
         if (player.heavyAction.ReadValue<float>() == 1)
         {
-            //increase energy over time
+            playerMechanics.GainEnergy(10f);
         }
         else
         {
@@ -983,14 +985,14 @@ public class Skill1State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
+        if (fixedTime >= stateDuration + 0.2f)
+            stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
         {
             if (skillTrigger)
             {
                 stateMachine.SetNextState(new Skill2State());
             }
-            else
-                stateMachine.SetNextStateToMain();
         }
 
     }
@@ -1019,9 +1021,12 @@ public class Skill2State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
-        {
+        if (fixedTime >= stateDuration + 0.2f)
             stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
+        {
+
+
         }
 
     }
@@ -1204,11 +1209,51 @@ public class PlungeState : PlayerBaseState
 
         if (player.controller.isGrounded)
         {
-            //deal damage right before switching back to idle
+            //deal damage right when touching the ground
             playerMechanics.SpawnHitbox("plunge");
 
-            stateMachine.SetNextStateToMain();
+            stateMachine.SetNextState(new PlungeLandState());
         }
+
+    }
+
+}
+public class PlungeLandState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 0.5f;
+
+        player.anim.SetTrigger("idle");
+        Debug.Log("plunge landing");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //jump and dash cancel
+        if (player.jumpAction.triggered)
+            stateMachine.SetNextState(new JumpState());
+        else if (player.dashAction.triggered)
+        {
+            if (player.currentStamina > 0 && player.canDash)
+            {
+                player.ConsumeStamina(10f);
+                player.StartCoroutine(player.DashCooldown());
+                if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                {
+                    stateMachine.SetNextState(new GroundForwardDashState());
+                }
+                else
+                    stateMachine.SetNextState(new GroundBackwardDashState());
+            }
+        }
+
+        if (fixedTime >= stateDuration)
+            stateMachine.SetNextStateToMain();
 
     }
 
