@@ -191,9 +191,6 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.armorDamage = 14;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
-
-                    //spend heat
-                    GainHeat(-1);
                 }
                 else
                 {
@@ -226,9 +223,6 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.armorDamage = 22;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
-
-                    //spend heat
-                    GainHeat(-1);
                 }
                 else
                 {

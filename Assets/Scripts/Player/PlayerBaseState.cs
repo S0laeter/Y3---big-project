@@ -681,7 +681,7 @@ public class Normal3State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration + 0.2f)
+        if (fixedTime >= stateDuration + 0.3f)
             stateMachine.SetNextStateToMain();
         else if (fixedTime >= stateDuration)
         {
@@ -760,7 +760,7 @@ public class Normal5State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.20f;
+        stateDuration = 1.0f;
 
         player.anim.SetTrigger("atkBasic5");
         Debug.Log("normal atk 5");
@@ -890,9 +890,12 @@ public class HeavyChargedState : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration)
-        {
+        if (fixedTime >= stateDuration + 0.2f)
             stateMachine.SetNextStateToMain();
+        else if (fixedTime >= stateDuration)
+        {
+
+
         }
 
     }
@@ -970,6 +973,9 @@ public class Skill1State : PlayerBaseState
 
         stateDuration = 0.85f;
 
+        //spend heat
+        playerMechanics.GainHeat(-1);
+
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
     }
@@ -1005,6 +1011,9 @@ public class Skill2State : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 1.40f;
+
+        //spend heat
+        playerMechanics.GainHeat(-1);
 
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
