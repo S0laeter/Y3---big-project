@@ -49,8 +49,8 @@ public class EnemyBehavior : MonoBehaviour
         {
             Die();
         }
-        //if hp is less than half, go phase 2
-        else if (currentHp < maxHp/2)
+        //if hp is lower than a certain point, go phase 2
+        else if (currentHp < maxHp * 0.6f)
         {
             currentPhase = 2;
         }

@@ -48,17 +48,73 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.OnUpdate();
 
-        //enemy.RotateToPlayer(0.4f);
-
-        stateMachine.SetNextState(new EnemyDivePunch());
-
-        if (enemy.outOfRange)
+        switch (enemy.currentPhase)
         {
-            //melee atk
-        }
-        else if (enemy.inRange)
-        {
-            //ranged or rush atk
+            
+            case 1:
+                //when far away
+                if (enemy.outOfRange)
+                {
+                    float rand = Random.Range(0f, 100f);
+                    if (rand <= 50)
+                        stateMachine.SetNextState(new EnemyDashPunch());
+                    else if (rand <= 80)
+                        stateMachine.SetNextState(new EnemyDivePunch());
+                    else
+                        stateMachine.SetNextState(new EnemySlam());
+                }
+                //when close
+                else if (enemy.inRange)
+                {
+                    float rand = Random.Range(0f, 100f);
+                    if (rand <= 18)
+                        stateMachine.SetNextState(new EnemyCombo1());
+                    else if (rand <= 36)
+                        stateMachine.SetNextState(new EnemyCombo2());
+                    else if (rand <= 54)
+                        stateMachine.SetNextState(new EnemyComboOverhead());
+                    else if (rand <= 70)
+                        stateMachine.SetNextState(new EnemySpin());
+                    else
+                        stateMachine.SetNextState(new EnemyDash());
+                }
+                break;
+            
+            case 2:
+                //when far away
+                if (enemy.outOfRange)
+                {
+                    float rand = Random.Range(0f, 100f);
+                    if (rand <= 20)
+                        stateMachine.SetNextState(new EnemyDashPunch());
+                    else if (rand <= 40)
+                        stateMachine.SetNextState(new EnemyDivePunch());
+                    else if (rand <= 60)
+                        stateMachine.SetNextState(new EnemySlam());
+                    else
+                        stateMachine.SetNextState(new EnemyRapidFire());
+                }
+                //when close
+                else if (enemy.inRange)
+                {
+                    float rand = Random.Range(0f, 100f);
+                    if (rand <= 15)
+                        stateMachine.SetNextState(new EnemyCombo1());
+                    else if (rand <= 30)
+                        stateMachine.SetNextState(new EnemyCombo2());
+                    else if (rand <= 45)
+                        stateMachine.SetNextState(new EnemyComboOverhead());
+                    else if (rand <= 60)
+                        stateMachine.SetNextState(new EnemyComboBack());
+                    else if (rand <= 75)
+                        stateMachine.SetNextState(new EnemySpin());
+                    else
+                        stateMachine.SetNextState(new EnemyDash());
+                }
+                break;
+
+            default:
+                break;
         }
 
 
@@ -87,7 +143,7 @@ public class EnemyStaggeredState : EnemyBaseState
         {
             //regen all armor when wake up
             enemy.currentArmor = enemy.maxArmor;
-            stateMachine.SetNextStateToMain();
+            stateMachine.SetNextState(new EnemyComboBack());
         }
 
     }
@@ -100,7 +156,7 @@ public class EnemyDash : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.5f;
+        stateDuration = 0.7f;
 
         float rand = Random.Range(0f, 100f);
         if (rand <= 33f)
@@ -165,6 +221,17 @@ public class EnemyCombo1 : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 1.2f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 75 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyCombo1Followup());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -231,6 +298,17 @@ public class EnemyCombo2 : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 1.2f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 75 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyCombo2Followup());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -297,6 +375,17 @@ public class EnemyComboBack : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 0.8f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 50 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyCombo2Followup());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -328,6 +417,17 @@ public class EnemyComboOverhead : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 1.0f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 40 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyCombo2Followup());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -359,6 +459,13 @@ public class EnemyRapidFire : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 2.7f)
+        {
+            if (enemy.inRange)
+                stateMachine.SetNextState(new EnemyComboBack());
+            else
+                return;        
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -390,6 +497,17 @@ public class EnemySpin : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 1.4f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 40 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyComboOverhead());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -469,6 +587,17 @@ public class EnemyDivePunch : EnemyBaseState
         }
 
         //after state duration
+        if (fixedTime >= 1.0f)
+        {
+            if (enemy.currentPhase == 2)
+            {
+                float rand = Random.Range(0f, 100f);
+                if (rand <= 40 && enemy.inRange)
+                    stateMachine.SetNextState(new EnemyCombo2Followup());
+                else
+                    return;
+            }
+        }
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
