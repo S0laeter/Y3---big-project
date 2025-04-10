@@ -15,6 +15,8 @@ public class HitboxBehavior : MonoBehaviour
     //for boss attacks, 0 is light hit, 1 is heavy hit
     public int type;
 
+    public float destroyTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,7 @@ public class HitboxBehavior : MonoBehaviour
     private void OnEnable()
     {
         //have the value be a variable if u want different durations
-        StartCoroutine(DisableAfterTime(0.2f));
+        StartCoroutine(DisableAfterTime(destroyTime));
 
         GetComponent<SphereCollider>().radius = range;
     }
@@ -65,6 +67,9 @@ public class HitboxBehavior : MonoBehaviour
                 default:
                     break;
             }
+
+            this.gameObject.SetActive(false);
+
         }
     }
 

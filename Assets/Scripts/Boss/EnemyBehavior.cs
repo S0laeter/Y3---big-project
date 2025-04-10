@@ -38,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
         currentArmor = maxArmor;
         currentAtk = baseAtk;
 
-        currentPhase = 1;
+        currentPhase = 2;
     }
 
     // Update is called once per frame
@@ -99,6 +99,10 @@ public class EnemyBehavior : MonoBehaviour
     
     public void TakeDamage(float damage, float armorDamage)
     {
+        //if already dead, nvm
+        if (stateMachine.currentState.GetType() == typeof(EnemyDeathState))
+            return;
+
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
 
         //if not already staggered, reduce armor
@@ -113,21 +117,107 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void Die()
     {
-
+        stateMachine.SetNextState(new EnemyDeathState());
     }
 
 
     public void SpawnHitbox(string whichAttack, string type)
     {
-        //spawn it here first, parent it to this, then get the script
+        //spawn it here first, parent it to the spawn point just incase we need to move it, then get the script
         GameObject hitboxObject = ObjectPool.instance.SpawnObject("hitbox", spawnTransform.position, spawnTransform.rotation);
-        hitboxObject.transform.SetParent(this.transform);
+        hitboxObject.transform.SetParent(spawnTransform);
         HitboxBehavior hitbox = hitboxObject.GetComponent<HitboxBehavior>();
         hitbox.targetTag = "Player";
 
+        switch (whichAttack)
+        {
+            case "combo 1":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 1.5f;
+                hitbox.type = 0;
+                break;
+            case "combo 1.1":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "combo 1 follow up":
+                //dont parent it to the boss
+                hitboxObject.transform.SetParent(null);
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "combo 2":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 0;
+                break;
+            case "combo 2.1":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "combo 2 follow up":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 0;
+                break;
+            case "combo 2 follow up.1":
+                //dont parent it to the boss
+                hitboxObject.transform.SetParent(null);
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "combo back":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "combo overhead":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "spin":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "dash punch":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "dive punch":
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "slam":
+                //dont parent it to the boss
+                hitboxObject.transform.SetParent(null);
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 3f;
+                hitbox.type = 1;
+                break;
+            case "rapid fire":
+                //spawn bullets
+                GameObject bulletObject = ObjectPool.instance.SpawnObject("bullet", spawnTransform.position, spawnTransform.rotation);
+                //change speed with that float at the end
+                bulletObject.GetComponent<Rigidbody>().AddForce(transform.forward * 10f);
+                HitboxBehavior bulletHitbox = bulletObject.GetComponent<HitboxBehavior>();
+                bulletHitbox.targetTag = "Player";
+                hitbox.damage = currentAtk * 10;
+                hitbox.range = 1f;
+                hitbox.type = 0;
+                break;
+            default:
+                break;
 
+        }
 
     }
-
 
 }
