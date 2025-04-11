@@ -25,6 +25,8 @@ public class EnemyBehavior : MonoBehaviour
     public bool inRange;
     public bool outOfRange;
 
+    private float testTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour
         currentArmor = maxArmor;
         currentAtk = baseAtk;
 
-        currentPhase = 2;
+        currentPhase = 3;
     }
 
     // Update is called once per frame
@@ -78,7 +80,23 @@ public class EnemyBehavior : MonoBehaviour
         }
 
 
+
+
+        testTime += Time.deltaTime;
+        while (testTime >= 0.2f)
+        {
+            SpawnHitbox("fire bullet");
+            testTime -= 0.2f;
+        }
+
+
+
+
     }
+
+
+
+
 
 
 
@@ -95,6 +113,10 @@ public class EnemyBehavior : MonoBehaviour
     
     
     
+
+
+
+
     
     
     public void TakeDamage(float damage, float armorDamage)
@@ -121,7 +143,14 @@ public class EnemyBehavior : MonoBehaviour
     }
 
 
-    public void SpawnHitbox(string whichAttack, string type)
+
+
+
+
+
+
+
+    public void SpawnHitbox(string whichAttack)
     {
         //spawn it here first, parent it to the spawn point just incase we need to move it, then get the script
         GameObject hitboxObject = ObjectPool.instance.SpawnObject("hitbox", spawnTransform.position, spawnTransform.rotation);
@@ -202,16 +231,16 @@ public class EnemyBehavior : MonoBehaviour
                 hitbox.range = 3f;
                 hitbox.type = 1;
                 break;
-            case "rapid fire":
+            case "fire bullet":
                 //spawn bullets
                 GameObject bulletObject = ObjectPool.instance.SpawnObject("bullet", spawnTransform.position, spawnTransform.rotation);
                 //change speed with that float at the end
-                bulletObject.GetComponent<Rigidbody>().AddForce(transform.forward * 10f);
+                bulletObject.GetComponent<Rigidbody>().AddForce(-transform.forward * 1700f);
                 HitboxBehavior bulletHitbox = bulletObject.GetComponent<HitboxBehavior>();
                 bulletHitbox.targetTag = "Player";
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 1f;
-                hitbox.type = 0;
+                bulletHitbox.damage = currentAtk * 10;
+                bulletHitbox.range = 2f;
+                bulletHitbox.type = 0;
                 break;
             default:
                 break;

@@ -113,7 +113,9 @@ public class EnemyIdleState : EnemyBaseState
                 }
                 break;
 
+            //for testing
             default:
+                stateMachine.SetNextState(new EnemyRapidFire());
                 break;
         }
 
