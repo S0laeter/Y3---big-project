@@ -9,6 +9,9 @@ public class EnemyBaseState : State
     //duration doesnt need to be the same as animation length, make it slightly shorter to transition early to next attack
     protected float stateDuration;
 
+    //just for the rapid fire
+    protected float shootTime;
+
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
@@ -48,6 +51,14 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.OnUpdate();
 
+        //if still in phase 1 and not transitioned yet
+        if (enemy.currentPhase == 1 && enemy.currentHp < enemy.maxHp * 0.6f)
+        {
+            enemy.currentPhase = 2;
+            //stateMachine.SetNextState(new EnemyPhaseTransition());
+        }
+
+        //moveset
         switch (enemy.currentPhase)
         {
             
@@ -456,6 +467,17 @@ public class EnemyRapidFire : EnemyBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //shoot
+        if (fixedTime > 0.7f && fixedTime <= 2.5f)
+        {
+            shootTime += Time.deltaTime;
+            while (shootTime >= 0.1f)
+            {
+                enemy.SpawnHitbox("fire bullet");
+                shootTime -= 0.1f;
+            }
+        }
 
         //rotate
         if (fixedTime <= 3.0f)

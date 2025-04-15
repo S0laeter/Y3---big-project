@@ -25,8 +25,6 @@ public class EnemyBehavior : MonoBehaviour
     public bool inRange;
     public bool outOfRange;
 
-    private float testTime;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
         currentArmor = maxArmor;
         currentAtk = baseAtk;
 
-        currentPhase = 3;
+        currentPhase = 1;
     }
 
     // Update is called once per frame
@@ -80,14 +78,6 @@ public class EnemyBehavior : MonoBehaviour
         }
 
 
-
-
-        testTime += Time.deltaTime;
-        while (testTime >= 0.2f)
-        {
-            SpawnHitbox("fire bullet");
-            testTime -= 0.2f;
-        }
 
 
 

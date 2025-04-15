@@ -19,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour
 
     public bool canDash;
     public bool canAirDash;
+    public Coroutine dashCooldown;
 
     public Vector3 playerVelocity;
     public Vector3 moveDirection;
@@ -103,7 +104,7 @@ public class PlayerBehavior : MonoBehaviour
         if (controller.isGrounded)
         {
             canAirDash = true;
-            playerVelocity.y = -0.5f;
+            playerVelocity.y = -50f;
         }
         else
         {
@@ -157,6 +158,17 @@ public class PlayerBehavior : MonoBehaviour
 
     public void TakeDamage(float damage, int type)
     {
+        //if dashing, reset dash and take no dmg
+        if (stateMachine.currentState.GetType() == typeof(GroundForwardDashState)
+            || stateMachine.currentState.GetType() == typeof(GroundBackwardDashState)
+            || stateMachine.currentState.GetType() == typeof(AirForwardDashState)
+            || stateMachine.currentState.GetType() == typeof(AirBackwardDashState))
+        {
+            StopCoroutine(dashCooldown);
+            canDash = true;
+            return;
+        }
+
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdatePlayerHealthBar(this);
 

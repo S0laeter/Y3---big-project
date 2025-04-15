@@ -155,9 +155,10 @@ public class PlayerMechanics : MonoBehaviour
                     multiHitbox.damage = 8;
                     multiHitbox.armorDamage = 8;
                     multiHitbox.range = 3;
-                    
+                    multiHitbox.energyOnHit = 0;
+
                     //spend energy and gain heat, doesnt matter if hit
-                    multiHitbox.energyOnHit = -currentEnergy;
+                    GainEnergy(-currentEnergy);
                     GainHeat(1);
                 }
                 else
@@ -191,6 +192,9 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.armorDamage = 14;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
+
+                    //spend heat
+                    GainHeat(-1);
                 }
                 else
                 {
@@ -223,6 +227,9 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.armorDamage = 22;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
+
+                    //spend heat
+                    GainHeat(-1);
                 }
                 else
                 {

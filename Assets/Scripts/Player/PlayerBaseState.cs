@@ -77,6 +77,8 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("idle");
         Debug.Log("idle");
     }
@@ -84,6 +86,9 @@ public class PlayerIdleState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //input mid state
         if (skillTrigger)
@@ -99,8 +104,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -123,6 +126,7 @@ public class DeadState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
+        player.SetSpeed(0f);
 
         Debug.Log("player dead");
     }
@@ -131,7 +135,8 @@ public class DeadState : PlayerBaseState
     {
         base.OnUpdate();
 
-
+        //or rather stop moving, the speed is 0
+        player.Move();
 
     }
 
@@ -167,8 +172,6 @@ public class RunState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 stateMachine.SetNextState(new GroundForwardDashState());
             }
         }
@@ -214,8 +217,6 @@ public class SprintState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 stateMachine.SetNextState(new GroundForwardDashState());
             }
         }
@@ -293,12 +294,8 @@ public class FallState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.ConsumeStamina(10f);
-                player.canAirDash = false;
-
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    player.Rotate(0f);
                     stateMachine.SetNextState(new AirForwardDashState());
                 }
                 else
@@ -387,6 +384,9 @@ public class GroundForwardDashState : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        player.ConsumeStamina(10f);
+        player.dashCooldown = player.StartCoroutine(player.DashCooldown());
+
         player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashGroundForward");
@@ -426,6 +426,9 @@ public class GroundBackwardDashState : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        player.ConsumeStamina(10f);
+        player.dashCooldown = player.StartCoroutine(player.DashCooldown());
+
         player.anim.SetTrigger("dashGroundBackward");
         Debug.Log("ground forward dash");
     }
@@ -460,6 +463,9 @@ public class AirForwardDashState : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 0.40f;
+
+        player.ConsumeStamina(10f);
+        player.canAirDash = false;
 
         //flip up
         player.SetVerticalVelocity(20f);
@@ -501,10 +507,12 @@ public class AirBackwardDashState : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        player.ConsumeStamina(10f);
+        player.canAirDash = false;
+
         //flip up
         player.SetVerticalVelocity(20f);
         player.SetSpeed(-7f);
-        player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashAirBackward");
         Debug.Log("air forward dash");
@@ -542,6 +550,8 @@ public class Normal1State : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkBasic1");
         Debug.Log("normal atk 1");
     }
@@ -549,6 +559,9 @@ public class Normal1State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -563,8 +576,6 @@ public class Normal1State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -598,6 +609,8 @@ public class Normal2State : PlayerBaseState
 
         stateDuration = 0.35f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkBasic2");
         Debug.Log("normal atk 2");
     }
@@ -605,6 +618,9 @@ public class Normal2State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -619,8 +635,6 @@ public class Normal2State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -654,6 +668,8 @@ public class Normal3State : PlayerBaseState
 
         stateDuration = 0.40f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkBasic3");
         Debug.Log("normal atk 3");
     }
@@ -662,6 +678,15 @@ public class Normal3State : PlayerBaseState
     {
         base.OnUpdate();
 
+        //or rather stop moving, the speed is 0
+        player.Move();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.Rotate(0.1f);
+        }
+
         //jump and dash cancel
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
@@ -669,8 +694,6 @@ public class Normal3State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -704,7 +727,7 @@ public class Normal4State : PlayerBaseState
 
         stateDuration = 0.80f;
 
-        player.Rotate(0f);
+        player.SetSpeed(0f);
 
         player.anim.SetTrigger("atkBasic4");
         Debug.Log("normal atk 4");
@@ -713,6 +736,9 @@ public class Normal4State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -727,8 +753,6 @@ public class Normal4State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -762,6 +786,8 @@ public class Normal5State : PlayerBaseState
 
         stateDuration = 1.0f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkBasic5");
         Debug.Log("normal atk 5");
     }
@@ -769,6 +795,9 @@ public class Normal5State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -783,8 +812,6 @@ public class Normal5State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -817,6 +844,8 @@ public class HeavyChargingState : PlayerBaseState
 
         stateDuration = 0.20f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkHeavyCharging");
         Debug.Log("heavy charging");
     }
@@ -824,6 +853,9 @@ public class HeavyChargingState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -838,8 +870,6 @@ public class HeavyChargingState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -849,10 +879,12 @@ public class HeavyChargingState : PlayerBaseState
             }
         }
 
+        //holding
         if (player.heavyAction.ReadValue<float>() == 1)
         {
             playerMechanics.GainEnergy(10f);
         }
+        //release
         else
         {
             //after state duration
@@ -875,6 +907,8 @@ public class HeavyChargedState : PlayerBaseState
 
         stateDuration = 0.60f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkHeavyCharged");
         Debug.Log("heavy released");
     }
@@ -882,6 +916,9 @@ public class HeavyChargedState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -894,7 +931,9 @@ public class HeavyChargedState : PlayerBaseState
             stateMachine.SetNextStateToMain();
         else if (fixedTime >= stateDuration)
         {
-
+            //combo into basic 4
+            if (normalTrigger)
+                stateMachine.SetNextState(new Normal4State());
 
         }
 
@@ -910,6 +949,8 @@ public class SkillChargingState : PlayerBaseState
 
         stateDuration = 0.15f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("atkSkillCharging");
         Debug.Log("skill charging");
     }
@@ -917,6 +958,9 @@ public class SkillChargingState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -931,8 +975,6 @@ public class SkillChargingState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -942,24 +984,24 @@ public class SkillChargingState : PlayerBaseState
             }
         }
 
-        if (player.heavyAction.triggered)
+        //after state duration
+        if (fixedTime >= stateDuration)
         {
-            //after holding for a while
-            if (fixedTime >= 1.5f)
+            //holding, and has full heat
+            if (player.skillAction.ReadValue<float>() == 1 && playerMechanics.currentHeat >= playerMechanics.maxHeat)
             {
-                //ult here.......
+                //after holding for a while
+                if (fixedTime >= 1.5f)
+                {
+                    //ult here.......
+                }
             }
-        }
-        else
-        {
-            //after state duration
-            if (fixedTime >= stateDuration)
+            //release
+            else
             {
                 stateMachine.SetNextState(new Skill1State());
             }
-            
         }
-
 
 
     }
@@ -973,8 +1015,7 @@ public class Skill1State : PlayerBaseState
 
         stateDuration = 0.85f;
 
-        //spend heat
-        playerMechanics.GainHeat(-1);
+        player.SetSpeed(0f);
 
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
@@ -983,6 +1024,9 @@ public class Skill1State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -1012,8 +1056,7 @@ public class Skill2State : PlayerBaseState
 
         stateDuration = 1.40f;
 
-        //spend heat
-        playerMechanics.GainHeat(-1);
+        player.SetSpeed(0f);
 
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
@@ -1022,6 +1065,9 @@ public class Skill2State : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
 
         //rotate
         if (fixedTime <= 0.2f)
@@ -1050,6 +1096,7 @@ public class AirNormal1State : PlayerBaseState
 
         stateDuration = 0.50f;
 
+        player.SetSpeed(0f);
         player.SetVerticalVelocity(0f);
 
         player.anim.SetTrigger("atkAir1");
@@ -1071,12 +1118,8 @@ public class AirNormal1State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.ConsumeStamina(10f);
-                player.canAirDash = false;
-
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    player.Rotate(0f);
                     stateMachine.SetNextState(new AirForwardDashState());
                 }
                 else
@@ -1110,6 +1153,7 @@ public class AirNormal2State : PlayerBaseState
 
         stateDuration = 0.60f;
 
+        player.SetSpeed(0f);
         player.SetVerticalVelocity(0f);
 
         player.anim.SetTrigger("atkAir2");
@@ -1131,12 +1175,8 @@ public class AirNormal2State : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.ConsumeStamina(10f);
-                player.canAirDash = false;
-
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    player.Rotate(0f);
                     stateMachine.SetNextState(new AirForwardDashState());
                 }
                 else
@@ -1192,12 +1232,8 @@ public class PlungeState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canAirDash)
             {
-                player.ConsumeStamina(10f);
-                player.canAirDash = false;
-
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    player.Rotate(0f);
                     stateMachine.SetNextState(new AirForwardDashState());
                 }
                 else
@@ -1235,6 +1271,8 @@ public class PlungeLandState : PlayerBaseState
 
         stateDuration = 0.5f;
 
+        player.SetSpeed(0f);
+
         player.anim.SetTrigger("idle");
         Debug.Log("plunge landing");
     }
@@ -1243,6 +1281,9 @@ public class PlungeLandState : PlayerBaseState
     {
         base.OnUpdate();
 
+        //or rather stop moving, the speed is 0
+        player.Move();
+
         //jump and dash cancel
         if (player.jumpAction.triggered)
             stateMachine.SetNextState(new JumpState());
@@ -1250,8 +1291,6 @@ public class PlungeLandState : PlayerBaseState
         {
             if (player.currentStamina > 0 && player.canDash)
             {
-                player.ConsumeStamina(10f);
-                player.StartCoroutine(player.DashCooldown());
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
