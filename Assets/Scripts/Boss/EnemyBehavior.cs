@@ -37,8 +37,10 @@ public class EnemyBehavior : MonoBehaviour
         currentHp = maxHp;
         currentArmor = maxArmor;
         currentAtk = baseAtk;
+        Actions.UpdateBossHealthBar(this);
+        Actions.UpdateBossArmorBar(this);
 
-        currentPhase = 1;
+        currentPhase = 4;
     }
 
     // Update is called once per frame
@@ -47,19 +49,18 @@ public class EnemyBehavior : MonoBehaviour
         //hp check
         if (currentHp <= 0)
         {
-            Die();
-        }
-        //if hp is lower than a certain point, go phase 2
-        else if (currentHp < maxHp * 0.6f)
-        {
-            currentPhase = 2;
+            stateMachine.SetNextState(new EnemyDeathState());
         }
 
         //armor regen
         if (currentArmor <= maxArmor && stateMachine.currentState.GetType() != typeof(EnemyStaggeredState))
         {
             currentArmor += Mathf.Clamp(5f * Time.deltaTime, 0f, maxArmor);
+            Actions.UpdateBossArmorBar(this);
         }
+
+
+
 
 
         //calculate distance from player
@@ -94,9 +95,11 @@ public class EnemyBehavior : MonoBehaviour
     {
         //get direction of player, sometimes its the opposite btw..
         Vector3 relativePosition = transform.position - playerTransform.position;
+
         //this is so the character doesnt look up or down, only straight forward
         relativePosition.y = 0f;
-        //rotate to player, smoothly (bigger the faster, weird)
+
+        //rotate to player, smoothly (bigger the faster)
         Quaternion rotation = Quaternion.LookRotation(relativePosition, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turnSmoothTime);
     }
@@ -117,19 +120,21 @@ public class EnemyBehavior : MonoBehaviour
 
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
 
+        Actions.UpdateBossHealthBar(this);
+
         //if not already staggered, reduce armor
         if (stateMachine.currentState.GetType() != typeof(EnemyStaggeredState))
         {
             currentArmor -= Mathf.Clamp(armorDamage, 0f, maxArmor);
+
+            Actions.UpdateBossArmorBar(this);
+
             //if out of armor, stagger
             if (currentArmor <= 0f)
+                currentArmor = 0f;
                 stateMachine.SetNextState(new EnemyStaggeredState());
         }
         
-    }
-    public void Die()
-    {
-        stateMachine.SetNextState(new EnemyDeathState());
     }
 
 

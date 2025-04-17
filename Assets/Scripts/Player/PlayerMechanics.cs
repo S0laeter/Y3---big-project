@@ -38,6 +38,8 @@ public class PlayerMechanics : MonoBehaviour
 
         currentEnergy = 0;
         currentHeat = 0;
+        Actions.UpdatePlayerEnergyBar(this);
+        Actions.UpdatePlayerHeatBar(this);
 
     }
 
@@ -51,21 +53,51 @@ public class PlayerMechanics : MonoBehaviour
 
 
     //can call this from somewhere else
-    //gaining and spending use this same function, less stuff to keep track of
     public void GainEnergy(float energyToGain)
     {
         currentEnergy += Mathf.Clamp(energyToGain, 0f, maxEnergy);
+
+        if (currentEnergy <= 0)
+            currentEnergy = 0;
+        else if (currentEnergy > maxEnergy)
+            currentEnergy = maxEnergy;
+
+        Actions.UpdatePlayerEnergyBar(this);
+    }
+    public void LoseEnergy(float energyToLose)
+    {
+        currentEnergy -= Mathf.Clamp(energyToLose, 0f, maxEnergy);
+
+        if (currentEnergy <= 0)
+            currentEnergy = 0;
+        else if (currentEnergy > maxEnergy)
+            currentEnergy = maxEnergy;
+
+        Actions.UpdatePlayerEnergyBar(this);
     }
     public void GainHeat(int heatToGain)
     {
-        currentHeat += heatToGain;
+        currentHeat += Mathf.Clamp(heatToGain, 0, maxHeat);
 
-        //well, i couldnt find a clamp for int..
-        if (currentHeat > maxHeat)
-            currentHeat = maxHeat;
-        else if (currentEnergy < 0)
+        if (currentEnergy <= 0)
             currentEnergy = 0;
+        else if (currentHeat > maxHeat)
+            currentHeat = maxHeat;
+
+        Actions.UpdatePlayerHeatBar(this);
     }
+    public void LoseHeat(int heatToLose)
+    {
+        currentHeat -= Mathf.Clamp(heatToLose, 0, maxHeat);
+
+        if (currentEnergy <= 0)
+            currentEnergy = 0;
+        else if (currentHeat > maxHeat)
+            currentHeat = maxHeat;
+
+        Actions.UpdatePlayerHeatBar(this);
+    }
+
 
 
 
@@ -158,7 +190,7 @@ public class PlayerMechanics : MonoBehaviour
                     multiHitbox.energyOnHit = 0;
 
                     //spend energy and gain heat, doesnt matter if hit
-                    GainEnergy(-currentEnergy);
+                    LoseEnergy(-currentEnergy);
                     GainHeat(1);
                 }
                 else
@@ -194,7 +226,7 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.energyOnHit = 0;
 
                     //spend heat
-                    GainHeat(-1);
+                    LoseHeat(1);
                 }
                 else
                 {
@@ -229,7 +261,7 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.energyOnHit = 0;
 
                     //spend heat
-                    GainHeat(-1);
+                    LoseHeat(1);
                 }
                 else
                 {

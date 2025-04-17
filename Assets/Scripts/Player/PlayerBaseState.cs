@@ -102,7 +102,7 @@ public class PlayerIdleState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -120,14 +120,13 @@ public class PlayerIdleState : PlayerBaseState
 
 }
 
-public class DeadState : PlayerBaseState
+public class DeathState : PlayerBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        player.SetSpeed(0f);
-
+        player.anim.SetTrigger("dead");
         Debug.Log("player dead");
     }
 
@@ -135,8 +134,6 @@ public class DeadState : PlayerBaseState
     {
         base.OnUpdate();
 
-        //or rather stop moving, the speed is 0
-        player.Move();
 
     }
 
@@ -170,7 +167,7 @@ public class RunState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 stateMachine.SetNextState(new GroundForwardDashState());
             }
@@ -215,7 +212,7 @@ public class SprintState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 stateMachine.SetNextState(new GroundForwardDashState());
             }
@@ -292,7 +289,7 @@ public class FallState : PlayerBaseState
         //jump and dash cancel
         if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canAirDash)
+            if (player.currentStamina > 10 && player.canAirDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -324,6 +321,8 @@ public class KnockbackState : PlayerBaseState
         base.OnEnter(_stateMachine);
 
         stateDuration = 0.35f;
+
+        player.RotateToBoss(1f);
 
         player.SetSpeed(-9f);
         //get launched up
@@ -357,7 +356,7 @@ public class KnockbackRecoveryState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.7f;
+        stateDuration = 0.5f;
 
         player.anim.SetTrigger("knockbackRecovery");
         Debug.Log("knockback recovery");
@@ -566,7 +565,7 @@ public class Normal1State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -574,7 +573,7 @@ public class Normal1State : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -625,7 +624,7 @@ public class Normal2State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -633,7 +632,7 @@ public class Normal2State : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -684,7 +683,7 @@ public class Normal3State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -692,7 +691,7 @@ public class Normal3State : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -743,7 +742,7 @@ public class Normal4State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -751,7 +750,7 @@ public class Normal4State : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -802,7 +801,7 @@ public class Normal5State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -810,7 +809,7 @@ public class Normal5State : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -860,7 +859,7 @@ public class HeavyChargingState : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -868,7 +867,7 @@ public class HeavyChargingState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -882,7 +881,7 @@ public class HeavyChargingState : PlayerBaseState
         //holding
         if (player.heavyAction.ReadValue<float>() == 1)
         {
-            playerMechanics.GainEnergy(10f);
+            playerMechanics.GainEnergy(10f * Time.deltaTime);
         }
         //release
         else
@@ -923,7 +922,7 @@ public class HeavyChargedState : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //after state duration
@@ -965,7 +964,7 @@ public class SkillChargingState : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
@@ -973,7 +972,7 @@ public class SkillChargingState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -1031,7 +1030,7 @@ public class Skill1State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //after state duration
@@ -1072,7 +1071,7 @@ public class Skill2State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //after state duration
@@ -1110,13 +1109,13 @@ public class AirNormal1State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canAirDash)
+            if (player.currentStamina > 10 && player.canAirDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -1167,13 +1166,13 @@ public class AirNormal2State : PlayerBaseState
         //rotate
         if (fixedTime <= 0.2f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canAirDash)
+            if (player.currentStamina > 10 && player.canAirDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -1222,15 +1221,15 @@ public class PlungeState : PlayerBaseState
         base.OnUpdate();
 
         //rotate
-        if (fixedTime <= 0.2f)
+        if (fixedTime <= 0.4f)
         {
-            player.Rotate(0.1f);
+            player.RotateToBoss(0.5f);
         }
 
         //jump and dash cancel
         if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canAirDash)
+            if (player.currentStamina > 10 && player.canAirDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
@@ -1289,7 +1288,7 @@ public class PlungeLandState : PlayerBaseState
             stateMachine.SetNextState(new JumpState());
         else if (player.dashAction.triggered)
         {
-            if (player.currentStamina > 0 && player.canDash)
+            if (player.currentStamina > 10 && player.canDash)
             {
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {

@@ -54,8 +54,7 @@ public class EnemyIdleState : EnemyBaseState
         //if still in phase 1 and not transitioned yet
         if (enemy.currentPhase == 1 && enemy.currentHp < enemy.maxHp * 0.6f)
         {
-            enemy.currentPhase = 2;
-            //stateMachine.SetNextState(new EnemyPhaseTransition());
+            stateMachine.SetNextState(new EnemyPhaseTransition());
         }
 
         //moveset
@@ -126,7 +125,6 @@ public class EnemyIdleState : EnemyBaseState
 
             //for testing
             default:
-                stateMachine.SetNextState(new EnemyRapidFire());
                 break;
         }
 
@@ -162,13 +160,38 @@ public class EnemyStaggeredState : EnemyBaseState
     }
 
 }
+public class EnemyPhaseTransition : EnemyBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 5f;
+
+        enemy.currentPhase = 2;
+
+        enemy.anim.SetTrigger("phase transition");
+        Debug.Log("enemy going into phase 2");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        if (fixedTime >= stateDuration)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+
+    }
+}
 public class EnemyDeathState : EnemyBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        enemy.anim.SetTrigger("staggered");
+        enemy.anim.SetTrigger("dead");
         Debug.Log("enemy dead");
     }
 
@@ -176,10 +199,6 @@ public class EnemyDeathState : EnemyBaseState
     {
         base.OnUpdate();
 
-        if (fixedTime >= 1.0f)
-        {
-            enemy.gameObject.SetActive(false);
-        }
 
     }
 

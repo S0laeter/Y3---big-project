@@ -9,12 +9,22 @@ public class HUDManager : MonoBehaviour
     public Image hpFill;
     public Gradient hpGradient;
     public Slider staminaSlider;
+    public Slider energySlider;
+    public Slider heatSlider;
+
+    public Slider bossHpSlider;
+    public Slider bossArmorSlider;
 
     private void OnEnable()
     {
         //subscribing to actions
         Actions.UpdatePlayerHealthBar += UpdateHealthBar;
         Actions.UpdatePlayerStaminaBar += UpdateStaminaBar;
+        Actions.UpdatePlayerEnergyBar += UpdateEnergyBar;
+        Actions.UpdatePlayerHeatBar += UpdateHeatBar;
+
+        Actions.UpdateBossHealthBar += UpdateBossHealthBar;
+        Actions.UpdateBossArmorBar += UpdateBossArmorBar;
     }
 
     private void OnDisable()
@@ -22,6 +32,11 @@ public class HUDManager : MonoBehaviour
         //unsubscribing to actions
         Actions.UpdatePlayerHealthBar -= UpdateHealthBar;
         Actions.UpdatePlayerStaminaBar -= UpdateStaminaBar;
+        Actions.UpdatePlayerEnergyBar -= UpdateEnergyBar;
+        Actions.UpdatePlayerHeatBar -= UpdateHeatBar;
+
+        Actions.UpdateBossHealthBar -= UpdateBossHealthBar;
+        Actions.UpdateBossArmorBar -= UpdateBossArmorBar;
     }
 
     // Start is called before the first frame update
@@ -46,6 +61,27 @@ public class HUDManager : MonoBehaviour
     {
         staminaSlider.maxValue = player.maxStamina;
         staminaSlider.value = player.currentStamina;
+    }
+    public void UpdateEnergyBar(PlayerMechanics player)
+    {
+        energySlider.maxValue = player.maxEnergy;
+        energySlider.value = player.currentEnergy;
+    }
+    public void UpdateHeatBar(PlayerMechanics player)
+    {
+        heatSlider.maxValue = player.maxHeat;
+        heatSlider.value = player.currentHeat;
+    }
+
+    public void UpdateBossHealthBar(EnemyBehavior boss)
+    {
+        bossHpSlider.maxValue = boss.maxHp;
+        bossHpSlider.value = boss.currentHp;
+    }
+    public void UpdateBossArmorBar(EnemyBehavior boss)
+    {
+        bossArmorSlider.maxValue = boss.maxArmor;
+        bossArmorSlider.value = boss.currentArmor;
     }
 
 }

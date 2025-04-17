@@ -3,12 +3,32 @@ guid: 97acf9358fd738d4c8a1e3cfdc24fe1c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CPD.001
+    second: {fileID: 2100000, guid: a076b6ecfa073094595c7e52999930ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CPP.001
+    second: {fileID: 2100000, guid: db154b2bead272c479481771af74c823, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CPP_Glasses.001
+    second: {fileID: 2100000, guid: 06f66cfdbc292634d9d87da30d7be9e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeTransparent.001
+    second: {fileID: 2100000, guid: fa4204fda40c66440a1516fb82848858, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

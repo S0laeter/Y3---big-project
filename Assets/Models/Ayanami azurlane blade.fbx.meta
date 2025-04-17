@@ -3,12 +3,132 @@ guid: 0dc6eb80d888af441baf8f32c9500912
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (Back)
+    second: {fileID: 2100000, guid: 685fd13b6e9a53544b6584df366f80ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front)1/2
+    second: {fileID: 2100000, guid: d65ade3fbe059d8408d68ff91b4f1d69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front)1_2
+    second: {fileID: 2100000, guid: d65ade3fbe059d8408d68ff91b4f1d69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front)2/2
+    second: {fileID: 2100000, guid: 4d140d3e1b1e2ca498f20da4248c0f24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front)2_2
+    second: {fileID: 2100000, guid: 4d140d3e1b1e2ca498f20da4248c0f24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front/inside)
+    second: {fileID: 2100000, guid: f687bc6e215de1e4898588807a301729, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade (front_inside)
+    second: {fileID: 2100000, guid: f687bc6e215de1e4898588807a301729, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade armor
+    second: {fileID: 2100000, guid: 88b32e1d607207f41b126d2a4391de5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gear (Ext)1
+    second: {fileID: 2100000, guid: 0f1032bfb413d0348a9202a0873609fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gear (Ext)2
+    second: {fileID: 2100000, guid: 057e5edf117679d42adf85735541f862, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gear (Support)
+    second: {fileID: 2100000, guid: e509dc2cb85b6c84c82b87977ba303b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Guard
+    second: {fileID: 2100000, guid: 80bda748b8facfc49b11a75a47634e5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: handed(bottom)
+    second: {fileID: 2100000, guid: 3bed25397ced1e6459afe4f536975cd0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: handed(mid)
+    second: {fileID: 2100000, guid: 028952bb40ed51b4a8bbbc46267746f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: handed(top)
+    second: {fileID: 2100000, guid: 3c5d94b93f53e9f4fbf4fbb9a8537087, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt
+    second: {fileID: 2100000, guid: 3c13d7cc6d8d580408c4d772715ab3d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (acc)
+    second: {fileID: 2100000, guid: 03d73ef24e84ec6409a05b86797fc1c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power)bottom
+    second: {fileID: 2100000, guid: 4ef628af3e3c52d43a114afe46c8032f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power)top
+    second: {fileID: 2100000, guid: 04988c115e1ba6b4ca4eee7718919e2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power2)1/2
+    second: {fileID: 2100000, guid: 6ada7877e1797ee4f8898d2fd674d859, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power2)1_2
+    second: {fileID: 2100000, guid: 6ada7877e1797ee4f8898d2fd674d859, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power2)2/2
+    second: {fileID: 2100000, guid: a477282027d054e4fb15693b54c1233f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt (power2)2_2
+    second: {fileID: 2100000, guid: a477282027d054e4fb15693b54c1233f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hilt2
+    second: {fileID: 2100000, guid: 09e19aec72025074e99a0d554ef43d30, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
