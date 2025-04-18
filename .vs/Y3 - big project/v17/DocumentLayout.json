@@ -3,19 +3,7 @@
   "WorkspaceRootPath": "E:\\Unity stuffs\\Y3 - big project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\boss\\enemybehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boss\\enemybehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\boss\\enemybasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boss\\enemybasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -23,8 +11,16 @@
       "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|e:\\unity stuffs\\y3 - big project\\assets\\scripts\\ui\\hudmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\hudmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerbasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\boss\\enemybehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boss\\enemybehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|E:\\Unity stuffs\\Y3 - big project\\assets\\scripts\\boss\\enemybasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A01F79A-4E80-5118-7089-7DA74CDD1A98}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boss\\enemybasestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,24 +30,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HUDManager.cs",
-              "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\HUDManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\HUDManager.cs",
-              "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\UI\\HUDManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\HUDManager.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAowE0AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T03:53:35.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "EnemyBaseState.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Boss\\EnemyBaseState.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Boss\\EnemyBaseState.cs",
@@ -59,18 +42,17 @@
               "RelativeToolTip": "Assets\\Scripts\\Boss\\EnemyBaseState.cs",
               "ViewState": "AQIAAIAAAAAAAAAAAAAAALYAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T08:44:46.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T08:44:46.581Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "EnemyBehavior.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Boss\\EnemyBehavior.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Boss\\EnemyBehavior.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Boss\\EnemyBehavior.cs",
               "RelativeToolTip": "Assets\\Scripts\\Boss\\EnemyBehavior.cs",
-              "ViewState": "AQIAAGgAAAAAAAAAAAAAAIQAAAAjAAAA",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAQwDkAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T08:37:36.376Z",
               "EditorCaption": ""
@@ -83,33 +65,33 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBaseState.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBaseState.cs",
-              "ViewState": "AQIAAGoAAAAAAAAAAAAAAEUDAAAgAAAA",
+              "ViewState": "AQIAAHoAAAAAAAAAAAA4wEUDAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T08:37:33.136Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "PlayerMechanics.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerMechanics.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMechanics.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAAcBAAAgAAAA",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAAALkAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T08:37:38.37Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "PlayerBehavior.cs",
               "DocumentMoniker": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "ToolTip": "E:\\Unity stuffs\\Y3 - big project\\Assets\\Scripts\\Player\\PlayerBehavior.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerBehavior.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAAAEoAAAASAAAA",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAQwGEAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T08:37:40.287Z",
               "EditorCaption": ""

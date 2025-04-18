@@ -55,7 +55,7 @@ public class EnemyBehavior : MonoBehaviour
         //armor regen
         if (currentArmor <= maxArmor && stateMachine.currentState.GetType() != typeof(EnemyStaggeredState))
         {
-            currentArmor += Mathf.Clamp(5f * Time.deltaTime, 0f, maxArmor);
+            currentArmor += Mathf.Clamp(3f * Time.deltaTime, 0f, maxArmor);
             Actions.UpdateBossArmorBar(this);
         }
 
@@ -131,8 +131,14 @@ public class EnemyBehavior : MonoBehaviour
 
             //if out of armor, stagger
             if (currentArmor <= 0f)
+            {
                 currentArmor = 0f;
                 stateMachine.SetNextState(new EnemyStaggeredState());
+            }
+            else if (currentArmor > maxArmor)
+            {
+                currentArmor = maxArmor;
+            }
         }
         
     }

@@ -881,7 +881,7 @@ public class HeavyChargingState : PlayerBaseState
         //holding
         if (player.heavyAction.ReadValue<float>() == 1)
         {
-            playerMechanics.GainEnergy(10f * Time.deltaTime);
+            playerMechanics.GainEnergy(15f * Time.deltaTime);
         }
         //release
         else
@@ -930,9 +930,34 @@ public class HeavyChargedState : PlayerBaseState
             stateMachine.SetNextStateToMain();
         else if (fixedTime >= stateDuration)
         {
-            //combo into basic 4
-            if (normalTrigger)
+            if (player.jumpAction.triggered)
+                stateMachine.SetNextState(new JumpState());
+            else if (player.dashAction.triggered)
+            {
+                if (player.currentStamina > 10 && player.canDash)
+                {
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
+                }
+            }
+            //follow up skill 1
+            if (skillTrigger)
+            {
+                stateMachine.SetNextState(new Skill1State());
+            }
+            //follow up basic atk
+            else if (normalTrigger)
+            {
                 stateMachine.SetNextState(new Normal4State());
+            }
+            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                stateMachine.SetNextState(new RunState());
+            }
 
         }
 
@@ -1014,6 +1039,17 @@ public class Skill1State : PlayerBaseState
 
         stateDuration = 0.85f;
 
+        //if got heat, enhance skill and spend heat
+        if (playerMechanics.currentHeat > 0)
+        {
+            playerMechanics.enhancedSkill = true;
+            playerMechanics.LoseHeat(1);
+        }
+        else
+        {
+            playerMechanics.enhancedSkill= false;
+        }
+
         player.SetSpeed(0f);
 
         player.anim.SetTrigger("atkSkill1");
@@ -1034,14 +1070,43 @@ public class Skill1State : PlayerBaseState
         }
 
         //after state duration
-        if (fixedTime >= stateDuration + 0.2f)
-            stateMachine.SetNextStateToMain();
+        if (fixedTime >= stateDuration + 0.1f)
+        {
+            if (player.jumpAction.triggered)
+                stateMachine.SetNextState(new JumpState());
+            else if (player.dashAction.triggered)
+            {
+                if (player.currentStamina > 10 && player.canDash)
+                {
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
+                }
+            }
+            //follow up basic atk
+            else if (normalTrigger)
+            {
+                stateMachine.SetNextState(new Normal1State());
+            }
+            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                stateMachine.SetNextState(new RunState());
+            }
+            else
+                stateMachine.SetNextStateToMain();
+        }
+            
         else if (fixedTime >= stateDuration)
         {
+            //follow up skill 2
             if (skillTrigger)
             {
                 stateMachine.SetNextState(new Skill2State());
             }
+
         }
 
     }
@@ -1053,7 +1118,18 @@ public class Skill2State : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.40f;
+        stateDuration = 1.30f;
+
+        //if got heat, enhance skill and spend heat
+        if (playerMechanics.currentHeat > 0)
+        {
+            playerMechanics.enhancedSkill = true;
+            playerMechanics.LoseHeat(1);
+        }
+        else
+        {
+            playerMechanics.enhancedSkill = false;
+        }
 
         player.SetSpeed(0f);
 
@@ -1079,6 +1155,30 @@ public class Skill2State : PlayerBaseState
             stateMachine.SetNextStateToMain();
         else if (fixedTime >= stateDuration)
         {
+
+            if (player.jumpAction.triggered)
+                stateMachine.SetNextState(new JumpState());
+            else if (player.dashAction.triggered)
+            {
+                if (player.currentStamina > 10 && player.canDash)
+                {
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
+                }
+            }
+            //follow up basic atk
+            if (normalTrigger)
+            {
+                stateMachine.SetNextState(new Normal3State());
+            }
+            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+            {
+                stateMachine.SetNextState(new RunState());
+            }
 
 
         }

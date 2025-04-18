@@ -16,6 +16,8 @@ public class PlayerMechanics : MonoBehaviour
     public int currentHeat;
     public int maxHeat;
 
+    public bool enhancedSkill;
+
     private void OnEnable()
     {
         //subscribing to actions
@@ -41,6 +43,7 @@ public class PlayerMechanics : MonoBehaviour
         Actions.UpdatePlayerEnergyBar(this);
         Actions.UpdatePlayerHeatBar(this);
 
+        enhancedSkill = false;
     }
 
     // Update is called once per frame
@@ -190,7 +193,7 @@ public class PlayerMechanics : MonoBehaviour
                     multiHitbox.energyOnHit = 0;
 
                     //spend energy and gain heat, doesnt matter if hit
-                    LoseEnergy(-currentEnergy);
+                    LoseEnergy(currentEnergy);
                     GainHeat(1);
                 }
                 else
@@ -202,7 +205,7 @@ public class PlayerMechanics : MonoBehaviour
                 }
                 break;
             case "skill 1":
-                if (currentHeat > 0)
+                if (enhancedSkill)
                 {
                     hitbox.damage = currentAtk * 18;
                     hitbox.armorDamage = 16;
@@ -218,15 +221,12 @@ public class PlayerMechanics : MonoBehaviour
                 }
                 break;
             case "skill 1.1":
-                if (currentHeat > 0)
+                if (enhancedSkill)
                 {
                     hitbox.damage = currentAtk * 16;
                     hitbox.armorDamage = 14;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
-
-                    //spend heat
-                    LoseHeat(1);
                 }
                 else
                 {
@@ -237,7 +237,7 @@ public class PlayerMechanics : MonoBehaviour
                 }
                 break;
             case "skill 2":
-                if (currentHeat > 0)
+                if (enhancedSkill)
                 {
                     hitbox.damage = currentAtk * 16;
                     hitbox.armorDamage = 14;
@@ -253,15 +253,12 @@ public class PlayerMechanics : MonoBehaviour
                 }
                 break;
             case "skill 2.1":
-                if (currentHeat > 0)
+                if (enhancedSkill)
                 {
                     hitbox.damage = currentAtk * 20;
                     hitbox.armorDamage = 22;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
-
-                    //spend heat
-                    LoseHeat(1);
                 }
                 else
                 {

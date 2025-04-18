@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    private PlayerMechanics playerMechanics;
     private StateMachine stateMachine;
+    
     public Transform cam;
     public CharacterController controller;
     public Animator anim;
@@ -42,7 +44,9 @@ public class PlayerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerMechanics = GetComponent<PlayerMechanics>();
         stateMachine = GetComponent<StateMachine>();
+        
         cam = GameObject.FindWithTag("MainCamera").transform;
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
@@ -81,7 +85,7 @@ public class PlayerBehavior : MonoBehaviour
         //regen stamina
         if (currentStamina <= maxStamina)
         {
-            currentStamina += Mathf.Clamp(2f * Time.deltaTime, 0f, maxStamina);
+            currentStamina += Mathf.Clamp(5f * Time.deltaTime, 0f, maxStamina);
             Actions.UpdatePlayerStaminaBar(this);
         }
         
@@ -91,7 +95,8 @@ public class PlayerBehavior : MonoBehaviour
         //manual test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            stateMachine.SetNextState(new KnockbackState());
+            playerMechanics.GainEnergy(100000);
+            //stateMachine.SetNextState(new KnockbackState());
         }
 
 
@@ -193,8 +198,15 @@ public class PlayerBehavior : MonoBehaviour
             return;
         }
 
+        //deduct hp, update the hp bar
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdatePlayerHealthBar(this);
+
+        //cant be knocked back during these atks
+        if (stateMachine.currentState.GetType() == typeof(Skill1State)
+            || stateMachine.currentState.GetType() == typeof(Skill2State)
+            || stateMachine.currentState.GetType() == typeof(HeavyChargedState))
+            return;
 
         //if take heavy hit, get knocked back
         if (type == 1)

@@ -31,6 +31,9 @@ public class MultiHitbox : MonoBehaviour
 
     IEnumerator SpawnHitbox()
     {
+        //stupid thing got delayed for some reason
+        yield return new WaitForEndOfFrame();
+
         for (int i = 0; i < spawnAmount; i++)
         {
             //spawn and adjust properties
@@ -43,7 +46,9 @@ public class MultiHitbox : MonoBehaviour
             hitbox.energyOnHit = energyOnHit;
 
             yield return new WaitForSeconds(spawnInterval);
+
         }
+
     }
 
 }
