@@ -52,9 +52,10 @@ public class EnemyIdleState : EnemyBaseState
         base.OnUpdate();
 
         //if still in phase 1 and not transitioned yet
-        if (enemy.currentPhase == 1 && enemy.currentHp < enemy.maxHp * 0.6f)
+        if (enemy.currentPhase == 1 && enemy.currentHp <= enemy.maxHp * 0.5f)
         {
             stateMachine.SetNextState(new EnemyPhaseTransition());
+            return;
         }
 
         //moveset
@@ -166,7 +167,7 @@ public class EnemyPhaseTransition : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 5f;
+        stateDuration = 3.2f;
 
         enemy.currentPhase = 2;
 
@@ -276,7 +277,7 @@ public class EnemyCombo1 : EnemyBaseState
         }
 
         //after state duration
-        if (fixedTime >= 1.4f)
+        if (fixedTime >= 1.5f)
         {
             if (enemy.currentPhase == 2)
             {

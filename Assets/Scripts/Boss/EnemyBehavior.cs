@@ -40,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossHealthBar(this);
         Actions.UpdateBossArmorBar(this);
 
-        currentPhase = 4;
+        currentPhase = 1;
     }
 
     // Update is called once per frame
@@ -162,74 +162,74 @@ public class EnemyBehavior : MonoBehaviour
         switch (whichAttack)
         {
             case "combo 1":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 1.5f;
+                hitbox.damage = currentAtk * 8;
+                hitbox.range = 2;
                 hitbox.type = 0;
                 break;
             case "combo 1.1":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 12;
+                hitbox.range = 3;
                 hitbox.type = 1;
                 break;
             case "combo 1 follow up":
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
-                hitbox.damage = currentAtk * 10;
+                hitbox.damage = currentAtk * 12;
                 hitbox.range = 3f;
                 hitbox.type = 1;
                 break;
             case "combo 2":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 8;
+                hitbox.range = 2;
                 hitbox.type = 0;
                 break;
             case "combo 2.1":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.range = 3;
                 hitbox.type = 1;
                 break;
             case "combo 2 follow up":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.range = 3;
                 hitbox.type = 0;
                 break;
             case "combo 2 follow up.1":
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 12;
+                hitbox.range = 3;
                 hitbox.type = 1;
                 break;
             case "combo back":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 8;
+                hitbox.range = 2;
                 hitbox.type = 1;
                 break;
             case "combo overhead":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 12;
+                hitbox.range = 3;
                 hitbox.type = 1;
                 break;
             case "spin":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.range = 3;
                 hitbox.type = 1;
                 break;
             case "dash punch":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.range = 2;
                 hitbox.type = 1;
                 break;
             case "dive punch":
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 12;
+                hitbox.range = 2;
                 hitbox.type = 1;
                 break;
             case "slam":
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
-                hitbox.damage = currentAtk * 10;
-                hitbox.range = 3f;
+                hitbox.damage = currentAtk * 15;
+                hitbox.range = 5;
                 hitbox.type = 1;
                 break;
             case "fire bullet":
@@ -239,9 +239,14 @@ public class EnemyBehavior : MonoBehaviour
                 bulletObject.GetComponent<Rigidbody>().AddForce(-transform.forward * 1700f);
                 HitboxBehavior bulletHitbox = bulletObject.GetComponent<HitboxBehavior>();
                 bulletHitbox.targetTag = "Player";
-                bulletHitbox.damage = currentAtk * 10;
+                bulletHitbox.damage = currentAtk * 2;
                 bulletHitbox.range = 2f;
                 bulletHitbox.type = 0;
+                break;
+            case "phase transition":
+                hitbox.damage = currentAtk * 8;
+                hitbox.range = 3;
+                hitbox.type = 1;
                 break;
             default:
                 break;
