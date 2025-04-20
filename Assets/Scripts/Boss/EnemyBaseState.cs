@@ -67,12 +67,10 @@ public class EnemyIdleState : EnemyBaseState
                 if (enemy.outOfRange)
                 {
                     float rand = Random.Range(0f, 100f);
-                    if (rand <= 50)
+                    if (rand <= 20)
                         stateMachine.SetNextState(new EnemyDashPunch());
-                    else if (rand <= 80)
-                        stateMachine.SetNextState(new EnemyDivePunch());
                     else
-                        stateMachine.SetNextState(new EnemySlam());
+                        stateMachine.SetNextState(new EnemyDivePunch());
                 }
                 //when close
                 else if (enemy.inRange)
@@ -96,11 +94,11 @@ public class EnemyIdleState : EnemyBaseState
                 if (enemy.outOfRange)
                 {
                     float rand = Random.Range(0f, 100f);
-                    if (rand <= 20)
+                    if (rand <= 10)
                         stateMachine.SetNextState(new EnemyDashPunch());
-                    else if (rand <= 40)
+                    else if (rand <= 30)
                         stateMachine.SetNextState(new EnemyDivePunch());
-                    else if (rand <= 60)
+                    else if (rand <= 50)
                         stateMachine.SetNextState(new EnemySlam());
                     else
                         stateMachine.SetNextState(new EnemyRapidFire());
