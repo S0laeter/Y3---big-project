@@ -40,7 +40,8 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossHealthBar(this);
         Actions.UpdateBossArmorBar(this);
 
-        currentPhase = 1;
+        //set this to 1
+        currentPhase = 5;
     }
 
     // Update is called once per frame

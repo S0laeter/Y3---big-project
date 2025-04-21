@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\SciFi Warehouse Kit\Demo\Scripts\MouseComponent.cs" />
     <Compile Include="Assets\Scripts\Actions.cs" />
+    <Compile Include="Assets\Scripts\WeaponTrail.cs" />
     <Compile Include="Assets\Scripts\UI\HUDManager.cs" />
     <Compile Include="Assets\SciFi Warehouse Kit\Demo\Scripts\PushPhysics.cs" />
     <Compile Include="Assets\Scripts\UI\SceneTransition.cs" />

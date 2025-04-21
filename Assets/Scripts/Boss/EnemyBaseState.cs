@@ -165,7 +165,7 @@ public class EnemyPhaseTransition : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 3.2f;
+        stateDuration = 3.5f;
 
         enemy.currentPhase = 2;
 
@@ -209,7 +209,7 @@ public class EnemyDash : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.8f;
+        stateDuration = 1.1f;
 
         float rand = Random.Range(0f, 100f);
         if (rand <= 33f)
@@ -253,7 +253,7 @@ public class EnemyCombo1 : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.2f;
+        stateDuration = 2.5f;
 
         enemy.anim.SetTrigger("combo 1");
 
@@ -296,7 +296,7 @@ public class EnemyCombo1Followup : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.9f;
+        stateDuration = 2.2f;
 
         enemy.anim.SetTrigger("combo 1 followup");
 
@@ -327,7 +327,7 @@ public class EnemyCombo2 : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.0f;
+        stateDuration = 2.3f;
 
         enemy.anim.SetTrigger("combo 2");
 
@@ -370,7 +370,7 @@ public class EnemyCombo2Followup : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.6f;
+        stateDuration = 2.9f;
 
         enemy.anim.SetTrigger("combo 2 followup");
 
@@ -405,7 +405,7 @@ public class EnemyComboBack : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.5f;
+        stateDuration = 1.8f;
 
         enemy.anim.SetTrigger("combo back");
 
@@ -444,7 +444,7 @@ public class EnemyComboOverhead : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 1.7f;
+        stateDuration = 2.0f;
 
         enemy.anim.SetTrigger("combo overhead");
 
@@ -475,7 +475,7 @@ public class EnemyRapidFire : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 3.3f;
+        stateDuration = 3.6f;
 
         enemy.anim.SetTrigger("rapid fire");
 
@@ -517,7 +517,7 @@ public class EnemySpin : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.2f;
+        stateDuration = 2.5f;
 
         enemy.anim.SetTrigger("spin");
 
@@ -562,7 +562,7 @@ public class EnemyDashPunch : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.2f;
+        stateDuration = 2.5f;
 
         enemy.anim.SetTrigger("dash punch");
 
@@ -599,7 +599,7 @@ public class EnemyDivePunch : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.2f;
+        stateDuration = 2.5f;
 
         enemy.anim.SetTrigger("dive punch");
 
@@ -649,7 +649,7 @@ public class EnemySlam : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 2.6f;
+        stateDuration = 2.9f;
 
         enemy.anim.SetTrigger("slam");
 

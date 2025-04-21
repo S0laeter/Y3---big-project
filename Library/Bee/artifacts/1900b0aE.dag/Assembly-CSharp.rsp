@@ -411,6 +411,7 @@
 "Assets/Scripts/UI/HUDManager.cs"
 "Assets/Scripts/UI/SceneTransition.cs"
 "Assets/Scripts/UI/UIManager.cs"
+"Assets/Scripts/WeaponTrail.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 
