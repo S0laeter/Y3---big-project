@@ -177,6 +177,12 @@ public class EnemyPhaseTransition : EnemyBaseState
     {
         base.OnUpdate();
 
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            enemy.RotateToPlayer(0.4f);
+        }
+
         if (fixedTime >= stateDuration)
         {
             stateMachine.SetNextStateToMain();
@@ -233,11 +239,10 @@ public class EnemyDash : EnemyBaseState
         base.OnUpdate();
 
         //rotate
-        enemy.RotateToPlayer(0.4f);
-        /*if (fixedTime <= 0.2f)
+        if (fixedTime <= 0.1f)
         {
             enemy.RotateToPlayer(0.4f);
-        }*/
+        }
 
         //after state duration
         if (fixedTime >= stateDuration)

@@ -119,8 +119,8 @@ public class EnemyBehavior : MonoBehaviour
         if (stateMachine.currentState.GetType() == typeof(EnemyDeathState))
             return;
 
+        //deduct hp, update hp bar
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
-
         Actions.UpdateBossHealthBar(this);
 
         //if not already staggered, reduce armor
@@ -142,6 +142,27 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
         
+    }
+
+
+
+    //hit effects
+    public IEnumerator HitEffect(Vector3 position)
+    {
+        //get direction of player, sometimes its the opposite btw..
+        Vector3 relativePosition = transform.position - playerTransform.position;
+        relativePosition.y = 0f;
+        Quaternion rotation = Quaternion.LookRotation(relativePosition, Vector3.up);
+
+        //spawn in a direction
+        GameObject sparkObj = ObjectPool.instance.SpawnObject("sparkEffect", position, rotation);
+        //parent it to the player
+        sparkObj.transform.SetParent(this.transform);
+
+        yield return new WaitForSeconds(0.5f);
+
+        //remember to turn the blood off lmao
+        sparkObj.SetActive(false);
     }
 
 

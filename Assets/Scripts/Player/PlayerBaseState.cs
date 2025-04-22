@@ -79,6 +79,7 @@ public class PlayerIdleState : PlayerBaseState
 
         player.SetSpeed(0f);
 
+        player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("idle");
         Debug.Log("idle");
     }
@@ -242,7 +243,7 @@ public class JumpState : PlayerBaseState
             player.SetSpeed(0f);
 
         //jump force
-        player.SetVerticalVelocity(20f);
+        player.SetVerticalVelocity(15f);
 
         player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveJump");
@@ -467,8 +468,8 @@ public class AirForwardDashState : PlayerBaseState
         player.canAirDash = false;
 
         //flip up
-        player.SetVerticalVelocity(20f);
-        player.SetSpeed(7f);
+        player.SetVerticalVelocity(10f);
+        player.SetSpeed(5f);
         player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashAirForward");
@@ -510,8 +511,8 @@ public class AirBackwardDashState : PlayerBaseState
         player.canAirDash = false;
 
         //flip up
-        player.SetVerticalVelocity(20f);
-        player.SetSpeed(-7f);
+        player.SetVerticalVelocity(10f);
+        player.SetSpeed(-5f);
 
         player.anim.SetTrigger("dashAirBackward");
         Debug.Log("air forward dash");
@@ -1309,7 +1310,7 @@ public class PlungeState : PlayerBaseState
         
         //float up a bit
         player.SetVerticalVelocity(3f);
-        player.SetSpeed(5f);
+        player.SetSpeed(7f);
 
         player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("atkAirPlunge");
@@ -1346,7 +1347,7 @@ public class PlungeState : PlayerBaseState
         if (fixedTime > 0.5f)
         {
             player.SetVerticalVelocity(-40f);
-            player.SetSpeed(8f);
+            player.SetSpeed(12f);
         }
 
         player.Move();
@@ -1372,6 +1373,7 @@ public class PlungeLandState : PlayerBaseState
 
         player.SetSpeed(0f);
 
+        player.anim.ResetTrigger("moveFall");
         player.anim.SetTrigger("idle");
         Debug.Log("plunge landing");
     }

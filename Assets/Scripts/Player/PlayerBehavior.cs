@@ -202,6 +202,10 @@ public class PlayerBehavior : MonoBehaviour
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdatePlayerHealthBar(this);
 
+        //spawn hit effect and hit sound
+        StartCoroutine(BloodEffect());
+        //SOUND WHERE
+
         //cant be knocked back during these atks
         if (stateMachine.currentState.GetType() == typeof(Skill1State)
             || stateMachine.currentState.GetType() == typeof(Skill2State)
@@ -231,6 +235,24 @@ public class PlayerBehavior : MonoBehaviour
         canDash = false;
         yield return new WaitForSeconds(1f);
         canDash = true;
+    }
+
+
+
+
+    //blood effects
+    private IEnumerator BloodEffect()
+    {
+        //spawn blood in a random direction
+        Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+        GameObject bloodObj = ObjectPool.instance.SpawnObject("bloodEffect", spawnPosition, Random.rotation);
+        //parent it to the player
+        bloodObj.transform.SetParent(this.transform);
+
+        yield return new WaitForSeconds(0.5f);
+
+        //remember to turn the blood off lmao
+        bloodObj.SetActive(false);
     }
 
 

@@ -58,6 +58,8 @@ public class HitboxBehavior : MonoBehaviour
                 case "Enemy":
                     otherCollider.GetComponent<EnemyBehavior>().TakeDamage(damage, armorDamage);
                     Actions.GainEnergyOnHit(energyOnHit);
+                    //spawn hit effects
+                    otherCollider.GetComponent<EnemyBehavior>().StartCoroutine(otherCollider.GetComponent<EnemyBehavior>().HitEffect(otherCollider.ClosestPoint(transform.position)));
                     Debug.Log("enemy got hit");
                     break;
                 case "Player":
