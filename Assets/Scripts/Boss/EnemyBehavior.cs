@@ -41,7 +41,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossArmorBar(this);
 
         //set this to 1
-        currentPhase = 5;
+        currentPhase = 50000000;
     }
 
     // Update is called once per frame
@@ -147,7 +147,7 @@ public class EnemyBehavior : MonoBehaviour
 
 
     //hit effects
-    public IEnumerator HitEffect(Vector3 position)
+    public void HitEffect(Vector3 position)
     {
         //get direction of player, sometimes its the opposite btw..
         Vector3 relativePosition = transform.position - playerTransform.position;
@@ -156,13 +156,17 @@ public class EnemyBehavior : MonoBehaviour
 
         //spawn in a direction
         GameObject sparkObj = ObjectPool.instance.SpawnObject("sparkEffect", position, rotation);
+
+        //make sure it plays
+        sparkObj.GetComponent<ParticleSystem>().Play(true);
+
         //parent it to the player
         sparkObj.transform.SetParent(this.transform);
 
-        yield return new WaitForSeconds(0.5f);
+        /*yield return new WaitForSeconds(0.5f);
 
         //remember to turn the blood off lmao
-        sparkObj.SetActive(false);
+        sparkObj.SetActive(false);*/
     }
 
 

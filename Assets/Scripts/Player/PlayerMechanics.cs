@@ -6,7 +6,9 @@ public class PlayerMechanics : MonoBehaviour
 {
     private PlayerBehavior player;
     private StateMachine stateMachine;
+
     public Transform spawnTransform;
+    public Transform fxSpawnTransform;
 
     public float baseAtk;
     public float currentAtk;

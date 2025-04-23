@@ -203,7 +203,7 @@ public class PlayerBehavior : MonoBehaviour
         Actions.UpdatePlayerHealthBar(this);
 
         //spawn hit effect and hit sound
-        StartCoroutine(BloodEffect());
+        BloodEffect();
         //SOUND WHERE
 
         //cant be knocked back during these atks
@@ -241,18 +241,22 @@ public class PlayerBehavior : MonoBehaviour
 
 
     //blood effects
-    private IEnumerator BloodEffect()
+    private void BloodEffect()
     {
         //spawn blood in a random direction
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         GameObject bloodObj = ObjectPool.instance.SpawnObject("bloodEffect", spawnPosition, Random.rotation);
+
         //parent it to the player
         bloodObj.transform.SetParent(this.transform);
 
-        yield return new WaitForSeconds(0.5f);
+        //make sure it plays
+        bloodObj.transform.GetChild(2).GetComponent<ParticleSystem>().Play(true);
+
+        /*yield return new WaitForSeconds(0.5f);
 
         //remember to turn the blood off lmao
-        bloodObj.SetActive(false);
+        bloodObj.SetActive(false);*/
     }
 
 

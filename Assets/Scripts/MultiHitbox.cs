@@ -45,6 +45,11 @@ public class MultiHitbox : MonoBehaviour
             hitbox.range = range;
             hitbox.energyOnHit = energyOnHit;
 
+            //spawn explosion effects
+            GameObject explosionObj = ObjectPool.instance.SpawnObject("smallExplosion", transform.position, Random.rotation);
+            //make sure it plays
+            explosionObj.GetComponent<ParticleSystem>().Play(true);
+
             yield return new WaitForSeconds(spawnInterval);
 
         }
