@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
     private StateMachine stateMachine;
     public Animator anim;
+
     public Transform spawnTransform;
+    public Transform fxSpawnTransform;
 
     public NavMeshAgent agent;
     public Transform playerTransform;
@@ -41,7 +44,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossArmorBar(this);
 
         //set this to 1
-        currentPhase = 50000000;
+        currentPhase = 542823473;
     }
 
     // Update is called once per frame
@@ -163,10 +166,39 @@ public class EnemyBehavior : MonoBehaviour
         //parent it to the player
         sparkObj.transform.SetParent(this.transform);
 
-        /*yield return new WaitForSeconds(0.5f);
+    }
+    //muzzle effects
+    public void MuzzleEffect()
+    {
+        //spawn in a direction
+        GameObject muzzleFlashObj = ObjectPool.instance.SpawnObject("muzzleEffect", spawnTransform.position, spawnTransform.rotation);
+        muzzleFlashObj.transform.Rotate(0, 0, 90);
 
-        //remember to turn the blood off lmao
-        sparkObj.SetActive(false);*/
+        //make sure it plays
+        muzzleFlashObj.GetComponent<ParticleSystem>().Play(true);
+
+        //parent it to the player
+        muzzleFlashObj.transform.SetParent(this.transform);
+
+    }
+    public void ExplosionEffect()
+    {
+        //spawn in a direction
+        GameObject explosionObj = ObjectPool.instance.SpawnObject("bigExplosionEffect", spawnTransform.position, spawnTransform.rotation);
+
+        //make sure it plays
+        explosionObj.GetComponent<ParticleSystem>().Play(true);
+
+    }
+    public void GroundSlamEffect(float size)
+    {
+        //spawn in a direction
+        GameObject slamEffect = ObjectPool.instance.SpawnObject("bigExplosionEffect", spawnTransform.position, spawnTransform.rotation);
+        slamEffect.transform.localScale = new Vector3(size, size, size);
+
+        //make sure it plays
+        slamEffect.GetComponent<ParticleSystem>().Play(true);
+
     }
 
 
@@ -189,89 +221,94 @@ public class EnemyBehavior : MonoBehaviour
         {
             case "combo 1":
                 hitbox.damage = currentAtk * 8;
-                hitbox.range = 2;
+                hitbox.range = 4;
                 hitbox.type = 0;
                 break;
             case "combo 1.1":
                 hitbox.damage = currentAtk * 12;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "combo 1 follow up":
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
                 hitbox.damage = currentAtk * 12;
-                hitbox.range = 3f;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "combo 2":
                 hitbox.damage = currentAtk * 8;
-                hitbox.range = 2;
+                hitbox.range = 4;
                 hitbox.type = 0;
                 break;
             case "combo 2.1":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "combo 2 follow up":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3;
+                hitbox.range = 4;
                 hitbox.type = 0;
                 break;
             case "combo 2 follow up.1":
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
                 hitbox.damage = currentAtk * 12;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "combo back":
                 hitbox.damage = currentAtk * 8;
-                hitbox.range = 2;
+                hitbox.range = 4;
                 hitbox.type = 1;
                 break;
             case "combo overhead":
                 hitbox.damage = currentAtk * 12;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "spin":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             case "dash punch":
                 hitbox.damage = currentAtk * 10;
-                hitbox.range = 2;
+                hitbox.range = 4;
                 hitbox.type = 1;
                 break;
             case "dive punch":
                 hitbox.damage = currentAtk * 12;
-                hitbox.range = 2;
+                hitbox.range = 8;
                 hitbox.type = 1;
                 break;
             case "slam":
-                //dont parent it to the boss
-                hitboxObject.transform.SetParent(null);
+                //explosion effect
+                ExplosionEffect();
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 15;
-                hitbox.range = 5;
+                hitbox.range = 10;
                 hitbox.type = 1;
                 break;
             case "fire bullet":
                 //spawn bullets
-                GameObject bulletObject = ObjectPool.instance.SpawnObject("bullet", spawnTransform.position, spawnTransform.rotation);
-                //change speed with that float at the end
-                bulletObject.GetComponent<Rigidbody>().AddForce(-transform.forward * 1700f);
-                HitboxBehavior bulletHitbox = bulletObject.GetComponent<HitboxBehavior>();
+                GameObject bulletObj = ObjectPool.instance.SpawnObject("bullet", spawnTransform.position, spawnTransform.rotation);
+                //slightly spread out the direction, then add force
+                bulletObj.transform.Rotate(Random.Range(-7, 7), Random.Range(-7, 7), Random.Range(-7, 7));
+                bulletObj.GetComponent<Rigidbody>().AddForce(bulletObj.transform.up * 2000f);
+                //muzzle flash effect
+                MuzzleEffect();
+                //hitbox stuffs
+                HitboxBehavior bulletHitbox = bulletObj.GetComponent<HitboxBehavior>();
                 bulletHitbox.targetTag = "Player";
                 bulletHitbox.damage = currentAtk * 2;
-                bulletHitbox.range = 2f;
+                bulletHitbox.range = 4;
                 bulletHitbox.type = 0;
                 break;
             case "phase transition":
                 hitbox.damage = currentAtk * 8;
-                hitbox.range = 3;
+                hitbox.range = 6;
                 hitbox.type = 1;
                 break;
             default:

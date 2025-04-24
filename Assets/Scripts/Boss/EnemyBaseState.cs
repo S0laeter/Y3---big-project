@@ -124,6 +124,7 @@ public class EnemyIdleState : EnemyBaseState
 
             //for testing
             default:
+                stateMachine.SetNextState(new EnemyDivePunch());
                 break;
         }
 
@@ -622,7 +623,7 @@ public class EnemyDivePunch : EnemyBaseState
         }
 
         //move to player
-        if (fixedTime > 0.7f && fixedTime <= 1.0f && enemy.outOfRange)
+        if (fixedTime > 0.6f && fixedTime <= 1.2f && enemy.outOfRange)
         {
             enemy.agent.SetDestination(enemy.playerTransform.position);
         }
