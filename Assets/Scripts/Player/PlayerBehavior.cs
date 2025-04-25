@@ -12,6 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     public Transform cam;
     public CharacterController controller;
     public Animator anim;
+    public Animator animSword;
 
     public float maxHp;
     public float currentHp;
@@ -229,7 +230,6 @@ public class PlayerBehavior : MonoBehaviour
     }
 
 
-
     public IEnumerator DashCooldown()
     {
         canDash = false;
@@ -240,6 +240,29 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
+
+    //sword anim
+    //ended up not using this.. still keeping it here tho just in case
+    public void SwitchSwordModeTo(string mode)
+    {
+        switch (mode)
+        {
+            case "normal":
+                animSword.SetTrigger("normal");
+                break;
+            case "normalInstant":
+                animSword.SetTrigger("normalInstant");
+                break;
+            case "transformed":
+                animSword.SetTrigger("transformed");
+                break;
+            case "transformedInstant":
+                animSword.SetTrigger("transformedInstant");
+                break;
+            default:
+                break;
+        }
+    }
     //blood effects
     private void BloodEffect()
     {

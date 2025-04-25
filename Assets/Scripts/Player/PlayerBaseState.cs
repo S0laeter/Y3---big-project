@@ -968,10 +968,11 @@ public class SkillChargingState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = /*0.15f*/ 5f;
+        stateDuration = 0.15f;
 
         player.SetSpeed(0f);
 
+        player.animSword.SetTrigger("transformed");
         player.anim.SetTrigger("atkSkillCharging");
         Debug.Log("skill charging");
     }
@@ -1049,6 +1050,7 @@ public class Skill1State : PlayerBaseState
 
         player.SetSpeed(0f);
 
+        player.animSword.SetTrigger("instantTransformed");
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
     }
@@ -1070,11 +1072,16 @@ public class Skill1State : PlayerBaseState
         if (fixedTime >= stateDuration + 0.1f)
         {
             if (player.jumpAction.triggered)
+            {
+                player.animSword.SetTrigger("instantNormal");
                 stateMachine.SetNextState(new JumpState());
+            }
             else if (player.dashAction.triggered)
             {
                 if (player.currentStamina > 10 && player.canDash)
                 {
+                    player.animSword.SetTrigger("instantNormal");
+
                     if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                     {
                         stateMachine.SetNextState(new GroundForwardDashState());
@@ -1086,14 +1093,15 @@ public class Skill1State : PlayerBaseState
             //follow up basic atk
             else if (normalTrigger)
             {
+                player.animSword.SetTrigger("instantNormal");
                 stateMachine.SetNextState(new Normal1State());
             }
-            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-            {
-                stateMachine.SetNextState(new RunState());
-            }
             else
+            {
+                player.animSword.SetTrigger("normal");
                 stateMachine.SetNextStateToMain();
+            }
+
         }
             
         else if (fixedTime >= stateDuration)
@@ -1130,6 +1138,7 @@ public class Skill2State : PlayerBaseState
 
         player.SetSpeed(0f);
 
+        player.animSword.SetTrigger("instantTransformed");
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
     }
@@ -1149,16 +1158,24 @@ public class Skill2State : PlayerBaseState
 
         //after state duration
         if (fixedTime >= stateDuration + 0.2f)
+        {
+            player.animSword.SetTrigger("normal");
             stateMachine.SetNextStateToMain();
+        }
         else if (fixedTime >= stateDuration)
         {
 
             if (player.jumpAction.triggered)
+            {
+                player.animSword.SetTrigger("instantNormal");
                 stateMachine.SetNextState(new JumpState());
+            }
             else if (player.dashAction.triggered)
             {
                 if (player.currentStamina > 10 && player.canDash)
                 {
+                    player.animSword.SetTrigger("instantNormal");
+
                     if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                     {
                         stateMachine.SetNextState(new GroundForwardDashState());
@@ -1170,11 +1187,9 @@ public class Skill2State : PlayerBaseState
             //follow up basic atk
             if (normalTrigger)
             {
+                player.animSword.SetTrigger("instantNormal");
+
                 stateMachine.SetNextState(new Normal3State());
-            }
-            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-            {
-                stateMachine.SetNextState(new RunState());
             }
 
 
