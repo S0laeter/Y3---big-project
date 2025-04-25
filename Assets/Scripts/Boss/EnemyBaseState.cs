@@ -124,7 +124,7 @@ public class EnemyIdleState : EnemyBaseState
 
             //for testing
             default:
-                stateMachine.SetNextState(new EnemyDivePunch());
+                //stateMachine.SetNextState(new EnemyDivePunch());
                 break;
         }
 

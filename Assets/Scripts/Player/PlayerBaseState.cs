@@ -469,7 +469,7 @@ public class AirForwardDashState : PlayerBaseState
 
         //flip up
         player.SetVerticalVelocity(10f);
-        player.SetSpeed(5f);
+        player.SetSpeed(7f);
         player.Rotate(0.001f);
 
         player.anim.SetTrigger("dashAirForward");
@@ -512,7 +512,7 @@ public class AirBackwardDashState : PlayerBaseState
 
         //flip up
         player.SetVerticalVelocity(10f);
-        player.SetSpeed(-5f);
+        player.SetSpeed(-7f);
 
         player.anim.SetTrigger("dashAirBackward");
         Debug.Log("air forward dash");
@@ -948,16 +948,12 @@ public class HeavyChargedState : PlayerBaseState
             //follow up skill 1
             if (skillTrigger)
             {
-                stateMachine.SetNextState(new Skill1State());
+                stateMachine.SetNextState(new SkillChargingState());
             }
             //follow up basic atk
             else if (normalTrigger)
             {
                 stateMachine.SetNextState(new Normal4State());
-            }
-            else if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
-            {
-                stateMachine.SetNextState(new RunState());
             }
 
         }
@@ -972,7 +968,7 @@ public class SkillChargingState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
-        stateDuration = 0.15f;
+        stateDuration = /*0.15f*/ 5f;
 
         player.SetSpeed(0f);
 
@@ -1402,7 +1398,21 @@ public class PlungeLandState : PlayerBaseState
         }
 
         if (fixedTime >= stateDuration)
-            stateMachine.SetNextStateToMain();
+        {
+            //follow up skill 1
+            if (skillTrigger)
+            {
+                stateMachine.SetNextState(new SkillChargingState());
+            }
+            //follow up basic atk
+            else if (normalTrigger)
+            {
+                stateMachine.SetNextState(new Normal4State());
+            }
+            else
+                stateMachine.SetNextStateToMain();
+        }
+            
 
     }
 

@@ -200,6 +200,12 @@ public class PlayerMechanics : MonoBehaviour
                 }
                 else
                 {
+                    //explosion effect
+                    GameObject explosionObj = ObjectPool.instance.SpawnObject("smallExplosionEffect", transform.position, Random.rotation);
+                    //make sure it plays
+                    explosionObj.GetComponent<ParticleSystem>().Play(true);
+
+                    //hitbox stuffs
                     hitbox.damage = currentAtk * 10;
                     hitbox.armorDamage = 15;
                     hitbox.range = 3;
