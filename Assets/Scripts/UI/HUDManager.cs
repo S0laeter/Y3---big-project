@@ -10,7 +10,9 @@ public class HUDManager : MonoBehaviour
     public Gradient hpGradient;
     public Slider staminaSlider;
     public Slider energySlider;
-    public Slider heatSlider;
+    public Image heat1;
+    public Image heat2;
+    public Image heat3;
 
     public Slider bossHpSlider;
     public Slider bossArmorSlider;
@@ -69,8 +71,31 @@ public class HUDManager : MonoBehaviour
     }
     public void UpdateHeatBar(PlayerMechanics player)
     {
-        heatSlider.maxValue = player.maxHeat;
-        heatSlider.value = player.currentHeat;
+        switch (player.currentHeat)
+        {
+            case 0:
+                heat1.enabled = false;
+                heat2.enabled = false;
+                heat3.enabled = false;
+                break;
+            case 1:
+                heat1.enabled = true;
+                heat2.enabled = false;
+                heat3.enabled = false;
+                break;
+            case 2:
+                heat1.enabled = true;
+                heat2.enabled = true;
+                heat3.enabled = false;
+                break;
+            case 3:
+                heat1.enabled = true;
+                heat2.enabled = true;
+                heat3.enabled = true;
+                break;
+            default:
+                break;
+        }
     }
 
     public void UpdateBossHealthBar(EnemyBehavior boss)
