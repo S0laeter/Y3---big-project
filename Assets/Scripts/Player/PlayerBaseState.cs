@@ -1050,7 +1050,7 @@ public class Skill1State : PlayerBaseState
 
         player.SetSpeed(0f);
 
-        player.animSword.SetTrigger("instantTransformed");
+        player.animSword.SetTrigger("transformedInstant");
         player.anim.SetTrigger("atkSkill1");
         Debug.Log("skill 1");
     }
@@ -1138,7 +1138,7 @@ public class Skill2State : PlayerBaseState
 
         player.SetSpeed(0f);
 
-        player.animSword.SetTrigger("instantTransformed");
+        player.animSword.SetTrigger("transformedInstant");
         player.anim.SetTrigger("atkSkill2");
         Debug.Log("skill 2");
     }

@@ -126,6 +126,13 @@ public class PlayerMechanics : MonoBehaviour
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 2":
+                //blunt effect
+                GameObject bluntObj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                bluntObj.transform.SetParent(this.transform);
+                //make sure it plays
+                bluntObj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 8;
                 hitbox.armorDamage = 7;
                 hitbox.range = 1.5f;
@@ -138,12 +145,26 @@ public class PlayerMechanics : MonoBehaviour
                 hitbox.energyOnHit = 7;
                 break;
             case "basic 4":
+                //blunt effect
+                GameObject blunt1Obj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                blunt1Obj.transform.SetParent(this.transform);
+                //make sure it plays
+                blunt1Obj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 8;
                 hitbox.armorDamage = 10;
                 hitbox.range = 1.5f;
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 4.1":
+                //blunt effect
+                GameObject blunt2Obj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                blunt2Obj.transform.SetParent(this.transform);
+                //make sure it plays
+                blunt2Obj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 8;
                 hitbox.armorDamage = 8;
                 hitbox.range = 1.5f;
@@ -156,12 +177,26 @@ public class PlayerMechanics : MonoBehaviour
                 hitbox.energyOnHit = 5;
                 break;
             case "basic 5.1":
+                //blunt effect
+                GameObject blunt3Obj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                blunt3Obj.transform.SetParent(this.transform);
+                //make sure it plays
+                blunt3Obj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 10;
                 hitbox.armorDamage = 18;
                 hitbox.range = 2;
                 hitbox.energyOnHit = 10;
                 break;
             case "air 1":
+                //blunt effect
+                GameObject blunt4Obj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                blunt4Obj.transform.SetParent(this.transform);
+                //make sure it plays
+                blunt4Obj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 13;
                 hitbox.armorDamage = 10;
                 hitbox.range = 1.5f;
@@ -201,7 +236,7 @@ public class PlayerMechanics : MonoBehaviour
                 else
                 {
                     //explosion effect
-                    GameObject explosionObj = ObjectPool.instance.SpawnObject("smallExplosionEffect", transform.position, Random.rotation);
+                    GameObject explosionObj = ObjectPool.instance.SpawnObject("smallExplosionEffect", spawnTransform.position, spawnTransform.rotation);
                     //make sure it plays
                     explosionObj.GetComponent<ParticleSystem>().Play(true);
 
