@@ -44,7 +44,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossArmorBar(this);
 
         //set this to 1
-        currentPhase = 542823473;
+        currentPhase = 1;
     }
 
     // Update is called once per frame
@@ -190,14 +190,25 @@ public class EnemyBehavior : MonoBehaviour
         explosionObj.GetComponent<ParticleSystem>().Play(true);
 
     }
-    public void GroundSlamEffect(float size)
+    public void SlamEffect(float size)
     {
         //spawn in a direction
-        GameObject slamEffect = ObjectPool.instance.SpawnObject("bigExplosionEffect", spawnTransform.position, spawnTransform.rotation);
+        GameObject slamEffect = ObjectPool.instance.SpawnObject("slamEffect", spawnTransform.position, spawnTransform.rotation);
+        slamEffect.transform.SetParent(this.transform);
         slamEffect.transform.localScale = new Vector3(size, size, size);
 
         //make sure it plays
         slamEffect.GetComponent<ParticleSystem>().Play(true);
+
+    }
+    public void GunshotEffect()
+    {
+        //spawn in a direction
+        GameObject shotEffect = ObjectPool.instance.SpawnObject("gunshotEffect", fxSpawnTransform.position, fxSpawnTransform.rotation);
+        shotEffect.transform.Rotate(180, 0, 0);
+
+        //make sure it plays
+        shotEffect.GetComponent<ParticleSystem>().Play(true);
 
     }
 
@@ -220,6 +231,8 @@ public class EnemyBehavior : MonoBehaviour
         switch (whichAttack)
         {
             case "combo 1":
+                //effect
+                SlamEffect(1);
                 hitbox.damage = currentAtk * 8;
                 hitbox.range = 4;
                 hitbox.type = 0;
@@ -230,6 +243,8 @@ public class EnemyBehavior : MonoBehaviour
                 hitbox.type = 1;
                 break;
             case "combo 1 follow up":
+                //effect
+                GunshotEffect();
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
                 hitbox.damage = currentAtk * 12;
@@ -252,6 +267,8 @@ public class EnemyBehavior : MonoBehaviour
                 hitbox.type = 0;
                 break;
             case "combo 2 follow up.1":
+                //effect
+                GunshotEffect();
                 //dont parent it to the boss
                 hitboxObject.transform.SetParent(null);
                 hitbox.damage = currentAtk * 12;
@@ -259,11 +276,15 @@ public class EnemyBehavior : MonoBehaviour
                 hitbox.type = 1;
                 break;
             case "combo back":
+                //effect
+                SlamEffect(1);
                 hitbox.damage = currentAtk * 8;
                 hitbox.range = 4;
                 hitbox.type = 1;
                 break;
             case "combo overhead":
+                //effect
+                SlamEffect(1.2f);
                 hitbox.damage = currentAtk * 12;
                 hitbox.range = 6;
                 hitbox.type = 1;
@@ -279,6 +300,8 @@ public class EnemyBehavior : MonoBehaviour
                 hitbox.type = 1;
                 break;
             case "dive punch":
+                //effect
+                SlamEffect(1.5f);
                 hitbox.damage = currentAtk * 12;
                 hitbox.range = 8;
                 hitbox.type = 1;
