@@ -209,6 +209,13 @@ public class PlayerMechanics : MonoBehaviour
                 hitbox.energyOnHit = 7;
                 break;
             case "plunge":
+                //blunt effect
+                GameObject blunt5Obj = ObjectPool.instance.SpawnObject("playerBluntEffect", fxSpawnTransform.position, Random.rotation);
+                blunt5Obj.transform.SetParent(this.transform);
+                //make sure it plays
+                blunt5Obj.GetComponent<ParticleSystem>().Play(true);
+
+                //hitbox stuffs
                 hitbox.damage = currentAtk * 20;
                 hitbox.armorDamage = 20;
                 hitbox.range = 3;
