@@ -78,7 +78,7 @@ public class PlayerBehavior : MonoBehaviour
     void Update()
     {
         //hp check
-        if (currentHp <= 0)
+        if (currentHp <= 0 && stateMachine.currentState.GetType() != typeof(DeathState))
         {
             stateMachine.SetNextState(new DeathState());
         }
@@ -96,7 +96,6 @@ public class PlayerBehavior : MonoBehaviour
         //manual test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            playerMechanics.GainEnergy(100000);
             //stateMachine.SetNextState(new KnockbackState());
         }
 
@@ -264,7 +263,7 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
     //blood effects
-    private void BloodEffect()
+    public void BloodEffect()
     {
         //spawn blood in a random direction
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);

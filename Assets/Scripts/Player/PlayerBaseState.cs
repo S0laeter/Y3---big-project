@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBaseState : State
@@ -127,6 +128,11 @@ public class DeathState : PlayerBaseState
     {
         base.OnEnter(_stateMachine);
 
+        stateDuration = 2f;
+
+        for (int i = 0; i < 10; i++)
+            player.BloodEffect();
+
         player.anim.SetTrigger("dead");
         Debug.Log("player dead");
     }
@@ -134,6 +140,9 @@ public class DeathState : PlayerBaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        //disappear
+        player.gameObject.transform.localScale = new Vector3(0, 0, 0);
 
 
     }

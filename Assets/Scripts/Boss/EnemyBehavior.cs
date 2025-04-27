@@ -51,7 +51,7 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
         //hp check
-        if (currentHp <= 0)
+        if (currentHp <= 0 && stateMachine.currentState.GetType() != typeof(EnemyDeathState))
         {
             stateMachine.SetNextState(new EnemyDeathState());
         }

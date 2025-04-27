@@ -4922,7 +4922,7 @@ Transform:
   m_GameObject: {fileID: 3153472991145048103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6588710289760853209}
@@ -4930,7 +4930,7 @@ Transform:
   - {fileID: 52952201501549786}
   - {fileID: 2433124058619885405}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1379504315796101638
 ParticleSystem:

@@ -197,6 +197,8 @@ public class EnemyDeathState : EnemyBaseState
     {
         base.OnEnter(_stateMachine);
 
+        stateDuration = 1f;
+
         enemy.anim.SetTrigger("dead");
         Debug.Log("enemy dead");
     }
@@ -205,6 +207,13 @@ public class EnemyDeathState : EnemyBaseState
     {
         base.OnUpdate();
 
+        if (fixedTime <= stateDuration)
+        {
+            enemy.ExplosionEffect();
+
+            //disappear
+            enemy.gameObject.transform.localScale = new Vector3(0, 0, 0);
+        }
 
     }
 
