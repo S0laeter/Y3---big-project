@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
+    public AudioClip playerHit;
+
     public AudioClip basic1;
     public AudioClip basic2;
     public AudioClip basic3;
@@ -19,17 +21,15 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip skillCharging;
     public AudioClip skillCharging_1;
     public AudioClip skill1;
-    public AudioClip skill1_1;
     public AudioClip skill2;
     public AudioClip skill2_1;
 
     public AudioClip air1;
     public AudioClip air2;
-    public AudioClip plunge;
     public AudioClip plungeLand;
 
     public AudioClip dash;
-
+    public AudioClip jump;
 
 
     // Start is called before the first frame update
@@ -48,6 +48,9 @@ public class PlayerAudio : MonoBehaviour
     {
         switch (audioName)
         {
+            case "playerHit":
+                SoundManager.instance.PlaySoundClip(playerHit, this.transform, 1f);
+                break;
             case "basic1":
                 SoundManager.instance.PlaySoundClip(basic1, this.transform, 1f);
                 break;
@@ -68,6 +71,45 @@ public class PlayerAudio : MonoBehaviour
                 break;
             case "basic5_1":
                 SoundManager.instance.PlaySoundClip(basic5_1, this.transform, 1f);
+                break;
+            case "heavyCharging":
+                SoundManager.instance.PlaySoundClip(heavyCharging, this.transform, 1f);
+                break;
+            case "heavyRelease":
+                SoundManager.instance.PlaySoundClip(heavyRelease, this.transform, 1f);
+                break;
+            case "heavyRelease1":
+                SoundManager.instance.PlaySoundClip(heavyRelease_1, this.transform, 1f);
+                break;
+            case "skillCharging":
+                SoundManager.instance.PlaySoundClip(skillCharging, this.transform, 1f);
+                break;
+            case "skillCharging1":
+                SoundManager.instance.PlaySoundClip(skillCharging_1, this.transform, 1f);
+                break;
+            case "skill1":
+                SoundManager.instance.PlaySoundClip(skill1, this.transform, 1f);
+                break;
+            case "skill2":
+                SoundManager.instance.PlaySoundClip(skill2, this.transform, 1f);
+                break;
+            case "skill2_1":
+                SoundManager.instance.PlaySoundClip(skill2_1, this.transform, 1f);
+                break;
+            case "air1":
+                SoundManager.instance.PlaySoundClip(air1, this.transform, 1f);
+                break;
+            case "air2":
+                SoundManager.instance.PlaySoundClip(air2, this.transform, 1f);
+                break;
+            case "plungeLand":
+                SoundManager.instance.PlaySoundClip(plungeLand, this.transform, 1f);
+                break;
+            case "dash":
+                SoundManager.instance.PlaySoundClip(dash, this.transform, 1f);
+                break;
+            case "jump":
+                SoundManager.instance.PlaySoundClip(jump, this.transform, 1f);
                 break;
 
             default:

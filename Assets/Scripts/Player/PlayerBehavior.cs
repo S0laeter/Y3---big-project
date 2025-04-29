@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerBehavior : MonoBehaviour
 {
     private PlayerMechanics playerMechanics;
+    public PlayerAudio playerAudio;
     private StateMachine stateMachine;
     
     public Transform cam;
@@ -46,6 +47,7 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         playerMechanics = GetComponent<PlayerMechanics>();
+        playerAudio = GetComponent<PlayerAudio>();
         stateMachine = GetComponent<StateMachine>();
         
         cam = GameObject.FindWithTag("MainCamera").transform;
@@ -204,7 +206,8 @@ public class PlayerBehavior : MonoBehaviour
 
         //spawn hit effect and hit sound
         BloodEffect();
-        //SOUND WHERE
+        //audio
+        playerAudio.PlayAudioClip("playerHit");
 
         //cant be knocked back during these atks
         if (stateMachine.currentState.GetType() == typeof(Skill1State)

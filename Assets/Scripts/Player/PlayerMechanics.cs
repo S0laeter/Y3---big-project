@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMechanics : MonoBehaviour
 {
     private PlayerBehavior player;
+    public PlayerAudio playerAudio;
     private StateMachine stateMachine;
 
     public Transform spawnTransform;
@@ -36,6 +37,7 @@ public class PlayerMechanics : MonoBehaviour
     void Start()
     {
         player = GetComponent<PlayerBehavior>();
+        playerAudio = GetComponent<PlayerAudio>();
         stateMachine = GetComponent<StateMachine>();
 
         currentAtk = baseAtk;
@@ -215,6 +217,9 @@ public class PlayerMechanics : MonoBehaviour
                 //make sure it plays
                 blunt5Obj.GetComponent<ParticleSystem>().Play(true);
 
+                //audio
+                playerAudio.PlayAudioClip("plungeLand");
+
                 //hitbox stuffs
                 hitbox.damage = currentAtk * 20;
                 hitbox.armorDamage = 20;
@@ -236,6 +241,9 @@ public class PlayerMechanics : MonoBehaviour
                     multiHitbox.range = 3;
                     multiHitbox.energyOnHit = 0;
 
+                    //audio
+                    player.playerAudio.PlayAudioClip("heavyRelease_1");
+
                     //spend energy and gain heat, doesnt matter if hit
                     LoseEnergy(currentEnergy);
                     GainHeat(1);
@@ -252,6 +260,9 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.armorDamage = 15;
                     hitbox.range = 3;
                     hitbox.energyOnHit = 0;
+
+                    //audio
+                    player.playerAudio.PlayAudioClip("heavyRelease");
                 }
                 break;
             case "skill 1":

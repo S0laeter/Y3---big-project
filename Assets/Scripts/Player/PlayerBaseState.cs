@@ -254,6 +254,9 @@ public class JumpState : PlayerBaseState
         //jump force
         player.SetVerticalVelocity(15f);
 
+        //audio
+        player.playerAudio.PlayAudioClip("jump");
+
         player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveJump");
         Debug.Log("jump");
@@ -398,6 +401,9 @@ public class GroundForwardDashState : PlayerBaseState
 
         player.Rotate(0.001f);
 
+        //audio
+        player.playerAudio.PlayAudioClip("dash");
+
         player.anim.SetTrigger("dashGroundForward");
         Debug.Log("ground forward dash");
     }
@@ -437,6 +443,9 @@ public class GroundBackwardDashState : PlayerBaseState
 
         player.ConsumeStamina(10f);
         player.dashCooldown = player.StartCoroutine(player.DashCooldown());
+
+        //audio
+        player.playerAudio.PlayAudioClip("dash");
 
         player.anim.SetTrigger("dashGroundBackward");
         Debug.Log("ground forward dash");
@@ -481,6 +490,9 @@ public class AirForwardDashState : PlayerBaseState
         player.SetSpeed(7f);
         player.Rotate(0.001f);
 
+        //audio
+        player.playerAudio.PlayAudioClip("dash");
+
         player.anim.SetTrigger("dashAirForward");
         Debug.Log("air forward dash");
     }
@@ -522,6 +534,9 @@ public class AirBackwardDashState : PlayerBaseState
         //flip up
         player.SetVerticalVelocity(10f);
         player.SetSpeed(-7f);
+
+        //audio
+        player.playerAudio.PlayAudioClip("dash");
 
         player.anim.SetTrigger("dashAirBackward");
         Debug.Log("air forward dash");
