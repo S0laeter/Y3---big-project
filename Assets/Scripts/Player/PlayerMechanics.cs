@@ -233,7 +233,7 @@ public class PlayerMechanics : MonoBehaviour
                     GameObject multiHitboxObject = ObjectPool.instance.SpawnObject("multiHitbox", spawnTransform.position, spawnTransform.rotation);
                     MultiHitbox multiHitbox = multiHitboxObject.GetComponent<MultiHitbox>();
                     multiHitbox.spawnAmount = 3;
-                    multiHitbox.spawnInterval = 0.2f;
+                    multiHitbox.spawnInterval = 0.3f;
                     multiHitbox.targetTag = "Enemy";
 
                     multiHitbox.damage = 8;
@@ -242,7 +242,7 @@ public class PlayerMechanics : MonoBehaviour
                     multiHitbox.energyOnHit = 0;
 
                     //audio
-                    player.playerAudio.PlayAudioClip("heavyRelease_1");
+                    player.playerAudio.PlayAudioClip("heavyRelease.1");
 
                     //spend energy and gain heat, doesnt matter if hit
                     LoseEnergy(currentEnergy);

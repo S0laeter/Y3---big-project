@@ -29,7 +29,6 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip plungeLand;
 
     public AudioClip dash;
-    public AudioClip jump;
 
 
     // Start is called before the first frame update
@@ -63,13 +62,13 @@ public class PlayerAudio : MonoBehaviour
             case "basic4":
                 SoundManager.instance.PlaySoundClip(basic4, this.transform, 1f);
                 break;
-            case "basic4_1":
+            case "basic4.1":
                 SoundManager.instance.PlaySoundClip(basic4_1, this.transform, 1f);
                 break;
             case "basic5":
                 SoundManager.instance.PlaySoundClip(basic5, this.transform, 1f);
                 break;
-            case "basic5_1":
+            case "basic5.1":
                 SoundManager.instance.PlaySoundClip(basic5_1, this.transform, 1f);
                 break;
             case "heavyCharging":
@@ -78,13 +77,13 @@ public class PlayerAudio : MonoBehaviour
             case "heavyRelease":
                 SoundManager.instance.PlaySoundClip(heavyRelease, this.transform, 1f);
                 break;
-            case "heavyRelease1":
+            case "heavyRelease.1":
                 SoundManager.instance.PlaySoundClip(heavyRelease_1, this.transform, 1f);
                 break;
             case "skillCharging":
                 SoundManager.instance.PlaySoundClip(skillCharging, this.transform, 1f);
                 break;
-            case "skillCharging1":
+            case "skillCharging.1":
                 SoundManager.instance.PlaySoundClip(skillCharging_1, this.transform, 1f);
                 break;
             case "skill1":
@@ -93,7 +92,7 @@ public class PlayerAudio : MonoBehaviour
             case "skill2":
                 SoundManager.instance.PlaySoundClip(skill2, this.transform, 1f);
                 break;
-            case "skill2_1":
+            case "skill2.1":
                 SoundManager.instance.PlaySoundClip(skill2_1, this.transform, 1f);
                 break;
             case "air1":
@@ -106,10 +105,7 @@ public class PlayerAudio : MonoBehaviour
                 SoundManager.instance.PlaySoundClip(plungeLand, this.transform, 1f);
                 break;
             case "dash":
-                SoundManager.instance.PlaySoundClip(dash, this.transform, 1f);
-                break;
-            case "jump":
-                SoundManager.instance.PlaySoundClip(jump, this.transform, 1f);
+                SoundManager.instance.PlaySoundClip(dash, this.transform, 0.7f);
                 break;
 
             default:

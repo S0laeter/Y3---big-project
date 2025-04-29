@@ -254,9 +254,6 @@ public class JumpState : PlayerBaseState
         //jump force
         player.SetVerticalVelocity(15f);
 
-        //audio
-        player.playerAudio.PlayAudioClip("jump");
-
         player.anim.ResetTrigger("idle");
         player.anim.SetTrigger("moveJump");
         Debug.Log("jump");

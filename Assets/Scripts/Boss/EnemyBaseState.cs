@@ -124,7 +124,6 @@ public class EnemyIdleState : EnemyBaseState
 
             //for testing
             default:
-                stateMachine.SetNextState(new EnemyComboOverhead());
                 break;
         }
 
@@ -241,6 +240,8 @@ public class EnemyDash : EnemyBaseState
             enemy.anim.SetTrigger("dash left");
         }
 
+        //audio
+        enemy.bossAudio.PlayAudioClip("dash");
         Debug.Log("enemy dashing");
     }
 

@@ -399,6 +399,7 @@
 "Assets/SciFi Warehouse Kit/Demo/Scripts/PlayRandomSound.cs"
 "Assets/SciFi Warehouse Kit/Demo/Scripts/PushPhysics.cs"
 "Assets/Scripts/Actions.cs"
+"Assets/Scripts/Boss/BossAudio.cs"
 "Assets/Scripts/Boss/EnemyBaseState.cs"
 "Assets/Scripts/Boss/EnemyBehavior.cs"
 "Assets/Scripts/HitboxBehavior.cs"

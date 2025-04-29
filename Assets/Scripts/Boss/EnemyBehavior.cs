@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    public BossAudio bossAudio;
     private StateMachine stateMachine;
     public Animator anim;
 
@@ -31,6 +32,7 @@ public class EnemyBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bossAudio = GetComponent<BossAudio>();
         stateMachine = GetComponent<StateMachine>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -44,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossArmorBar(this);
 
         //set this to 1
-        currentPhase = 1;
+        currentPhase = 2;
     }
 
     // Update is called once per frame
@@ -125,6 +127,9 @@ public class EnemyBehavior : MonoBehaviour
         //deduct hp, update hp bar
         currentHp -= Mathf.Clamp(damage, 0f, maxHp);
         Actions.UpdateBossHealthBar(this);
+
+        //audio (visual fx is already on the hitbox)
+        bossAudio.PlayAudioClip("bossHit");
 
         //if not already staggered, reduce armor
         if (stateMachine.currentState.GetType() != typeof(EnemyStaggeredState))
