@@ -9,7 +9,9 @@ public class BossAudio : MonoBehaviour
     public AudioClip[] punch;
     public AudioClip slam;
     public AudioClip shoot;
+    public AudioClip spin;
 
+    public AudioClip explode;
     public AudioClip rapidFire;
 
     public AudioClip dash;
@@ -43,8 +45,14 @@ public class BossAudio : MonoBehaviour
             case "shoot":
                 SoundManager.instance.PlaySoundClip(shoot, this.transform, 1f);
                 break;
+            case "spin":
+                SoundManager.instance.PlaySoundClip(spin, this.transform, 1f);
+                break;
+            case "explode":
+                SoundManager.instance.PlaySoundClip(explode, this.transform, 1f);
+                break;
             case "rapidFire":
-                SoundManager.instance.PlaySoundClip(rapidFire, this.transform, 1f);
+                SoundManager.instance.PlaySoundClip(rapidFire, this.transform, 0.5f);
                 break;
             case "dash":
                 SoundManager.instance.PlaySoundClip(dash, this.transform, 0.7f);

@@ -325,8 +325,12 @@ public class EnemyBehavior : MonoBehaviour
                 //slightly spread out the direction, then add force
                 bulletObj.transform.Rotate(Random.Range(-7, 7), Random.Range(-7, 7), Random.Range(-7, 7));
                 bulletObj.GetComponent<Rigidbody>().AddForce(bulletObj.transform.up * 2000f);
+
                 //muzzle flash effect
                 MuzzleEffect();
+                //audio
+                bossAudio.PlayAudioClip("rapidFire");
+
                 //hitbox stuffs
                 HitboxBehavior bulletHitbox = bulletObj.GetComponent<HitboxBehavior>();
                 bulletHitbox.targetTag = "Player";
@@ -336,7 +340,7 @@ public class EnemyBehavior : MonoBehaviour
                 break;
             case "phase transition":
                 hitbox.damage = currentAtk * 8;
-                hitbox.range = 6;
+                hitbox.range = 4;
                 hitbox.type = 1;
                 break;
             default:
