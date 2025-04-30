@@ -349,6 +349,11 @@ public class PlayerMechanics : MonoBehaviour
                 hitbox.energyOnHit = 0;
                 break;
             case "ult3":
+                //effect
+                GameObject ultEffectObj = ObjectPool.instance.SpawnObject("ultEffect", spawnTransform.position, spawnTransform.rotation);
+                //make sure it plays
+                ultEffectObj.GetComponent<ParticleSystem>().Play(true);
+
                 hitbox.damage = currentAtk * 20;
                 hitbox.armorDamage = 30;
                 hitbox.range = 5;

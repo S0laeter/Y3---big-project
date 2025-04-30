@@ -46,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour
         Actions.UpdateBossArmorBar(this);
 
         //set this to 1
-        currentPhase = 6666666;
+        currentPhase = 1;
     }
 
     // Update is called once per frame
@@ -215,6 +215,17 @@ public class EnemyBehavior : MonoBehaviour
         //make sure it plays
         shotEffect.GetComponent<ParticleSystem>().Play(true);
 
+    }
+
+
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(2f);
+
+        //explode and disappear
+        ExplosionEffect();
+        gameObject.transform.localScale = new Vector3(0, 0, 0);
     }
 
 

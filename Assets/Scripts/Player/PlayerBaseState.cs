@@ -966,12 +966,16 @@ public class HeavyChargedState : PlayerBaseState
                         stateMachine.SetNextState(new GroundBackwardDashState());
                 }
             }
-            //follow up skill 1
+
+            //follow up
             if (skillTrigger)
             {
                 stateMachine.SetNextState(new SkillChargingState());
             }
-            //follow up basic atk
+            else if (heavyTrigger)
+            {
+                stateMachine.SetNextState(new HeavyChargingState());
+            }
             else if (normalTrigger)
             {
                 stateMachine.SetNextState(new Normal4State());
@@ -1236,9 +1240,6 @@ public class SkillUltState : PlayerBaseState
         {
             playerMechanics.burstMode = playerMechanics.StartCoroutine(playerMechanics.BurstMode());
         }
-        
-
-        player.SetSpeed(0f);
 
         player.animSword.SetTrigger("transformedInstant");
         player.anim.SetTrigger("atkSkillUlt");
@@ -1249,14 +1250,16 @@ public class SkillUltState : PlayerBaseState
     {
         base.OnUpdate();
 
-        //or rather stop moving, the speed is 0
-        player.Move();
-
-        //rotate
-        if (fixedTime <= 0.2f)
+        //rotate and set speed
+        if (fixedTime <= 1.3f)
         {
             player.RotateToBoss(0.5f);
+            player.SetSpeed(5f);
         }
+        else
+            player.SetSpeed(0f);
+
+        player.Move();
 
         //after state duration
         if (fixedTime >= stateDuration + 0.2f)

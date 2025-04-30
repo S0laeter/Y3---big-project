@@ -186,7 +186,9 @@ public class PlayerBehavior : MonoBehaviour
     public void TakeDamage(float damage, int type)
     {
         //if already dead, nvm
-        if (stateMachine.currentState.GetType() == typeof(GroundForwardDashState))
+        //also iframe during ult
+        if (stateMachine.currentState.GetType() == typeof(DeathState)
+            || stateMachine.currentState.GetType() == typeof(SkillUltState))
             return;
 
         //if dashing, reset dash and take no dmg
