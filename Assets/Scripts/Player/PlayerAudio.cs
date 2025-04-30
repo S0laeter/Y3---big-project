@@ -24,11 +24,16 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip skill2;
     public AudioClip skill2_1;
 
+    public AudioClip ult1;
+    public AudioClip ult2;
+    public AudioClip ult3;
+
     public AudioClip air1;
     public AudioClip air2;
     public AudioClip plungeLand;
 
     public AudioClip dash;
+    public AudioClip jump;
 
 
     // Start is called before the first frame update
@@ -106,6 +111,18 @@ public class PlayerAudio : MonoBehaviour
                 break;
             case "dash":
                 SoundManager.instance.PlaySoundClip(dash, this.transform, 0.7f);
+                break;
+            case "jump":
+                SoundManager.instance.PlaySoundClip(jump, this.transform, 1f);
+                break;
+            case "ult1":
+                SoundManager.instance.PlaySoundClip(ult1, this.transform, 1f);
+                break;
+            case "ult2":
+                SoundManager.instance.PlaySoundClip(ult2, this.transform, 1f);
+                break;
+            case "ult3":
+                SoundManager.instance.PlaySoundClip(ult3, this.transform, 1f);
                 break;
 
             default:

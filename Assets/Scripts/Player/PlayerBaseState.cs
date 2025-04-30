@@ -1013,11 +1013,16 @@ public class SkillChargingState : PlayerBaseState
 
         //jump and dash cancel
         if (player.jumpAction.triggered)
+        {
+            player.animSword.SetTrigger("normalInstant");
             stateMachine.SetNextState(new JumpState());
+        }
         else if (player.dashAction.triggered)
         {
             if (player.currentStamina > 10 && player.canDash)
             {
+                player.animSword.SetTrigger("normalInstant");
+
                 if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                 {
                     stateMachine.SetNextState(new GroundForwardDashState());
@@ -1036,7 +1041,7 @@ public class SkillChargingState : PlayerBaseState
                 //after holding for a while
                 if (fixedTime >= 1.5f)
                 {
-                    //ult here.......
+                    stateMachine.SetNextState(new SkillUltState());
                 }
             }
             //release
@@ -1094,14 +1099,13 @@ public class Skill1State : PlayerBaseState
         {
             if (player.jumpAction.triggered)
             {
-                player.animSword.SetTrigger("instantNormal");
                 stateMachine.SetNextState(new JumpState());
             }
             else if (player.dashAction.triggered)
             {
                 if (player.currentStamina > 10 && player.canDash)
                 {
-                    player.animSword.SetTrigger("instantNormal");
+                    player.animSword.SetTrigger("normalInstant");
 
                     if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                     {
@@ -1114,13 +1118,8 @@ public class Skill1State : PlayerBaseState
             //follow up basic atk
             else if (normalTrigger)
             {
-                player.animSword.SetTrigger("instantNormal");
+                player.animSword.SetTrigger("normalInstant");
                 stateMachine.SetNextState(new Normal1State());
-            }
-            else
-            {
-                player.animSword.SetTrigger("normal");
-                stateMachine.SetNextStateToMain();
             }
 
         }
@@ -1180,7 +1179,6 @@ public class Skill2State : PlayerBaseState
         //after state duration
         if (fixedTime >= stateDuration + 0.2f)
         {
-            player.animSword.SetTrigger("normal");
             stateMachine.SetNextStateToMain();
         }
         else if (fixedTime >= stateDuration)
@@ -1188,14 +1186,14 @@ public class Skill2State : PlayerBaseState
 
             if (player.jumpAction.triggered)
             {
-                player.animSword.SetTrigger("instantNormal");
+                player.animSword.SetTrigger("normalInstant");
                 stateMachine.SetNextState(new JumpState());
             }
             else if (player.dashAction.triggered)
             {
                 if (player.currentStamina > 10 && player.canDash)
                 {
-                    player.animSword.SetTrigger("instantNormal");
+                    player.animSword.SetTrigger("normalInstant");
 
                     if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
                     {
@@ -1208,11 +1206,85 @@ public class Skill2State : PlayerBaseState
             //follow up basic atk
             if (normalTrigger)
             {
-                player.animSword.SetTrigger("instantNormal");
+                player.animSword.SetTrigger("normalInstant");
 
                 stateMachine.SetNextState(new Normal3State());
             }
 
+
+        }
+
+    }
+
+}
+public class SkillUltState : PlayerBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        stateDuration = 2.2f;
+        
+        playerMechanics.LoseHeat(playerMechanics.currentHeat);
+        //burst mode, reset duration if current burst mode is on
+        if (playerMechanics.currentAtk == playerMechanics.baseAtk * 1.2f)
+        {
+            playerMechanics.StopCoroutine(playerMechanics.burstMode);
+            playerMechanics.burstMode = playerMechanics.StartCoroutine(playerMechanics.BurstMode());
+        }
+        else
+        {
+            playerMechanics.burstMode = playerMechanics.StartCoroutine(playerMechanics.BurstMode());
+        }
+        
+
+        player.SetSpeed(0f);
+
+        player.animSword.SetTrigger("transformedInstant");
+        player.anim.SetTrigger("atkSkillUlt");
+        Debug.Log("ult");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        //or rather stop moving, the speed is 0
+        player.Move();
+
+        //rotate
+        if (fixedTime <= 0.2f)
+        {
+            player.RotateToBoss(0.5f);
+        }
+
+        //after state duration
+        if (fixedTime >= stateDuration + 0.2f)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+        else if (fixedTime >= stateDuration)
+        {
+
+            if (player.jumpAction.triggered)
+            {
+                player.animSword.SetTrigger("normalInstant");
+                stateMachine.SetNextState(new JumpState());
+            }
+            else if (player.dashAction.triggered)
+            {
+                if (player.currentStamina > 10 && player.canDash)
+                {
+                    player.animSword.SetTrigger("normalInstant");
+
+                    if (player.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        stateMachine.SetNextState(new GroundForwardDashState());
+                    }
+                    else
+                        stateMachine.SetNextState(new GroundBackwardDashState());
+                }
+            }
 
         }
 

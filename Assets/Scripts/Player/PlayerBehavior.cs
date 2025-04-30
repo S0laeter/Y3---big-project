@@ -98,7 +98,7 @@ public class PlayerBehavior : MonoBehaviour
         //manual test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            //stateMachine.SetNextState(new KnockbackState());
+            playerMechanics.GainEnergy(80);
         }
 
 
@@ -244,7 +244,6 @@ public class PlayerBehavior : MonoBehaviour
 
 
     //sword anim
-    //ended up not using this.. still keeping it here tho just in case
     public void SwitchSwordModeTo(string mode)
     {
         switch (mode)

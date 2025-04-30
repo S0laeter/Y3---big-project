@@ -13,6 +13,7 @@ public class PlayerMechanics : MonoBehaviour
 
     public float baseAtk;
     public float currentAtk;
+    public Coroutine burstMode;
 
     public float currentEnergy;
     public float maxEnergy;
@@ -103,6 +104,12 @@ public class PlayerMechanics : MonoBehaviour
             currentHeat = maxHeat;
 
         Actions.UpdatePlayerHeatBar(this);
+    }
+    public IEnumerator BurstMode()
+    {
+        currentAtk = baseAtk * 1.2f;
+        yield return new WaitForSeconds(15);
+        currentAtk = baseAtk;
     }
 
 
@@ -329,6 +336,25 @@ public class PlayerMechanics : MonoBehaviour
                     hitbox.energyOnHit = 0;
                 }
                 break;
+            case "ult1":
+                hitbox.damage = currentAtk * 15;
+                hitbox.armorDamage = 17;
+                hitbox.range = 5;
+                hitbox.energyOnHit = 0;
+                break;
+            case "ult2":
+                hitbox.damage = currentAtk * 15;
+                hitbox.armorDamage = 17;
+                hitbox.range = 5;
+                hitbox.energyOnHit = 0;
+                break;
+            case "ult3":
+                hitbox.damage = currentAtk * 20;
+                hitbox.armorDamage = 30;
+                hitbox.range = 5;
+                hitbox.energyOnHit = 0;
+                break;
+
             default:
                 break;
         }
