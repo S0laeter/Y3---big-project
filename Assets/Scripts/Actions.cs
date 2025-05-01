@@ -13,6 +13,9 @@ public static class Actions
     public static Action<EnemyBehavior> UpdateBossHealthBar;
     public static Action<EnemyBehavior> UpdateBossArmorBar;
 
+    public static Action Win;
+    public static Action Lose;
+
     public static Action<float> GainEnergyOnHit;
 
 }

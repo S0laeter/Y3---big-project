@@ -8,17 +8,28 @@ public class UIManager : MonoBehaviour
 {
     private SceneTransition sceneTransition;
 
-    private GameObject settingsMenu;
-    private Vector3 settingsMenuOffscreenPos;
+    public GameObject winMessage;
+    public GameObject loseMessage;
+    public GameObject pauseMenu;
+
+    private void OnEnable()
+    {
+        //subscribing to actions
+        Actions.Win += Win;
+        Actions.Lose += Lose;
+    }
+
+    private void OnDisable()
+    {
+        //unsubscribing to actions
+        Actions.Win -= Win;
+        Actions.Lose -= Lose;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         sceneTransition = GetComponentInChildren<SceneTransition>();
-
-        settingsMenu = GameObject.Find("SettingsMenu");
-        if (settingsMenu != null )
-            settingsMenuOffscreenPos = settingsMenu.transform.position;
 
     }
 
@@ -28,32 +39,37 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void StartButton()
+    public void Win()
     {
-        Time.timeScale = 1f;
-        sceneTransition.LoadSceneAfterTransition("SelectLevel");
+        winMessage.SetActive(true);
+        loseMessage.SetActive(false);
     }
-    
-    public void LoadLevel1()
+    public void Lose()
+    {
+        loseMessage.SetActive(true);
+        winMessage.SetActive(false);
+    }
+
+
+
+    public void PauseButton()
+    {
+        if (pauseMenu.activeSelf)
+        {
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else if (!pauseMenu.activeSelf)
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+    public void RestartButton()
     {
         Time.timeScale = 1f;
         sceneTransition.LoadSceneAfterTransition("Level1");
     }
-
-    public void MainMenuButton()
-    {
-        Time.timeScale = 1f;
-        sceneTransition.LoadSceneAfterTransition("MainMenu");
-    }
-
-    public void SettingsMenuButton(bool toggleOn)
-    {
-        if (toggleOn)
-            settingsMenu.transform.position = settingsMenuOffscreenPos + Vector3.down * 2000;
-        else
-            settingsMenu.transform.position = settingsMenuOffscreenPos;
-    }
-
     public void QuitButton()
     {
         Time.timeScale = 1f;

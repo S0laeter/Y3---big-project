@@ -51,6 +51,10 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.OnUpdate();
 
+        //if player is already dead, nvm
+        if (enemy.playerTransform.gameObject.GetComponent<StateMachine>().currentState.GetType() == typeof(DeathState))
+            return;
+
         //if still in phase 1 and not transitioned yet
         if (enemy.currentPhase == 1 && enemy.currentHp <= enemy.maxHp * 0.5f)
         {
@@ -199,6 +203,7 @@ public class EnemyDeathState : EnemyBaseState
         stateDuration = 1f;
 
         enemy.StartCoroutine(enemy.Die());
+        Actions.Win();
 
         enemy.anim.SetTrigger("dead");
         Debug.Log("enemy dead");
