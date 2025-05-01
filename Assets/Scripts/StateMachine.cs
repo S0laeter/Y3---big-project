@@ -48,6 +48,19 @@ public class StateMachine : MonoBehaviour
 
     private void Start()
     {
+        //just to make sure
+        switch (customName)
+        {
+            case "player":
+                mainStateType = new PlayerIdleState();
+                break;
+            case "boss":
+                mainStateType = new EnemyIdleState();
+                break;
+            default:
+                break;
+        }
+
         //cope solution, delete this when used elsewhere
         if (customName == "boss")
             SetNextState(new EnemyStaggeredState());
