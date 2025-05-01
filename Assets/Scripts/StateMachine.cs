@@ -48,6 +48,11 @@ public class StateMachine : MonoBehaviour
 
     private void Start()
     {
+        //cope solution, delete this when used elsewhere
+        if (customName == "boss")
+            SetNextState(new EnemyStaggeredState());
+        else
+        
         SetNextStateToMain();
     }
     public void SetNextStateToMain()

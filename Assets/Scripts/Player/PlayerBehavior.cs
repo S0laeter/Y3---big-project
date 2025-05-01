@@ -95,11 +95,11 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
-        //manual test
+        /*//manual test
         if (Input.GetKeyDown(KeyCode.L))
         {
             playerMechanics.GainEnergy(80);
-        }
+        }*/
 
 
 

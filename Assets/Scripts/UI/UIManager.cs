@@ -31,12 +31,17 @@ public class UIManager : MonoBehaviour
     {
         sceneTransition = GetComponentInChildren<SceneTransition>();
 
+        StartCoroutine(StartUpTutorial());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            PauseButton();
+        }
+
     }
 
     public void Win()
@@ -56,11 +61,13 @@ public class UIManager : MonoBehaviour
     {
         if (pauseMenu.activeSelf)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         }
         else if (!pauseMenu.activeSelf)
         {
+            Cursor.lockState = CursorLockMode.None;
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
         }
@@ -74,6 +81,14 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         Application.Quit();
+    }
+
+
+    private IEnumerator StartUpTutorial()
+    {
+        yield return new WaitForSeconds(1.01f);
+
+        PauseButton();
     }
 
 }
